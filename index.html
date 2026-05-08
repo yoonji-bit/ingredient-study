@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:32px 16px;max-width:720px;margin:0 auto}
+.header{margin-bottom:2rem}
+.header h1{font-size:24px;font-weight:500;color:#1a1a1a;margin-bottom:6px}
+.header p{font-size:14px;color:#888}
+.search-wrap{position:relative;margin-bottom:1.25rem}
+.search-wrap input{width:100%;padding:10px 16px 10px 40px;border:0.5px solid #ddd;border-radius:10px;font-size:14px;background:#fff;color:#1a1a1a;outline:none}
+.search-wrap input:focus{border-color:#378ADD}
+.search-wrap i{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;color:#aaa}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.filter-chip{padding:4px 12px;border-radius:20px;border:0.5px solid #ddd;background:#fff;font-size:12px;color:#666;cursor:pointer;transition:all .12s}
+.filter-chip.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.count{font-size:13px;color:#aaa;margin-bottom:.75rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ing-card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1.25rem;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.ing-card:hover{border-color:#378ADD;transform:translateY(-1px)}
+.ing-card-cat{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.ing-card-name{font-size:16px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-card-en{font-size:12px;color:#aaa;margin-bottom:12px}
+.ing-card-tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 8px;border-radius:4px}
+.tag-blue{background:#E6F1FB;color:#0C447C}
+.tag-teal{background:#E1F5EE;color:#085041}
+.tag-amber{background:#FAEEDA;color:#633806}
+.empty{text-align:center;padding:3rem;color:#aaa;font-size:14px}
+.tip-box{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1.25rem;margin-bottom:1.5rem;font-size:13px;color:#555;line-height:1.6;display:flex;align-items:flex-start;gap:10px}
+.tip-icon{font-size:16px;color:#378ADD;flex-shrink:0;margin-top:1px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>성분 학습 카드</h1>
+  <p>화장품 성분을 쉽게 공부해보자</p>
+</div>
+
+<div class="tip-box">
+  <i class="ti ti-info-circle tip-icon"></i>
+  <span>각 카드를 클릭하면 기전·효능·적용 사례·유사 성분·논문까지 확인할 수 있어. ③ 적용 사례에서 제품을 클릭하면 올리브영·아마존·구글 트렌드·레딧 시장 반응 링크도 볼 수 있어.</span>
+</div>
+
+<div class="search-wrap">
+  <i class="ti ti-search"></i>
+  <input type="text" id="search" placeholder="성분명 검색 (예: 아르부틴, 히알루론산...)" oninput="render()">
+</div>
+
+<div class="filter-row" id="filters"></div>
+<div class="count" id="count"></div>
+<div class="grid" id="grid"></div>
+
+<script>
+const INGREDIENTS=[
+  {
+    name:"아르부틴",nameEn:"Arbutin / α-Arbutin",category:"미백",
+    desc:"티로시나아제를 억제해 멜라닌 생성을 차단하는 미백 성분",
+    tags:["미백","색소 침착 개선","티로시나아제 억제"],
+    tagStyle:["tag-teal","tag-teal","tag-blue"],
+    url:"arbutin.html"
+  },
+  {
+    name:"히알루론산",nameEn:"Hyaluronic Acid",category:"보습",
+    desc:"자기 무게의 1,000배 수분을 흡수하는 강력한 보습 성분",
+    tags:["보습","피부 장벽 강화","수분 유지"],
+    tagStyle:["tag-blue","tag-blue","tag-teal"],
+    url:"hyaluronic-acid.html"
+  },
+];
+
+const CATEGORIES=["전체",...new Set(INGREDIENTS.map(i=>i.category))];
+let activecat="전체";
+
+function renderFilters(){
+  document.getElementById('filters').innerHTML=CATEGORIES.map(c=>`<button class="filter-chip${activecat===c?' on':''}" onclick="setcat('${c}')">${c}</button>`).join('');
+}
+function setcat(c){activecat=c;renderFilters();render();}
+
+function render(){
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  const filtered=INGREDIENTS.filter(i=>{
+    const catOk=activecat==='전체'||i.category===activecat;
+    const searchOk=!q||i.name.includes(q)||i.nameEn.toLowerCase().includes(q)||i.tags.some(t=>t.includes(q))||i.desc.includes(q);
+    return catOk&&searchOk;
+  });
+  document.getElementById('count').textContent=`${filtered.length}개 성분`;
+  if(!filtered.length){document.getElementById('grid').innerHTML='<div class="empty">검색 결과가 없어</div>';return;}
+  document.getElementById('grid').innerHTML=filtered.map(i=>`
+    <a class="ing-card" href="${i.url}">
+      <div class="ing-card-cat">${i.category}</div>
+      <div class="ing-card-name">${i.name}</div>
+      <div class="ing-card-en">${i.nameEn}</div>
+      <div class="ing-card-tags">${i.tags.map((t,j)=>`<span class="tag ${i.tagStyle[j]}">${t}</span>`).join('')}</div>
+    </a>
+  `).join('');
+}
+
+renderFilters();render();
+</script>
+</body>
+</html>

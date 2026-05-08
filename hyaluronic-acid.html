@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>히알루론산 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem;padding:4px 0}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+/* 비교 카드 */
+.compare-context{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.cmp{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem}
+.cmp.hi{border:2px solid #378ADD}
+.rec{font-size:11px;background:#dceefb;color:#0c447c;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.cmp-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:10px}
+.cmp-row{display:flex;flex-direction:column;gap:6px}
+.cmp-item{font-size:13px;color:#555;line-height:1.5}
+.cmp-item-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.bar-wrap{display:flex;align-items:center;gap:8px;margin-top:4px}
+.bar-bg{flex:1;height:6px;background:#efefeb;border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;background:#1D9E75}
+.bar-fill.dim{background:#ccc}
+.bar-label{font-size:12px;color:#666;white-space:nowrap}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:6px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-neutral{background:#f0f0ec;color:#444}
+/* 제품 */
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1;min-width:0}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s;display:inline-block}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+/* 시장 반응 */
+.mkt-section-label{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500}
+.flag-kr{background:#FAECE7;color:#993C1D}
+.flag-global{background:#E6F1FB;color:#185FA5}
+.flag-trend{background:#E1F5EE;color:#085041}
+.flag-community{background:#EEEDFE;color:#3C3489}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px}
+.i-oy{background:#FF6B35;color:#fff}
+.i-amz{background:#FF9900;color:#fff}
+.i-gt{background:#4285F4;color:#fff}
+.i-rd{background:#FF4500;color:#fff}
+.i-sep{background:#000;color:#fff}
+.i-hwh{background:#FF6B6B;color:#fff}
+.mkt-info{flex:1;min-width:0}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+/* 조합 필터 */
+.goal-chip,.form-chip{padding:5px 12px;border-radius:20px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.goal-chip.on{background:#E1F5EE;color:#085041;border-color:#5DCAA5;font-weight:500}
+.form-chip.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}
+.tag-ok{background:#E6F1FB;color:#0C447C}
+.tag-care{background:#FAEEDA;color:#633806}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+/* 위험 성분 */
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}.di-gray{background:#F1EFE8}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-red{background:#FCEBEB;color:#A32D2D}
+.db-amber{background:#FAEEDA;color:#633806}
+.db-gray{background:#F1EFE8;color:#444}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+/* 논문 */
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+/* 툴팁 */
+.term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
+.term:hover{color:#185FA5}
+#tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#tooltip-box.show{display:block}
+.tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
+.tip-links{display:flex;gap:8px;margin-top:8px}
+.tl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
+.tl:hover{background:#B5D4F4}
+.empty-msg{text-align:center;padding:2rem 1rem;font-size:14px;color:#aaa}
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
+.size-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
+.size-card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem;text-align:center}
+.size-card.hi{border:2px solid #378ADD}
+.size-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.size-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:6px}
+.size-desc{font-size:12px;color:#888;line-height:1.5}
+@media(max-width:480px){.size-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl" id="tip-dict" href="#" target="_blank">사전</a></div></div>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">히알루론산</div>
+<div class="ing-sub">Hyaluronic Acid · 보습 기능성 성분</div>
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<!-- ① 기전 -->
+<div id="m" class="panel on">
+  <div class="card"><div class="clabel">작용 기전</div><div class="cbody" id="mech-text"></div></div>
+  <div class="compare-context" id="ctx-text"></div>
+  <div class="size-grid">
+    <div class="size-card">
+      <div class="size-label">고분자</div>
+      <div class="size-name">1,000~1,800 kDa</div>
+      <div class="size-desc">피부 표면에 수분 막 형성. 즉각적인 촉촉함.</div>
+    </div>
+    <div class="size-card hi">
+      <span class="rec">가장 많이 쓰임</span>
+      <div class="size-name">중분자</div>
+      <div class="size-desc">표피 중간층까지 침투. 탄력 개선에 효과적.</div>
+    </div>
+    <div class="size-card">
+      <div class="size-label">저분자</div>
+      <div class="size-name">5~50 kDa</div>
+      <div class="size-desc">진피층까지 깊이 침투. 장기적 보습 효과.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 효능 & 주의점 -->
+<div id="e" class="panel">
+  <div class="card"><div class="clabel">주요 효능</div><ul class="rlist">
+    <li><span class="dot dg"></span>자기 무게의 1,000배 수분 흡수·유지</li>
+    <li><span class="dot dg"></span>피부 장벽 강화 및 수분 증발 억제</li>
+    <li><span class="dot dg"></span>피부 탄력 개선 및 주름 완화</li>
+    <li><span class="dot dg"></span>건성·지성·민감성 모든 피부 타입 적합</li>
+    <li><span class="dot dg"></span>다른 활성 성분 흡수율 향상</li>
+  </ul></div>
+  <div class="card"><div class="clabel">주의점</div><ul class="rlist">
+    <li><span class="dot dr"></span>건조한 환경에서 단독 사용 시 피부 수분을 오히려 빼앗을 수 있음 — 반드시 크림으로 마무리</li>
+    <li><span class="dot dr"></span>고분자 단독은 피부 표면에만 작용 — 깊은 보습엔 분자량 혼합 제형이 효과적</li>
+    <li><span class="dot dr"></span>고농도 사용 시 일부 피부에 끈적임 유발 가능</li>
+  </ul></div>
+  <div class="card"><div class="clabel">사용 팁</div><div class="cbody">
+    <span class="dot da" style="display:inline-block;margin-right:8px"></span><strong>권장 농도</strong> 0.1~2% (세럼 기준 1~2%)<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>사용 순서</strong> 세안 직후 물기 있는 상태에서 바르고 즉시 크림으로 마무리<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>pH 안정성</strong> pH 5~8 넓은 범위에서 안정적
+  </div></div>
+</div>
+
+<!-- ③ 적용 사례 -->
+<div id="p" class="panel">
+  <div class="card"><div class="clabel">해외 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-global"></div></div>
+  <div class="card"><div class="clabel">국내 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-korea"></div></div>
+</div>
+
+<!-- ④ 유사 성분 -->
+<div id="s" class="panel">
+  <div class="card">
+    <div class="clabel">조합 탐색</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px">원하는 효과와 제형을 선택하면 히알루론산과 함께 쓰기 좋은 성분을 알려줄게</div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px">원하는 효과</div>
+    <div class="chip-row" id="goal-chips"></div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px;margin-top:12px">제형 타입</div>
+    <div class="chip-row" id="form-chips"></div>
+    <div id="combo-result" style="margin-top:1rem"></div>
+  </div>
+  <div class="card"><div class="clabel">같이 쓰면 안 되는 성분</div><div id="danger-list"></div></div>
+</div>
+
+<!-- 논문 -->
+<div id="r" class="panel">
+  <div class="pc"><div class="pt">Hyaluronic acid: A key molecule in skin aging</div><div class="pm">Papakonstantinou et al. · 2012 · Dermato-Endocrinology</div><div class="ps">히알루론산이 피부 노화에서 감소하는 과정과 외부 적용 시 보습·탄력 개선 효과를 종합 분석한 핵심 리뷰 논문.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=hyaluronic+acid+key+molecule+skin+aging" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Molecular weight effects of hyaluronic acid on skin penetration</div><div class="pm">Brown et al. · 2019 · Journal of Cosmetic Dermatology</div><div class="ps">고·중·저분자 히알루론산의 피부 침투 깊이 차이를 비교. 분자량에 따라 작용 층이 다르다는 것을 입증해 복합 분자량 제형의 근거가 됨.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=hyaluronic+acid+molecular+weight+skin+penetration" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Efficacy of a new topical nano-hyaluronic acid in humans</div><div class="pm">Pavicic et al. · 2011 · Journal of Drugs in Dermatology</div><div class="ps">나노 사이즈 히알루론산이 기존 고분자보다 침투율이 높고 주름 개선 효과가 뛰어나다는 것을 임상 실험으로 입증.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=nano+hyaluronic+acid+topical+efficacy" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+</div>
+
+<script>
+// ── 공통 전문용어 사전 ──
+const TERMS = {
+  "티로시나아제":{"def":"피부에서 멜라닌(색소)을 만드는 핵심 효소. 이걸 막으면 색소가 덜 생겨.","wiki":"https://ko.wikipedia.org/wiki/티로시나아제","dict":"https://terms.naver.com/search.naver?query=티로시나아제"},
+  "멜라닌":{"def":"피부·머리카락·눈의 색을 결정하는 색소. 너무 많이 만들어지면 기미나 잡티가 생겨.","wiki":"https://ko.wikipedia.org/wiki/멜라닌","dict":"https://terms.naver.com/search.naver?query=멜라닌"},
+  "포도당":{"def":"글루코스라고도 불리는 당. 아르부틴에서는 하이드로퀴논을 감싸서 자극을 줄여주는 보호막 역할을 해.","wiki":"https://ko.wikipedia.org/wiki/포도당","dict":"https://terms.naver.com/search.naver?query=포도당"},
+  "글리코사이드":{"def":"당(포도당 등)이 다른 물질에 결합된 형태. 아르부틴은 하이드로퀴논의 글리코사이드야.","wiki":"https://ko.wikipedia.org/wiki/글리코사이드","dict":"https://terms.naver.com/search.naver?query=글리코사이드"},
+  "하이드로퀴논":{"def":"매우 강력한 미백 성분. 효과는 확실하지만 자극이 강하고 장기 사용 시 부작용 가능. 일부 국가에서 처방 필요.","wiki":"https://ko.wikipedia.org/wiki/하이드로퀴논","dict":"https://terms.naver.com/search.naver?query=하이드로퀴논"},
+  "경쟁적":{"def":"효소의 자리를 다른 물질이 먼저 차지해서 원래 반응이 일어나지 못하게 막는 방식.","wiki":"https://ko.wikipedia.org/wiki/경쟁적_억제","dict":"https://terms.naver.com/search.naver?query=경쟁적+억제+효소"},
+  "결합 각도":{"def":"분자가 효소에 붙을 때의 방향과 형태. 열쇠가 자물쇠에 맞는 것처럼, 각도가 잘 맞을수록 더 강하게 결합해.","wiki":"https://ko.wikipedia.org/wiki/효소_기질_복합체","dict":"https://terms.naver.com/search.naver?query=효소+결합+각도"},
+  "α형":{"def":"알파형. 포도당이 아래 방향으로 결합된 구조. 티로시나아제 효소 모양에 더 잘 맞아 결합력이 강해.","wiki":"https://ko.wikipedia.org/wiki/아노머","dict":"https://terms.naver.com/search.naver?query=알파형+베타형+당"},
+  "β형":{"def":"베타형. 포도당이 위 방향으로 결합된 구조. 자연에서 주로 발견되지만 티로시나아제 결합력은 알파형보다 약해.","wiki":"https://ko.wikipedia.org/wiki/아노머","dict":"https://terms.naver.com/search.naver?query=알파형+베타형+당"},
+  "합성 유도체":{"def":"자연에 있는 물질을 화학적으로 변형해 만든 성분. 원래 물질의 효과를 높이거나 부작용을 줄이는 목적으로 만들어.","wiki":"https://ko.wikipedia.org/wiki/유도체","dict":"https://terms.naver.com/search.naver?query=합성+유도체"},
+  "히알루론산":{"def":"피부 속 보습 물질. 자기 무게의 1000배 수분을 흡수해.","wiki":"https://ko.wikipedia.org/wiki/히알루론산","dict":"https://terms.naver.com/search.naver?query=히알루론산"},
+  "레티놀":{"def":"비타민A 유도체. 세포 재생 촉진, 콜라겐 증가. 주름·미백에 효과적이지만 초기 자극 있음.","wiki":"https://ko.wikipedia.org/wiki/레티놀","dict":"https://terms.naver.com/search.naver?query=레티놀"},
+  "pH":{"def":"산성(0)~알칼리성(14) 척도. 피부는 약 pH 5.5. 화장품 pH가 맞지 않으면 성분이 불안정해지거나 자극이 생김.","wiki":"https://ko.wikipedia.org/wiki/pH","dict":"https://terms.naver.com/search.naver?query=pH+피부"},
+  "AHA":{"def":"글리콜산·락틱산 등 수용성 각질 제거 산. 피부 표면 각질을 녹여 제거해. 낮은 pH에서 작동해.","wiki":"https://ko.wikipedia.org/wiki/알파_하이드록시산","dict":"https://terms.naver.com/search.naver?query=AHA+각질"},
+  "BHA":{"def":"살리실산이 대표적인 지용성 각질 제거 산. 모공 속까지 침투해 피지·각질을 제거해.","wiki":"https://ko.wikipedia.org/wiki/베타_하이드록시산","dict":"https://terms.naver.com/search.naver?query=BHA+살리실산"},
+  "판테놀":{"def":"비타민B5. 피부 보습·장벽 강화·진정에 탁월. 거의 모든 피부 타입에 안전해.","wiki":"https://ko.wikipedia.org/wiki/판토텐산","dict":"https://terms.naver.com/search.naver?query=판테놀+피부"},
+  "나이아신아마이드":{"def":"비타민B3 형태. 미백·모공·장벽 강화 등 다양한 효과. 자극이 적어 거의 모든 피부에 적합.","wiki":"https://ko.wikipedia.org/wiki/나이아신아마이드","dict":"https://terms.naver.com/search.naver?query=나이아신아마이드"},
+  "세라마이드":{"def":"피부 장벽을 구성하는 지질 성분. 피부 속 수분이 빠져나가지 않게 잡아주는 역할을 해.","wiki":"https://ko.wikipedia.org/wiki/세라마이드","dict":"https://terms.naver.com/search.naver?query=세라마이드+피부"},
+  "진피":{"def":"피부의 두 번째 층. 콜라겐·히알루론산·혈관이 있어. 피부 탄력과 수분의 80%를 담당해.","wiki":"https://ko.wikipedia.org/wiki/진피","dict":"https://terms.naver.com/search.naver?query=진피+피부"},
+  "표피":{"def":"피부의 가장 바깥층. 각질층이 여기 포함돼. 외부 자극으로부터 피부를 보호하는 방어막 역할.","wiki":"https://ko.wikipedia.org/wiki/표피","dict":"https://terms.naver.com/search.naver?query=표피+피부"},
+  "분자량":{"def":"분자의 크기를 나타내는 단위(kDa). 히알루론산은 분자량이 클수록 피부 표면에, 작을수록 더 깊은 층에 작용해.","wiki":"https://ko.wikipedia.org/wiki/분자량","dict":"https://terms.naver.com/search.naver?query=분자량"},
+  "흡습":{"def":"공기나 주변 환경에서 수분을 끌어당기는 성질. 히알루론산은 강력한 흡습제야.","wiki":"https://ko.wikipedia.org/wiki/흡습","dict":"https://terms.naver.com/search.naver?query=흡습+보습"},
+  "피부 장벽":{"def":"외부 자극과 수분 손실을 막는 피부의 보호 구조. 세라마이드·지질·천연보습인자로 구성돼.","wiki":"https://ko.wikipedia.org/wiki/피부_장벽","dict":"https://terms.naver.com/search.naver?query=피부장벽"},
+  "콜라겐":{"def":"피부 탄력과 구조를 유지하는 단백질. 나이 들수록 줄어들어 주름이 생김.","wiki":"https://ko.wikipedia.org/wiki/콜라겐","dict":"https://terms.naver.com/search.naver?query=콜라겐"},
+};
+const tipBox=document.getElementById('tooltip-box');
+let activeTerm=null;
+function showTip(el,word){
+  if(activeTerm===el){hideTip();return;}
+  activeTerm=el;
+  const g=TERMS[word];
+  document.getElementById('tip-title').textContent=word;
+  document.getElementById('tip-def').textContent=g.def;
+  document.getElementById('tip-wiki').href=g.wiki;
+  document.getElementById('tip-dict').href=g.dict;
+  tipBox.classList.add('show');
+  const rect=el.getBoundingClientRect();
+  let left=rect.left+window.scrollX, top=rect.bottom+window.scrollY+4;
+  if(left+248>window.innerWidth)left=window.innerWidth-248;
+  if(left<8)left=8;
+  tipBox.style.left=left+'px';tipBox.style.top=top+'px';
+}
+function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
+function annotate(html){
+  const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);
+  const marks={};
+  terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});
+  Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});
+  return html;
+}
+function sw(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');btn.classList.add('on');
+}
+function renderProducts(items,containerId){
+  document.getElementById(containerId).innerHTML=items.map((p,idx)=>{
+    const id=containerId+'_'+idx;
+    return `<div class="prod-item">
+      <div class="prod-head" onclick="toggleExpand('${id}')">
+        <div class="prod-info">
+          <div class="prod-brand">${p.brand}</div>
+          <div class="prod-pname">${p.product}</div>
+          <div class="prod-note">${p.note}</div>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="${p.url}" target="_blank" onclick="event.stopPropagation()">
+            <i class="ti ti-external-link" style="font-size:11px"></i> 공식
+          </a>
+          <i class="ti ti-chevron-down chevron" id="chevron_${id}"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="expand_${id}">
+        <div style="font-size:11px;color:#aaa;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em">시장 반응 확인</div>
+        <div class="mkt-section-label"><span class="mkt-flag flag-kr">한국</span></div>
+        <div class="mkt-grid">${p.market.kr.map(m=>`<a class="mkt-btn" href="${m.url}" target="_blank"><div class="mkt-icon ${m.icon}"><i class="ti ti-external-link" style="font-size:11px"></i></div><div class="mkt-info"><div class="mkt-name">${m.name}</div><div class="mkt-desc">${m.desc}</div></div></a>`).join('')}</div>
+        <div class="mkt-section-label"><span class="mkt-flag flag-global">글로벌</span></div>
+        <div class="mkt-grid">${p.market.global.map(m=>`<a class="mkt-btn" href="${m.url}" target="_blank"><div class="mkt-icon ${m.icon}"><i class="ti ti-external-link" style="font-size:11px"></i></div><div class="mkt-info"><div class="mkt-name">${m.name}</div><div class="mkt-desc">${m.desc}</div></div></a>`).join('')}</div>
+        <div class="mkt-section-label"><span class="mkt-flag flag-trend">트렌드</span><span class="mkt-flag flag-community" style="margin-left:4px">커뮤니티</span></div>
+        <div class="mkt-grid">${[...p.market.trend,...p.market.community].map(m=>`<a class="mkt-btn" href="${m.url}" target="_blank"><div class="mkt-icon ${m.icon}"><i class="ti ti-external-link" style="font-size:11px"></i></div><div class="mkt-info"><div class="mkt-name">${m.name}</div><div class="mkt-desc">${m.desc}</div></div></a>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleExpand(id){
+  const expand=document.getElementById('expand_'+id);
+  const chevron=document.getElementById('chevron_'+id);
+  const isOpen=expand.classList.contains('open');
+  document.querySelectorAll('.prod-expand').forEach(el=>el.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(el=>el.classList.remove('open'));
+  if(!isOpen){expand.classList.add('open');chevron.classList.add('open');}
+}
+function renderCombos(COMBOS,selGoals,selForms){
+  const res=document.getElementById('combo-result');
+  if(selGoals.size===0&&selForms.size===0){res.innerHTML='<div class="empty-msg">원하는 효과나 제형을 선택해봐</div>';return;}
+  const matched=COMBOS.filter(c=>{
+    const gOk=selGoals.size===0||[...selGoals].some(g=>c.goals.includes(g));
+    const fOk=selForms.size===0||[...selForms].some(f=>c.forms.includes(f));
+    return gOk&&fOk;
+  });
+  if(!matched.length){res.innerHTML='<div class="empty-msg">해당 조건에 맞는 조합 성분이 없어.</div>';return;}
+  res.innerHTML=matched.map(c=>`<div class="combo-item"><div class="combo-head"><span class="combo-name">${c.name}</span><div class="combo-tags">${c.tags.map(t=>`<span class="ctag ${t.c}">${t.t}</span>`).join('')}</div></div><div class="combo-desc">${c.desc}</div><div class="combo-how">${c.how}</div></div>`).join('');
+}
+function renderDangers(DANGERS){
+  const im={red:'<i class="ti ti-alert-triangle" style="font-size:12px;color:#A32D2D"></i>',amber:'<i class="ti ti-alert-circle" style="font-size:12px;color:#633806"></i>',gray:'<i class="ti ti-minus-circle" style="font-size:12px;color:#444"></i>'};
+  const bm={red:'db-red',amber:'db-amber',gray:'db-gray'};
+  const bgm={red:'di-red',amber:'di-amber',gray:'di-gray'};
+  document.getElementById('danger-list').innerHTML=DANGERS.map(d=>`<div class="danger-item"><div class="danger-head"><div class="danger-icon ${bgm[d.level]}">${im[d.level]}</div><span class="danger-name">${d.name}</span><span class="danger-badge ${bm[d.level]}">${d.levelText}</span></div><div class="danger-desc">${d.desc}</div><div class="danger-tip">${d.tip}</div></div>`).join('');
+}
+
+document.getElementById('mech-text').innerHTML=annotate("히알루론산은 피부 진피와 표피에 자연적으로 존재하는 세포외기질 성분이야. 강력한 흡습 능력을 가지고 있어서 자기 무게의 1,000배에 달하는 수분을 끌어당겨 피부 안에 잡아둬. 나이가 들거나 자외선·건조한 환경에 노출되면 히알루론산이 줄어들면서 피부가 건조해지고 주름이 생기는데, 외부에서 보충해주면 피부 장벽을 강화하고 수분 증발을 막아줘.");
+document.getElementById('ctx-text').innerHTML=annotate("히알루론산은 분자량(크기)에 따라 피부에 작용하는 깊이가 달라. 고분자는 피부 표면에 보호막을 형성하고, 저분자는 진피층까지 침투해. 좋은 제품일수록 여러 분자량을 혼합해서 층층이 보습 효과를 내.");
+
+const PRODUCTS={
+  global:[
+    {brand:"The Ordinary",product:"Hyaluronic Acid 2% + B5",note:"고·저분자 혼합 + 판테놀, 가성비 대표",url:"https://theordinary.com/en-us/hyaluronic-acid-2-b5-100422.html",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=the+ordinary+hyaluronic+acid&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=the+ordinary+hyaluronic+acid"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=the+ordinary+hyaluronic+acid+2+b5&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=the+ordinary+hyaluronic+acid&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=The+Ordinary+Hyaluronic+Acid&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=the+ordinary+hyaluronic+acid&sort=top"}]}},
+    {brand:"SkinMedica",product:"HA5 Rejuvenating Hydrator",note:"5가지 분자량 혼합, 고가 라인 대표",url:"https://www.skinmedica.com/ha5-rejuvenating-hydrator",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=skinmedica+HA5&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=skinmedica+HA5"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=skinmedica+HA5&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=skinmedica+HA5&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=SkinMedica+HA5&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=skinmedica+HA5&sort=top"}]}},
+    {brand:"Neutrogena",product:"Hydro Boost Water Gel",note:"히알루론산 고보습 젤 크림, 약국 브랜드 대표",url:"https://www.neutrogena.com/skin/moisturizers/hydro-boost-water-gel/6811046.html",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=neutrogena+hydro+boost&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=neutrogena+hydro+boost"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=neutrogena+hydro+boost+water+gel&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=neutrogena+hydro+boost&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Neutrogena+Hydro+Boost&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=neutrogena+hydro+boost&sort=top"}]}},
+    {brand:"Drunk Elephant",product:"B-Hydra Intensive Hydration Serum",note:"저분자 HA + 프로비타민B5",url:"https://www.drunkelephant.com/products/b-hydra-intensive-hydration-serum",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=drunk+elephant+b-hydra&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=drunk+elephant+b-hydra"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=drunk+elephant+b-hydra&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=drunk+elephant+b-hydra&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Drunk+Elephant+B-Hydra&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=drunk+elephant+b-hydra&sort=top"}]}}
+  ],
+  korea:[
+    {brand:"라운드랩",product:"1025 독도 토너",note:"히알루론산 + 독도 해양심층수",url:"https://roundlab.co.kr",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=라운드랩+독도토너&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=라운드랩+독도토너"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=roundlab+1025+dokdo+toner&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=roundlab+dokdo&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Roundlab+dokdo+toner&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=roundlab+dokdo+toner&sort=top"}]}},
+    {brand:"이니스프리",product:"그린티 히알루론산 세럼",note:"제주 녹차 + 히알루론산",url:"https://www.innisfree.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=이니스프리+히알루론산&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=이니스프리+히알루론산"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=innisfree+hyaluronic+acid+serum&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=innisfree+hyaluronic&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=innisfree+hyaluronic+acid&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=innisfree+hyaluronic&sort=top"}]}},
+    {brand:"스킨1004",product:"마다가스카르 센텔라 히알루론산 앰플",note:"센텔라 + 3중 히알루론산",url:"https://skin1004.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=스킨1004+히알루론산&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=스킨1004+히알루론산"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=skin1004+hyaluronic+acid+ampoule&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=skin1004+hyaluronic&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=skin1004+hyaluronic&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=skin1004+hyaluronic&sort=top"}]}},
+    {brand:"코스알엑스",product:"히알루론산 수분 크림",note:"히알루론산 집중 보습 크림",url:"https://www.cosrx.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=cosrx+히알루론산&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=cosrx+히알루론산"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=cosrx+hyaluronic+acid+cream&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=cosrx+hyaluronic&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=COSRX+hyaluronic+acid&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"실사용자 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=cosrx+hyaluronic+acid&sort=top"}]}}
+  ]
+};
+renderProducts(PRODUCTS.global,'prod-global');
+renderProducts(PRODUCTS.korea,'prod-korea');
+
+const GOALS=["보습","피부 장벽 강화","항노화·주름","진정·염증 완화","미백","각질 제거"];
+const FORMS=["세럼·앰플","토너·에센스","크림","선크림"];
+const COMBOS=[
+  {name:"세라마이드",goals:["보습","피부 장벽 강화"],forms:["크림","세럼·앰플"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"히알루론산이 수분을 끌어당기면, 세라마이드가 그 수분이 빠져나가지 않도록 봉인해줘. '채우기+잠금' 최강 콤보야.",how:"히알루론산 세럼 → 세라마이드 크림 순서. 건성·민감성 피부에 특히 추천."},
+  {name:"나이아신아마이드",goals:["보습","피부 장벽 강화","미백"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"나이아신아마이드가 피부 장벽 지질 합성을 도와 히알루론산의 보습 효과가 더 오래 유지되게 해줘.",how:"동일 제형 배합 가능. 순서 무관."},
+  {name:"레티놀",goals:["항노화·주름"],forms:["세럼·앰플","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"레티놀의 건조·자극 부작용을 히알루론산이 수분 보충으로 완화해줘. 항노화 효과는 유지하면서 자극 최소화.",how:"레티놀 후 히알루론산 레이어링. 저녁 루틴 함께 사용."},
+  {name:"비타민C",goals:["미백","항노화·주름"],forms:["세럼·앰플"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"비타민C 세럼 후 히알루론산으로 수분을 보충해주면 자극이 줄고 흡수율도 높아져.",how:"비타민C → 히알루론산 → 크림 순서. 아침 루틴 추천."},
+  {name:"판테놀",goals:["보습","진정·염증 완화","피부 장벽 강화"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"판테놀은 손상된 피부 장벽 복구를 도와 히알루론산의 보습 효과를 오래 유지시켜줘. The Ordinary HA 2%+B5가 바로 이 조합이야.",how:"민감성·건성 피부 필수 조합. 동일 제형 배합 무난."},
+  {name:"AHA (글리콜산)",goals:["각질 제거"],forms:["토너·에센스"],tags:[{t:"순서 중요",c:"tag-care"}],desc:"AHA로 각질을 제거한 후 히알루론산을 바르면 흡수율이 크게 높아져.",how:"AHA 토너 먼저, 5분 후 히알루론산. 순서 절대 바꾸지 말기."},
+];
+const DANGERS=[
+  {level:"amber",levelText:"효과 반감",name:"건조한 환경에서 단독 사용",desc:"히알루론산은 흡습제라 공기가 건조하면 피부 속 수분을 오히려 끌어올려 증발시켜. 겨울·실내 난방 환경에서 세럼만 바르고 끝내면 역효과.",tip:"반드시 히알루론산 후 크림이나 오일로 봉인. 미스트로 수분 환경 먼저 만들어주는 것도 좋아."},
+  {level:"gray",levelText:"흡수 방해",name:"실리콘 계열 헤비 제품 (먼저 사용 시)",desc:"실리콘이 든 헤비한 크림이나 프라이머를 먼저 바르면 히알루론산이 피부에 흡수되지 못하고 겉돌아.",tip:"히알루론산은 반드시 스킨케어 초반 단계(세럼)에 사용. 실리콘 제품은 마지막에."},
+];
+let selGoals=new Set(),selForms=new Set();
+function renderChips(){
+  document.getElementById('goal-chips').innerHTML=GOALS.map(g=>'<button class="goal-chip'+(selGoals.has(g)?' on':'')+'" onclick="toggleGoal(\''+g+'\')">'+g+'</button>').join('');
+  document.getElementById('form-chips').innerHTML=FORMS.map(f=>'<button class="form-chip'+(selForms.has(f)?' on':'')+'" onclick="toggleForm(\''+f+'\')">'+f+'</button>').join('');
+}
+function toggleGoal(g){selGoals.has(g)?selGoals.delete(g):selGoals.add(g);renderChips();renderCombos(COMBOS,selGoals,selForms);}
+function toggleForm(f){selForms.has(f)?selForms.delete(f):selForms.add(f);renderChips();renderCombos(COMBOS,selGoals,selForms);}
+renderChips();renderCombos(COMBOS,selGoals,selForms);renderDangers(DANGERS);
+</script>
+</body>
+</html>

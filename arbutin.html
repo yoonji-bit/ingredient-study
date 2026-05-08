@@ -8,6 +8,8 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
 .ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
 .ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
@@ -39,17 +41,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:6px}
 .diff-good{background:#E1F5EE;color:#085041}
 .diff-neutral{background:#f0f0ec;color:#444}
-.prod-item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:0.5px solid #efefeb}
+.prod-item{border-bottom:0.5px solid #efefeb}
 .prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
 .prod-info{flex:1;min-width:0}
-.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px}
-.prod-name{font-size:13px;color:#555;margin-bottom:3px}
-.prod-note{font-size:12px;color:#aaa}
-.prod-links{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-.plink{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
-.plink:hover{background:#B5D4F4}
-.plink.search{background:#f5f5f2;border-color:#ccc;color:#666}
-.plink.search:hover{background:#eee}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-arbutin{font-size:11px;background:#E1F5EE;color:#085041;padding:1px 7px;border-radius:3px;display:inline-block}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}
+.flag-global{background:#E6F1FB;color:#185FA5}
+.flag-trend{background:#E1F5EE;color:#085041}
+.flag-community{background:#EEEDFE;color:#3C3489}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff}
+.i-oy{background:#FF6B35}.i-amz{background:#FF9900}.i-gt{background:#4285F4}.i-rd{background:#FF4500}.i-sep{background:#000}.i-hwh{background:#FF6B6B}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
 .goal-chip,.form-chip{padding:5px 12px;border-radius:20px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
 .goal-chip.on{background:#E1F5EE;color:#085041;border-color:#5DCAA5;font-weight:500}
 .form-chip.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
@@ -58,7 +77,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
 .combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
 .combo-tags{display:flex;gap:5px;flex-wrap:wrap}
-.tag{font-size:11px;padding:1px 7px;border-radius:3px}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
 .tag-syn{background:#E1F5EE;color:#085041}
 .tag-ok{background:#E6F1FB;color:#0C447C}
 .tag-care{background:#FAEEDA;color:#633806}
@@ -70,9 +89,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}.di-gray{background:#F1EFE8}
 .danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
 .danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
-.db-red{background:#FCEBEB;color:#A32D2D}
-.db-amber{background:#FAEEDA;color:#633806}
-.db-gray{background:#F1EFE8;color:#444}
+.db-red{background:#FCEBEB;color:#A32D2D}.db-amber{background:#FAEEDA;color:#633806}.db-gray{background:#F1EFE8;color:#444}
 .danger-desc{font-size:13px;color:#555;line-height:1.6}
 .danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
 .pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
@@ -81,26 +98,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
 .pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
 .pl:hover{background:#B5D4F4}
-.empty-msg{text-align:center;padding:2rem 1rem;font-size:14px;color:#aaa}
 .term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
 .term:hover{color:#185FA5}
+.empty-msg{text-align:center;padding:2rem 1rem;font-size:14px;color:#aaa}
 #tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
 #tooltip-box.show{display:block}
 .tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
 .tip-links{display:flex;gap:8px;margin-top:8px}
 .tl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
 .tl:hover{background:#B5D4F4}
-@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl" id="tip-dict" href="#" target="_blank">사전</a></div></div>
 
-<div id="tooltip-box">
-  <span class="tip-title" id="tip-title"></span>
-  <span id="tip-def"></span>
-  <div class="tip-links"><a class="tl" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl" id="tip-dict" href="#" target="_blank">사전</a></div>
-</div>
-
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
 <div class="ing-name">아르부틴 / 알파-아르부틴</div>
 <div class="ing-sub">Arbutin / α-Arbutin · 미백 기능성 성분</div>
 <div class="tabs">
@@ -151,19 +164,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </ul></div>
   <div class="card"><div class="clabel">사용 팁</div><div class="cbody">
     <span class="dot da" style="display:inline-block;margin-right:8px"></span><strong>권장 농도</strong> 알파-아르부틴 1~2%, 베타-아르부틴 3~7%<br>
-    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>안정 pH</strong> 5.5~6.5 (약산성 제형에서 가장 안정)
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>안정 pH</strong> 5.5~6.5
   </div></div>
 </div>
 
 <div id="p" class="panel">
-  <div class="card"><div class="clabel">해외 브랜드</div><div id="prod-global"></div></div>
-  <div class="card"><div class="clabel">국내 브랜드</div><div id="prod-korea"></div></div>
+  <div class="card"><div class="clabel">해외 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-global"></div></div>
+  <div class="card"><div class="clabel">국내 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-korea"></div></div>
 </div>
 
 <div id="s" class="panel">
   <div class="card">
-    <div class="clabel">조합 탐색 — 내가 원하는 걸 골라봐</div>
-    <div style="font-size:12px;color:#aaa;margin-bottom:10px">원하는 효과와 제형을 선택하면 아르부틴과 함께 쓰기 좋은 성분을 알려줄게 (복수 선택 가능)</div>
+    <div class="clabel">조합 탐색</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px">원하는 효과와 제형을 선택하면 아르부틴과 함께 쓰기 좋은 성분을 알려줄게</div>
     <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px">원하는 효과</div>
     <div class="chip-row" id="goal-chips"></div>
     <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px;margin-top:12px">제형 타입</div>
@@ -174,24 +187,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div id="r" class="panel">
-  <div class="pc">
-    <div class="pt">Comparative study of the inhibitory effects of α-arbutin and β-arbutin on human tyrosinase</div>
-    <div class="pm">Sugimoto et al. · 2004 · Biological & Pharmaceutical Bulletin</div>
-    <div class="ps">알파-아르부틴이 베타보다 티로시나아제 억제 효과가 약 10배 강하다는 것을 세포 실험으로 입증한 핵심 논문. 알파형의 우수성이 이 연구를 기반으로 정설이 됨.</div>
-    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=alpha+arbutin+tyrosinase+inhibition+comparative" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a>
-  </div>
-  <div class="pc">
-    <div class="pt">Arbutin: mechanism of cytotoxic action</div>
-    <div class="pm">Maeda · 1991 · Pigment Cell Research</div>
-    <div class="ps">아르부틴이 티로시나아제에 경쟁적으로 결합해 활성을 억제한다는 기전을 처음 규명한 연구. 현재 아르부틴 기전 설명의 기초가 되는 논문.</div>
-    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=arbutin+mechanism+tyrosinase+melanocyte" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a>
-  </div>
-  <div class="pc">
-    <div class="pt">Safety assessment of arbutin as used in cosmetics</div>
-    <div class="pm">Cosmetic Ingredient Review (CIR) · 2013</div>
-    <div class="ps">화장품 원료로서 아르부틴의 안전성 종합 평가. 하이드로퀴논 전환 가능성 검토 후 정상 사용 조건에서 안전하다는 공식 결론.</div>
-    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=arbutin+safety+cosmetics+hydroquinone+conversion" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a>
-  </div>
+  <div class="pc"><div class="pt">Comparative study of the inhibitory effects of α-arbutin and β-arbutin on human tyrosinase</div><div class="pm">Sugimoto et al. · 2004 · Biological & Pharmaceutical Bulletin</div><div class="ps">알파-아르부틴이 베타보다 티로시나아제 억제 효과가 약 10배 강하다는 것을 세포 실험으로 입증한 핵심 논문.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=alpha+arbutin+beta+arbutin+tyrosinase+inhibition+comparative" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Arbutin: mechanism of cytotoxic action</div><div class="pm">Maeda · 1991 · Pigment Cell Research</div><div class="ps">아르부틴이 티로시나아제에 경쟁적으로 결합해 활성을 억제한다는 기전을 처음 규명한 연구.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=arbutin+mechanism+tyrosinase+melanocyte" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Safety assessment of arbutin as used in cosmetics</div><div class="pm">Cosmetic Ingredient Review (CIR) · 2013</div><div class="ps">화장품 원료로서 아르부틴의 안전성 종합 평가. 하이드로퀴논 전환 가능성 검토 후 정상 사용 조건에서 안전하다는 공식 결론.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=arbutin+safety+cosmetics+hydroquinone+conversion" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
 </div>
 
 <script>
@@ -210,7 +208,6 @@ const TERMS={
   "레티놀":{"def":"비타민A 유도체. 세포 재생 촉진, 콜라겐 증가. 주름·미백에 효과적이지만 초기 자극 있음.","wiki":"https://ko.wikipedia.org/wiki/레티놀","dict":"https://terms.naver.com/search.naver?query=레티놀"},
   "pH":{"def":"산성(0)~알칼리성(14) 척도. 피부는 약 pH 5.5. 화장품 pH가 맞지 않으면 성분이 불안정해지거나 자극이 생김.","wiki":"https://ko.wikipedia.org/wiki/pH","dict":"https://terms.naver.com/search.naver?query=pH+피부"},
   "AHA":{"def":"글리콜산·락틱산 등 수용성 각질 제거 산. 피부 표면 각질을 녹여 제거해. 낮은 pH에서 작동해.","wiki":"https://ko.wikipedia.org/wiki/알파_하이드록시산","dict":"https://terms.naver.com/search.naver?query=AHA+각질"},
-  "BHA":{"def":"살리실산이 대표적인 지용성 각질 제거 산. 모공 속까지 침투해 피지·각질을 제거해.","wiki":"https://ko.wikipedia.org/wiki/베타_하이드록시산","dict":"https://terms.naver.com/search.naver?query=BHA+살리실산"},
   "판테놀":{"def":"비타민B5. 피부 보습·장벽 강화·진정에 탁월. 거의 모든 피부 타입에 안전해.","wiki":"https://ko.wikipedia.org/wiki/판토텐산","dict":"https://terms.naver.com/search.naver?query=판테놀+피부"},
 };
 
@@ -226,21 +223,24 @@ function showTip(el,word){
   document.getElementById('tip-dict').href=g.dict;
   tipBox.classList.add('show');
   const rect=el.getBoundingClientRect();
-  let left=rect.left+window.scrollX;
-  let top=rect.bottom+window.scrollY+4;
+  let left=rect.left+window.scrollX,top=rect.bottom+window.scrollY+4;
   if(left+248>window.innerWidth)left=window.innerWidth-248;
   if(left<8)left=8;
   tipBox.style.left=left+'px';tipBox.style.top=top+'px';
 }
 function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
 document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
-
 function annotate(html){
   const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);
   const marks={};
   terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});
   Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});
   return html;
+}
+function sw(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');btn.classList.add('on');
 }
 
 document.getElementById('mech-text').innerHTML=annotate("아르부틴은 하이드로퀴논에 포도당이 붙어있는 글리코사이드 형태야. 피부에 흡수되면 티로시나아제라는 효소에 경쟁적으로 달라붙어서 멜라닌이 만들어지는 것을 방해해. 하이드로퀴논처럼 효소를 파괴하는 게 아니라, 효소 자리를 선점해서 기능을 막는 방식이라 자극이 훨씬 적어. 알파-아르부틴은 포도당이 붙는 각도(α형)가 베타보다 티로시나아제에 더 잘 맞아서 같은 양으로도 10배 이상 효과적이야.");
@@ -251,20 +251,31 @@ document.getElementById('a-synth').innerHTML=annotate("합성 유도체");
 
 const PRODUCTS={
   global:[
-    {brand:"The Ordinary",product:"Alpha Arbutin 2% + HA",note:"알파-아르부틴 단일 세럼, 가성비 대표",url:"https://theordinary.com/en-us/alpha-arbutin-2-ha-100403.html",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=the+ordinary+alpha+arbutin"},
-    {brand:"Skinceuticals",product:"Discoloration Defense",note:"트라넥사믹애씨드·나이아신아마이드 복합 미백",url:"https://www.skinceuticals.com/skincare/serums/discoloration-defense-multi-phase-serum/S0205.html",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=skinceuticals+discoloration"},
-    {brand:"Paula's Choice",product:"10% Niacinamide Booster",note:"나이아신아마이드·아르부틴 복합 처방",url:"https://www.paulaschoice.com/10-niacinamide-booster/702.html",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=paula%27s+choice+niacinamide"},
-    {brand:"Murad",product:"Rapid Age Spot Correcting Serum",note:"색소 집중 개선 포뮬러",url:"https://www.murad.com/product/rapid-age-spot-and-pigment-lightening-serum/",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=murad+age+spot"},
+    {brand:"The Ordinary",product:"Alpha Arbutin 2% + HA",note:"알파-아르부틴 단일 세럼. 가성비 대표, 성분 단순 명료",arbutin:"Alpha Arbutin 2% (주성분)",url:"https://theordinary.com/en-us/alpha-arbutin-2-ha-100403.html",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=the+ordinary+alpha+arbutin&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=the+ordinary+alpha+arbutin"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=the+ordinary+alpha+arbutin+2%25+HA&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=the+ordinary+alpha+arbutin&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=The+Ordinary+Alpha+Arbutin&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=the+ordinary+alpha+arbutin&sort=top"}]}},
+    {brand:"The Ordinary",product:"Ascorbic Acid 8% + Alpha Arbutin 2%",note:"비타민C + 알파-아르부틴 이중 미백",arbutin:"Alpha Arbutin 2% (주성분)",url:"https://theordinary.com/en-us/ascorbic-acid-8-alpha-arbutin-2-100419.html",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=the+ordinary+ascorbic+acid+alpha+arbutin&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=the+ordinary+ascorbic+acid+alpha+arbutin"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=the+ordinary+ascorbic+acid+8+alpha+arbutin+2&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=the+ordinary+ascorbic+acid+alpha+arbutin&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=The+Ordinary+Ascorbic+Acid+Alpha+Arbutin&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=the+ordinary+ascorbic+acid+alpha+arbutin&sort=top"}]}},
+    {brand:"Naturium",product:"Alpha Arbutin Serum 2%",note:"알파-아르부틴 단독 세럼. 클린 포뮬러",arbutin:"Alpha Arbutin 2% (주성분)",url:"https://naturium.com/products/alpha-arbutin-serum-2",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=naturium+alpha+arbutin&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=naturium+alpha+arbutin"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=naturium+alpha+arbutin+serum+2%25&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=naturium+alpha+arbutin&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Naturium+Alpha+Arbutin&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=naturium+alpha+arbutin&sort=top"}]}},
+    {brand:"Acure",product:"Brightening 2% Alpha Arbutin Serum",note:"클린뷰티 브랜드의 알파-아르부틴 세럼. EWG 인증",arbutin:"Alpha Arbutin 2% (주성분)",url:"https://acurebeauty.com/products/brightening-2-alpha-arbutin-serum",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=acure+alpha+arbutin&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=acure+alpha+arbutin"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=acure+brightening+alpha+arbutin+serum&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=acure+alpha+arbutin&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Acure+Alpha+Arbutin&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=acure+alpha+arbutin&sort=top"}]}},
   ],
   korea:[
-    {brand:"COSRX",product:"The Vitamin C 13 세럼",note:"비타민C + 알파-아르부틴 복합",url:"https://www.cosrx.com/products/the-vitamin-c-13-serum",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=cosrx+vitamin+c+13"},
-    {brand:"이니스프리",product:"브라이트닝 포어 세럼",note:"아르부틴 + 녹차 복합 라인",url:"https://www.innisfree.com",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=이니스프리+브라이트닝"},
-    {brand:"Dr.Jart+",product:"Ctrl-A Clearing Serum",note:"민감성 피부용 저자극 미백",url:"https://www.drjart.com",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=닥터자르트+ctrl"},
-    {brand:"아이소이",product:"불가리안 로즈 화이트닝 세럼",note:"로즈 추출물 + 아르부틴",url:"https://www.isoi.com",search:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=아이소이+화이트닝"},
+    {brand:"Anua",product:"Niacinamide 10 + TXA 4 세럼",note:"나이아신아마이드 + 트라넥사믹애씨드 + 알파-아르부틴 복합 미백",arbutin:"Alpha-Arbutin 함유 (복합 미백 처방)",url:"https://anuaofficial.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=anua+niacinamide+txa&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=anua+나이아신아마이드+TXA"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=anua+niacinamide+10+txa+4+serum&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=anua+niacinamide+txa&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Anua+Niacinamide+TXA+serum&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=anua+niacinamide+txa&sort=top"}]}},
+    {brand:"COSRX",product:"Vitamin C 13 세럼",note:"13% 비타민C + 알파-아르부틴. 이중 미백 효과",arbutin:"Alpha-Arbutin 함유 (비타민C 복합)",url:"https://www.cosrx.com/products/the-vitamin-c-13-serum",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=cosrx+vitamin+c+13&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=cosrx+비타민c+13"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=cosrx+vitamin+c+13+serum+alpha+arbutin&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=cosrx+vitamin+c+13&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=COSRX+Vitamin+C+13+serum&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=cosrx+vitamin+c+13+serum&sort=top"}]}},
+    {brand:"numbuzin",product:"5번 피부 결 비타민 세럼",note:"알파-아르부틴 + 나이아신아마이드. 국내 인기 미백 세럼",arbutin:"Alpha-Arbutin 함유 (미백 복합 처방)",url:"https://numbuzin.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=numbuzin+5번+비타민&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=넘버즈인+5번+비타민세럼"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=numbuzin+no+5+vitamin+serum&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=numbuzin+vitamin+serum&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=numbuzin+vitamin+serum&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=numbuzin+vitamin+serum&sort=top"}]}},
+    {brand:"아이소이",product:"브라이트닝 카밍 스팟 세럼",note:"아르부틴 함유 진정+미백 복합 세럼",arbutin:"Arbutin 함유 (미백 기능성)",url:"https://www.isoi.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=아이소이+브라이트닝+카밍&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=아이소이+브라이트닝+카밍+스팟"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=isoi+brightening+calming+spot+serum&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=isoi+brightening&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=isoi+brightening+serum&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=isoi+brightening&sort=top"}]}},
   ]
 };
-function renderProducts(items,id){
-  document.getElementById(id).innerHTML=items.map(p=>`<div class="prod-item"><div class="prod-info"><div class="prod-brand">${p.brand}</div><div class="prod-name">${p.product}</div><div class="prod-note">${p.note}</div></div><div class="prod-links"><a class="plink" href="${p.url}" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i> 공식</a><a class="plink search" href="${p.search}" target="_blank"><i class="ti ti-search" style="font-size:11px"></i> 올리브영</a></div></div>`).join('');
+
+function renderProducts(items,containerId){
+  document.getElementById(containerId).innerHTML=items.map((p,idx)=>{
+    const id=containerId+'_'+idx;
+    return '<div class="prod-item"><div class="prod-head" onclick="toggleExpand(\''+id+'\')"><div class="prod-info"><div class="prod-brand">'+p.brand+'</div><div class="prod-pname">'+p.product+'</div><div class="prod-note">'+p.note+'</div><span class="prod-arbutin">'+p.arbutin+'</span></div><div class="prod-right"><a class="prod-official" href="'+p.url+'" target="_blank" onclick="event.stopPropagation()"><i class="ti ti-external-link" style="font-size:11px"></i> 공식</a><i class="ti ti-chevron-down chevron" id="chevron_'+id+'"></i></div></div><div class="prod-expand" id="expand_'+id+'"><div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px">시장 반응 확인</div><div style="margin-bottom:6px"><span class="mkt-flag flag-kr">한국</span></div><div class="mkt-grid">'+p.market.kr.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-global">글로벌</span></div><div class="mkt-grid">'+p.market.global.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-trend">트렌드</span><span class="mkt-flag flag-community" style="margin-left:4px">커뮤니티</span></div><div class="mkt-grid">'+[...p.market.trend,...p.market.community].map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div></div></div>';
+  }).join('');
+}
+function toggleExpand(id){
+  const ex=document.getElementById('expand_'+id),ch=document.getElementById('chevron_'+id);
+  const isOpen=ex.classList.contains('open');
+  document.querySelectorAll('.prod-expand').forEach(e=>e.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(e=>e.classList.remove('open'));
+  if(!isOpen){ex.classList.add('open');ch.classList.add('open');}
 }
 renderProducts(PRODUCTS.global,'prod-global');
 renderProducts(PRODUCTS.korea,'prod-korea');
@@ -272,25 +283,25 @@ renderProducts(PRODUCTS.korea,'prod-korea');
 const GOALS=["미백 강화","보습","항노화·주름","진정·염증 완화","각질 제거","모공·피지"];
 const FORMS=["세럼·앰플","토너·에센스","크림","선크림"];
 const COMBOS=[
-  {name:"나이아신아마이드",goals:["미백 강화","모공·피지"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"아르부틴은 티로시나아제를 막고, 나이아신아마이드는 멜라닌이 세포로 전달되는 경로를 막아. 서로 다른 단계에서 동시에 색소를 차단하니까 함께 쓰면 효과가 배가돼.",how:"같은 세럼에 함께 배합 가능. 레이어링 시 아르부틴 세럼 먼저, 나이아신아마이드 후. 권장 pH 5.5~6.5 유지."},
-  {name:"트라넥사믹애씨드",goals:["미백 강화","진정·염증 완화"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"시너지",c:"tag-syn"},{t:"민감성 OK",c:"tag-ok"}],desc:"트라넥사믹애씨드는 염증으로 인한 기미에 강하고, 아르부틴은 티로시나아제 억제에 강해. 원인이 다른 색소 문제를 동시에 커버할 수 있어.",how:"두 성분 모두 저자극이라 민감성 피부에도 함께 적용 가능. 동일 제형 배합 가능."},
-  {name:"비타민 C (아스코르브산)",goals:["미백 강화","항노화·주름"],forms:["세럼·앰플"],tags:[{t:"조합 가능",c:"tag-ok"},{t:"pH 주의",c:"tag-care"}],desc:"비타민 C는 항산화 + 티로시나아제 억제로 아르부틴과 미백 기전이 겹치면서도 보완돼. 다만 비타민 C는 낮은 pH(3~4)에서 안정적이고, 아르부틴은 5.5~6.5가 최적이라 같은 제형에 넣기 어려워.",how:"같은 제품보다 아르부틴(아침) + 비타민C(저녁) 분리 사용 권장."},
-  {name:"히알루론산",goals:["보습"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"미백 성분은 피부를 건조하게 느끼게 할 수 있어. 히알루론산과 함께 쓰면 수분감을 보완해줘. The Ordinary Alpha Arbutin 2%+HA도 이 조합이야.",how:"동일 제형 배합 쉬움. 아르부틴 + 히알루론산 세럼은 업계 표준 조합."},
-  {name:"레티놀",goals:["항노화·주름","미백 강화"],forms:["세럼·앰플","크림"],tags:[{t:"조합 가능",c:"tag-ok"},{t:"자극 주의",c:"tag-care"}],desc:"레티놀은 세포 회전율을 높여 색소 침착된 세포를 더 빨리 탈락시켜. 아르부틴으로 새 멜라닌 생성을 막고, 레티놀로 기존 색소를 빠르게 제거하는 전략.",how:"초기 자극 가능성 있음. 레티놀은 저녁에만, 아르부틴은 아침·저녁 모두 가능."},
-  {name:"판테놀 (비타민 B5)",goals:["진정·염증 완화","보습"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"미백 루틴 중 피부 장벽이 약해지는 것을 방어해줘. 아르부틴과 매우 궁합이 좋아 자극 없이 미백 효과를 유지하게 도와줘.",how:"민감성 피부 미백 루틴에 특히 추천. 동일 제형 배합 무난."},
-  {name:"AHA (글리콜산·락틱산)",goals:["각질 제거","미백 강화"],forms:["토너·에센스","세럼·앰플"],tags:[{t:"분리 사용",c:"tag-care"}],desc:"AHA가 각질을 제거하면 아르부틴 흡수율이 높아질 수 있어. 하지만 AHA는 pH 3~4 환경에서 작동하고 아르부틴은 5.5~6.5가 최적이라 같은 제품 안에서 충돌해.",how:"AHA 토너 사용 후 5~10분 기다린 뒤 아르부틴 제품 적용. 동일 제형 배합 비추천."},
+  {name:"나이아신아마이드",goals:["미백 강화","모공·피지"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"아르부틴은 티로시나아제를 막고, 나이아신아마이드는 멜라닌이 세포로 전달되는 경로를 막아. 서로 다른 단계에서 색소를 차단하니까 함께 쓰면 효과가 배가돼.",how:"같은 세럼에 배합 가능. 레이어링 시 아르부틴 먼저, 나이아신아마이드 후."},
+  {name:"트라넥사믹애씨드",goals:["미백 강화","진정·염증 완화"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"시너지",c:"tag-syn"},{t:"민감성 OK",c:"tag-ok"}],desc:"트라넥사믹애씨드는 염증으로 인한 기미에 강하고, 아르부틴은 티로시나아제 억제에 강해. 다른 원인의 색소 문제를 동시에 커버.",how:"두 성분 모두 저자극이라 민감성 피부에도 함께 가능."},
+  {name:"비타민 C",goals:["미백 강화","항노화·주름"],forms:["세럼·앰플"],tags:[{t:"조합 가능",c:"tag-ok"},{t:"pH 주의",c:"tag-care"}],desc:"비타민C는 항산화+티로시나아제 억제로 아르부틴을 보완해. 다만 비타민C는 pH 3~4, 아르부틴은 pH 5.5~6.5가 최적이라 같은 제형에 넣기 어려워.",how:"아르부틴(아침)+비타민C(저녁) 분리 사용 권장."},
+  {name:"히알루론산",goals:["보습"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"미백 성분의 건조함을 히알루론산으로 보완. The Ordinary Alpha Arbutin 2%+HA도 이 조합이야.",how:"동일 제형 배합 쉬움. 업계 표준 조합."},
+  {name:"레티놀",goals:["항노화·주름","미백 강화"],forms:["세럼·앰플","크림"],tags:[{t:"조합 가능",c:"tag-ok"},{t:"자극 주의",c:"tag-care"}],desc:"레티놀은 색소 침착된 세포를 빠르게 탈락시켜. 아르부틴(새 색소 차단)+레티놀(기존 색소 제거) 전략.",how:"레티놀 저녁에만, 아르부틴 아침·저녁 가능."},
+  {name:"판테놀 (비타민 B5)",goals:["진정·염증 완화","보습"],forms:["세럼·앰플","토너·에센스","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"미백 루틴 중 피부 장벽을 보호해줘. 아르부틴과 궁합이 좋아 자극 없이 미백 효과 유지.",how:"민감성 피부 미백 루틴에 특히 추천."},
+  {name:"AHA (글리콜산·락틱산)",goals:["각질 제거","미백 강화"],forms:["토너·에센스","세럼·앰플"],tags:[{t:"분리 사용",c:"tag-care"}],desc:"AHA가 각질을 제거하면 아르부틴 흡수율이 높아져. 하지만 pH가 충돌해 같은 제형엔 비추천.",how:"AHA 사용 후 5~10분 후 아르부틴 적용. 동일 제형 배합 비추천."},
 ];
 const DANGERS=[
-  {level:"red",levelText:"부작용 위험",name:"하이드로퀴논",desc:"아르부틴이 피부에서 일부 하이드로퀴논으로 전환될 수 있는데, 여기에 하이드로퀴논을 추가하면 실질 농도가 과도해져 자극·탈색·반동성 색소 침착 위험이 높아져.",tip:"전문의 처방 없이 동시 사용 금지. 효과를 높이려면 트라넥사믹애씨드나 나이아신아마이드 추가를 추천."},
-  {level:"amber",levelText:"안정성 저하",name:"비타민 C (저 pH 제형)",desc:"아르부틴은 pH 5.5~6.5에서 가장 안정적인데, 비타민 C 제품은 대부분 pH 2.5~3.5야. 함께 섞이면 아르부틴이 분해되어 효과가 사라질 수 있어.",tip:"같은 제형 배합이나 바로 레이어링은 피해. 아침/저녁으로 나눠 쓰거나 최소 20분 간격 두기."},
-  {level:"amber",levelText:"안정성 저하",name:"AHA / BHA (고농도)",desc:"글리콜산, 살리실산 등 산성 각질 제거 성분을 같은 단계에서 바로 이어 쓰면 pH가 낮아져 아르부틴이 불안정해져. 효과가 줄고 자극만 증가할 수 있어.",tip:"AHA/BHA 사용 후 5~10분 기다려 피부 pH가 회복된 뒤 아르부틴 적용. 저녁에만 각질 제거제 사용 권장."},
-  {level:"gray",levelText:"효과 반감",name:"강한 산화 환경 (구리 펩타이드 등)",desc:"일부 구리 함유 성분은 산화를 촉진해 아르부틴 분자를 불안정하게 만들 수 있어. 직접적인 부작용은 아니지만 아르부틴 효능이 떨어질 수 있어.",tip:"구리 펩타이드 제품과는 아침/저녁 분리 사용 추천."},
+  {level:"red",levelText:"부작용 위험",name:"하이드로퀴논",desc:"아르부틴이 일부 하이드로퀴논으로 전환될 수 있는데, 하이드로퀴논을 추가하면 농도가 과도해져 자극·탈색·반동성 색소 침착 위험.",tip:"전문의 처방 없이 동시 사용 금지."},
+  {level:"amber",levelText:"안정성 저하",name:"비타민 C (저 pH 제형)",desc:"아르부틴 최적 pH 5.5~6.5인데, 비타민C 제품은 대부분 pH 2.5~3.5. 함께 섞이면 아르부틴이 분해돼.",tip:"아침/저녁으로 나눠 쓰거나 최소 20분 간격."},
+  {level:"amber",levelText:"안정성 저하",name:"AHA / BHA (고농도)",desc:"산성 각질 제거 성분을 바로 이어 쓰면 pH가 낮아져 아르부틴이 불안정해져.",tip:"AHA/BHA 사용 후 5~10분 후 아르부틴 적용."},
+  {level:"gray",levelText:"효과 반감",name:"구리 펩타이드",desc:"구리 함유 성분이 산화를 촉진해 아르부틴 분자를 불안정하게 만들 수 있어.",tip:"구리 펩타이드 제품과는 아침/저녁 분리 사용."},
 ];
 
 let selGoals=new Set(),selForms=new Set();
 function renderChips(){
-  document.getElementById('goal-chips').innerHTML=GOALS.map(g=>`<button class="goal-chip${selGoals.has(g)?' on':''}" onclick="toggleGoal('${g}')">${g}</button>`).join('');
-  document.getElementById('form-chips').innerHTML=FORMS.map(f=>`<button class="form-chip${selForms.has(f)?' on':''}" onclick="toggleForm('${f}')">${f}</button>`).join('');
+  document.getElementById('goal-chips').innerHTML=GOALS.map(g=>'<button class="goal-chip'+(selGoals.has(g)?' on':'')+'" onclick="toggleGoal(\''+g+'\')">'+g+'</button>').join('');
+  document.getElementById('form-chips').innerHTML=FORMS.map(f=>'<button class="form-chip'+(selForms.has(f)?' on':'')+'" onclick="toggleForm(\''+f+'\')">'+f+'</button>').join('');
 }
 function toggleGoal(g){selGoals.has(g)?selGoals.delete(g):selGoals.add(g);renderChips();renderCombos();}
 function toggleForm(f){selForms.has(f)?selForms.delete(f):selForms.add(f);renderChips();renderCombos();}
@@ -303,20 +314,15 @@ function renderCombos(){
     return gOk&&fOk;
   });
   if(!matched.length){res.innerHTML='<div class="empty-msg">해당 조건에 맞는 조합 성분이 없어.</div>';return;}
-  res.innerHTML=matched.map(c=>`<div class="combo-item"><div class="combo-head"><span class="combo-name">${c.name}</span><div class="combo-tags">${c.tags.map(t=>`<span class="tag ${t.c}">${t.t}</span>`).join('')}</div></div><div class="combo-desc">${c.desc}</div><div class="combo-how">${c.how}</div></div>`).join('');
+  res.innerHTML=matched.map(c=>'<div class="combo-item"><div class="combo-head"><span class="combo-name">'+c.name+'</span><div class="combo-tags">'+c.tags.map(t=>'<span class="ctag '+t.c+'">'+t.t+'</span>').join('')+'</div></div><div class="combo-desc">'+c.desc+'</div><div class="combo-how">'+c.how+'</div></div>').join('');
 }
 function renderDangers(){
   const im={red:'<i class="ti ti-alert-triangle" style="font-size:12px;color:#A32D2D"></i>',amber:'<i class="ti ti-alert-circle" style="font-size:12px;color:#633806"></i>',gray:'<i class="ti ti-minus-circle" style="font-size:12px;color:#444"></i>'};
   const bm={red:'db-red',amber:'db-amber',gray:'db-gray'};
   const bgm={red:'di-red',amber:'di-amber',gray:'di-gray'};
-  document.getElementById('danger-list').innerHTML=DANGERS.map(d=>`<div class="danger-item"><div class="danger-head"><div class="danger-icon ${bgm[d.level]}">${im[d.level]}</div><span class="danger-name">${d.name}</span><span class="danger-badge ${bm[d.level]}">${d.levelText}</span></div><div class="danger-desc">${d.desc}</div><div class="danger-tip">${d.tip}</div></div>`).join('');
+  document.getElementById('danger-list').innerHTML=DANGERS.map(d=>'<div class="danger-item"><div class="danger-head"><div class="danger-icon '+bgm[d.level]+'">'+im[d.level]+'</div><span class="danger-name">'+d.name+'</span><span class="danger-badge '+bm[d.level]+'">'+d.levelText+'</span></div><div class="danger-desc">'+d.desc+'</div><div class="danger-tip">'+d.tip+'</div></div>').join('');
 }
 renderChips();renderCombos();renderDangers();
-function sw(id,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  document.getElementById(id).classList.add('on');btn.classList.add('on');
-}
 </script>
 </body>
 </html>

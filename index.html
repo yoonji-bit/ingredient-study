@@ -11,6 +11,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .header{margin-bottom:2rem}
 .header h1{font-size:24px;font-weight:500;color:#1a1a1a;margin-bottom:6px}
 .header p{font-size:14px;color:#888}
+.tip-box{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1.25rem;margin-bottom:1.5rem;font-size:13px;color:#555;line-height:1.6;display:flex;align-items:flex-start;gap:10px}
+.tip-icon{font-size:16px;color:#378ADD;flex-shrink:0;margin-top:1px}
 .search-wrap{position:relative;margin-bottom:1.25rem}
 .search-wrap input{width:100%;padding:10px 16px 10px 40px;border:0.5px solid #ddd;border-radius:10px;font-size:14px;background:#fff;color:#1a1a1a;outline:none}
 .search-wrap input:focus{border-color:#378ADD}
@@ -20,58 +22,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .filter-chip.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 .count{font-size:13px;color:#aaa;margin-bottom:.75rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.ing-card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1.25rem;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.ing-card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1.25rem;text-decoration:none;color:inherit;transition:all .15s;display:block;position:relative}
 .ing-card:hover{border-color:#378ADD;transform:translateY(-1px)}
 .ing-card-cat{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
 .ing-card-name{font-size:16px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
-.ing-card-en{font-size:12px;color:#aaa;margin-bottom:12px}
+.ing-card-en{font-size:12px;color:#aaa;margin-bottom:8px}
+.ing-card-desc{font-size:12px;color:#888;line-height:1.5;margin-bottom:10px}
 .ing-card-tags{display:flex;gap:5px;flex-wrap:wrap}
 .tag{font-size:11px;padding:2px 8px;border-radius:4px}
 .tag-blue{background:#E6F1FB;color:#0C447C}
 .tag-teal{background:#E1F5EE;color:#085041}
 .tag-amber{background:#FAEEDA;color:#633806}
+.tag-coral{background:#FAECE7;color:#993C1D}
+.tag-purple{background:#EEEDFE;color:#3C3489}
+.new-badge{position:absolute;top:12px;right:12px;font-size:10px;background:#185FA5;color:#fff;padding:1px 7px;border-radius:10px}
 .empty{text-align:center;padding:3rem;color:#aaa;font-size:14px}
-.tip-box{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1.25rem;margin-bottom:1.5rem;font-size:13px;color:#555;line-height:1.6;display:flex;align-items:flex-start;gap:10px}
-.tip-icon{font-size:16px;color:#378ADD;flex-shrink:0;margin-top:1px}
 </style>
 </head>
 <body>
-
 <div class="header">
   <h1>성분 학습 카드</h1>
-  <p>화장품 성분을 쉽게 공부해보자</p>
+  <p>화장품·헬스케어 성분을 쉽게 공부해보자</p>
 </div>
-
 <div class="tip-box">
   <i class="ti ti-info-circle tip-icon"></i>
-  <span>각 카드를 클릭하면 기전·효능·적용 사례·유사 성분·논문까지 확인할 수 있어. ③ 적용 사례에서 제품을 클릭하면 올리브영·아마존·구글 트렌드·레딧 시장 반응 링크도 볼 수 있어.</span>
+  <span>카드를 클릭하면 기전·효능·적용 사례·유사 성분·논문까지 확인할 수 있어. <strong>⑤ 결론</strong> 탭에서는 시장 반응 분석 + 써봐/재고 결론 + 루틴 + 제품 체크리스트까지 한 번에 볼 수 있어.</span>
 </div>
-
 <div class="search-wrap">
   <i class="ti ti-search"></i>
-  <input type="text" id="search" placeholder="성분명 검색 (예: 아르부틴, 히알루론산...)" oninput="render()">
+  <input type="text" id="search" placeholder="성분명 검색 (예: 아르부틴, 히알루론산, CoQ10...)" oninput="render()">
 </div>
-
 <div class="filter-row" id="filters"></div>
 <div class="count" id="count"></div>
 <div class="grid" id="grid"></div>
 
 <script>
 const INGREDIENTS=[
-  {
-    name:"아르부틴",nameEn:"Arbutin / α-Arbutin",category:"미백",
-    desc:"티로시나아제를 억제해 멜라닌 생성을 차단하는 미백 성분",
-    tags:["미백","색소 침착 개선","티로시나아제 억제"],
-    tagStyle:["tag-teal","tag-teal","tag-blue"],
-    url:"arbutin.html"
-  },
-  {
-    name:"히알루론산",nameEn:"Hyaluronic Acid",category:"보습",
-    desc:"자기 무게의 1,000배 수분을 흡수하는 강력한 보습 성분",
-    tags:["보습","피부 장벽 강화","수분 유지"],
-    tagStyle:["tag-blue","tag-blue","tag-teal"],
-    url:"hyaluronic-acid.html"
-  },
+  {name:"아르부틴",nameEn:"Arbutin / α-Arbutin",category:"미백",desc:"티로시나아제를 억제해 멜라닌 생성을 차단",tags:["미백","색소 침착 개선","티로시나아제 억제"],tagStyle:["tag-teal","tag-teal","tag-blue"],url:"arbutin.html",isNew:false},
+  {name:"히알루론산",nameEn:"Hyaluronic Acid",category:"보습",desc:"자기 무게의 1,000배 수분을 흡수하는 강력한 보습 성분",tags:["보습","피부 장벽","수분 유지"],tagStyle:["tag-blue","tag-blue","tag-teal"],url:"hyaluronic-acid.html",isNew:false},
+  {name:"바이오틴",nameEn:"Biotin / Vitamin B7",category:"모발 강화",desc:"모낭 세포에서 케라틴 합성을 돕는 보조효소. 결핍 시 효과적",tags:["모발 성장","케라틴 합성","탈모 예방"],tagStyle:["tag-amber","tag-amber","tag-purple"],url:"biotin.html",isNew:false},
+  {name:"판테놀",nameEn:"Panthenol / Pro-Vitamin B5",category:"보습·모발",desc:"피부 장벽 강화 + 모발 큐티클 보습. 즉각 효과 체감",tags:["보습","피부 장벽","모발 강화"],tagStyle:["tag-teal","tag-blue","tag-amber"],url:"panthenol.html",isNew:false},
+  {name:"코엔자임Q10",nameEn:"Coenzyme Q10 / CoQ10",category:"항노화",desc:"미토콘드리아 내부 항산화 + 콜라겐 분해 억제. 제형 기술이 핵심",tags:["항산화","항노화·주름","콜라겐 합성"],tagStyle:["tag-coral","tag-coral","tag-teal"],url:"coq10.html",isNew:false},
 ];
 
 const CATEGORIES=["전체",...new Set(INGREDIENTS.map(i=>i.category))];
@@ -93,14 +84,15 @@ function render(){
   if(!filtered.length){document.getElementById('grid').innerHTML='<div class="empty">검색 결과가 없어</div>';return;}
   document.getElementById('grid').innerHTML=filtered.map(i=>`
     <a class="ing-card" href="${i.url}">
+      ${i.isNew?'<span class="new-badge">NEW</span>':''}
       <div class="ing-card-cat">${i.category}</div>
       <div class="ing-card-name">${i.name}</div>
       <div class="ing-card-en">${i.nameEn}</div>
+      <div class="ing-card-desc">${i.desc}</div>
       <div class="ing-card-tags">${i.tags.map((t,j)=>`<span class="tag ${i.tagStyle[j]}">${t}</span>`).join('')}</div>
     </a>
   `).join('');
 }
-
 renderFilters();render();
 </script>
 </body>

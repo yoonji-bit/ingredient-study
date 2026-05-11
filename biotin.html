@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>바이오틴 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+.compare-context{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.cmp{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem}
+.cmp.hi{border:2px solid #378ADD}
+.rec{font-size:11px;background:#dceefb;color:#0c447c;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.cmp-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:10px}
+.cmp-row{display:flex;flex-direction:column;gap:8px}
+.cmp-item{font-size:13px;color:#555;line-height:1.5}
+.cmp-item-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:6px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-neutral{background:#f0f0ec;color:#444}
+.diff-amber{background:#FAEEDA;color:#633806}
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1;min-width:0}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-badge{font-size:11px;background:#E1F5EE;color:#085041;padding:1px 7px;border-radius:3px;display:inline-block}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}
+.flag-global{background:#E6F1FB;color:#185FA5}
+.flag-trend{background:#E1F5EE;color:#085041}
+.flag-community{background:#EEEDFE;color:#3C3489}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff}
+.i-oy{background:#FF6B35}.i-amz{background:#FF9900}.i-gt{background:#4285F4}.i-rd{background:#FF4500}.i-sep{background:#000}.i-hwh{background:#FF6B6B}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+.goal-chip,.form-chip{padding:5px 12px;border-radius:20px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.goal-chip.on{background:#E1F5EE;color:#085041;border-color:#5DCAA5;font-weight:500}
+.form-chip.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}
+.tag-ok{background:#E6F1FB;color:#0C447C}
+.tag-care{background:#FAEEDA;color:#633806}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}.di-gray{background:#F1EFE8}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-red{background:#FCEBEB;color:#A32D2D}.db-amber{background:#FAEEDA;color:#633806}.db-gray{background:#F1EFE8;color:#444}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+.term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
+.term:hover{color:#185FA5}
+.empty-msg{text-align:center;padding:2rem 1rem;font-size:14px;color:#aaa}
+#tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#tooltip-box.show{display:block}
+.tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
+.tip-links{display:flex;gap:8px;margin-top:8px}
+.tl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
+.tl:hover{background:#B5D4F4}
+.notice-box{background:#FAEEDA;border-radius:12px;padding:.875rem 1rem;margin-bottom:1rem;font-size:13px;color:#633806;line-height:1.6;display:flex;align-items:flex-start;gap:8px}
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl" id="tip-dict" href="#" target="_blank">사전</a></div></div>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">바이오틴</div>
+<div class="ing-sub">Biotin / Vitamin B7 · 모발 강화 기능성 성분</div>
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab" style="border-color:#378ADD;color:#185FA5" onclick="sw('h',this)">⑤ 결론</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<div id="m" class="panel on">
+  <div class="card"><div class="clabel">작용 기전</div><div class="cbody" id="mech-text"></div></div>
+  <div class="compare-context" id="ctx-text"></div>
+  <div class="cmp-grid">
+    <div class="cmp hi">
+      <span class="rec">내부 작용</span>
+      <div class="cmp-name">바이오틴 (경구 섭취)</div>
+      <div class="cmp-row">
+        <div class="cmp-item"><div class="cmp-item-label">작용 위치</div>모낭 세포 내부 — 케라틴 합성 과정</div>
+        <div class="cmp-item"><div class="cmp-item-label">역할</div>효소를 활성화하는 보조효소. 공장의 전기 역할</div>
+        <div class="cmp-item"><div class="cmp-item-label">효과 발현</div>최소 2~3개월 필요</div>
+        <div class="cmp-item"><div class="cmp-item-label">조건</div>결핍 상태일 때만 효과 확실</div>
+        <span class="diff-badge diff-amber">결핍 확인 후 사용 권장</span>
+      </div>
+    </div>
+    <div class="cmp">
+      <div class="cmp-name">판테놀 (외부 도포)</div>
+      <div class="cmp-row">
+        <div class="cmp-item"><div class="cmp-item-label">작용 위치</div>모발 표면 — 큐티클층</div>
+        <div class="cmp-item"><div class="cmp-item-label">역할</div>수분 보습 + 갈라진 틈 메우기. 표면 보수</div>
+        <div class="cmp-item"><div class="cmp-item-label">효과 발현</div>바르는 즉시 체감 가능</div>
+        <div class="cmp-item"><div class="cmp-item-label">조건</div>결핍 무관, 누구에게나 효과</div>
+        <span class="diff-badge diff-good">즉각 효과 체감 가능</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="e" class="panel">
+  <div class="notice-box"><i class="ti ti-alert-circle" style="font-size:16px;flex-shrink:0;margin-top:1px"></i>바이오틴은 결핍 상태가 아니면 추가 섭취 효과가 제한적이야. 모발 고민이 있다면 혈액검사로 결핍 여부를 먼저 확인하는 게 논리적이야.</div>
+  <div class="card"><div class="clabel">주요 효능</div><ul class="rlist">
+    <li><span class="dot dg"></span>케라틴 합성 촉진 → 모발 성장 속도 개선</li>
+    <li><span class="dot dg"></span>모발 가늘어짐·탈모 예방 (결핍 시)</li>
+    <li><span class="dot dg"></span>손발톱 강화</li>
+    <li><span class="dot dg"></span>두피 지루성 피부염 개선</li>
+  </ul></div>
+  <div class="card"><div class="clabel">주의점</div><ul class="rlist">
+    <li><span class="dot dr"></span>결핍 상태가 아니면 효과 제한적 — 과잉 섭취해도 추가 효과 없음</li>
+    <li><span class="dot dr"></span>고용량 바이오틴 보충제가 갑상선·트로포닌 검사 수치를 왜곡할 수 있음 (검사 전 중단 필요)</li>
+    <li><span class="dot dr"></span>일부에서 여드름 악화 보고 — 피지 분비 영향 가능성</li>
+    <li><span class="dot dr"></span>수용성 비타민이라 과다 섭취 시 소변으로 배출되지만, 무제한 복용은 금물</li>
+  </ul></div>
+  <div class="card"><div class="clabel">사용 팁</div><div class="cbody">
+    <span class="dot da" style="display:inline-block;margin-right:8px"></span><strong>권장 섭취량</strong> 성인 기준 30~100mcg/일 (일반 보충제는 2,500~10,000mcg 고용량이 많음)<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>외용 제품</strong> 샴푸·두피 세럼에 함유된 경우 직접 흡수 효과는 경구 섭취보다 미미<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>효과 확인</strong> 최소 2~3개월 꾸준히 복용 후 판단
+  </div></div>
+</div>
+
+<div id="p" class="panel">
+  <div class="card"><div class="clabel">보충제 — 클릭하면 시장 반응 확인</div><div id="prod-supplement"></div></div>
+  <div class="card"><div class="clabel">헤어케어 제품 — 클릭하면 시장 반응 확인</div><div id="prod-hair"></div></div>
+</div>
+
+<div id="s" class="panel">
+  <div class="card">
+    <div class="clabel">조합 탐색</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px">원하는 효과와 제형을 선택하면 바이오틴과 함께 쓰기 좋은 성분을 알려줄게</div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px">원하는 효과</div>
+    <div class="chip-row" id="goal-chips"></div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px;margin-top:12px">제형 타입</div>
+    <div class="chip-row" id="form-chips"></div>
+    <div id="combo-result" style="margin-top:1rem"></div>
+  </div>
+  <div class="card"><div class="clabel">같이 쓰면 안 되는 성분 / 주의할 것</div><div id="danger-list"></div></div>
+</div>
+
+
+  <div id="h" class="panel">
+    <div class="card">
+      <div class="clabel">📊 시장 반응 요약 — 2025년 기준</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.5rem">
+        
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">💄</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">화장품 시장</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#FAEEDA;color:#633806">헤어케어 주도</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">바이오틴 함유 화장품은 샴푸·두피 세럼·헤어 트리트먼트 중심. 탈모 케어 시장 성장과 함께 수요 증가. OGX 바이오틴+콜라겐 샴푸가 글로벌 스테디셀러.</div>
+      <div style="margin-top:8px"><div style="font-size:11px;color:#aaa;margin-bottom:3px">헤어케어 내 바이오틴 제품 성장세</div><div style="height:6px;background:#efefeb;border-radius:3px;overflow:hidden"><div style="height:100%;width:62%;border-radius:3px;background:linear-gradient(90deg,#E8B568,#BA7517)"></div></div></div>
+    </div>
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">🌿</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">트렌드</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#E1F5EE;color:#085041">복합 처방 확산</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">바이오틴 단독→판테놀·케라틴·콜라겐 복합 처방 트렌드. 클린뷰티 헤어케어와 결합. 두피 세럼 형태가 샴푸보다 효과적으로 주목받는 중.</div>
+      
+    </div>
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">⚠️</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">소비자 주의</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#FAECE7;color:#993C1D">과대광고 많음</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">화장품 내 바이오틴 외용 흡수율 낮아 효과 의문. "모발 강화" 마케팅 많지만 임상 근거가 경구 섭취 대비 약함. 레이블 꼼꼼히 확인 필요.</div>
+      
+    </div>
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">🔬</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">제형 트렌드</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#E6F1FB;color:#185FA5">두피 세럼 성장</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">바이오틴+카페인 복합 두피 세럼이 탈모 케어 시장에서 인기. 리브온 형태가 샴푸보다 체류 시간 길어 더 효과적으로 평가.</div>
+      
+    </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="clabel">💬 실사용자 반응</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f0faf6;border-left:3px solid #1D9E75;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#1D9E75">긍정</span>"OGX 바이오틴 샴푸는 모발 볼륨이 진짜 달라짐. 향도 좋고 가성비 최고"
+    </div>
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#fdf5f3;border-left:3px solid #D85A30;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#D85A30">부정</span>"샴푸에 바이오틴 넣어봐야 헹구면 다 씻겨나가는데 뭔 효과가 있겠어"
+    </div>
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#fdf5f3;border-left:3px solid #D85A30;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#D85A30">부정</span>"바이오틴 샴푸 3개월 썼는데 탈모에 효과 없었음. 두피 마사지가 더 효과적인 듯"
+    </div>
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f5f5f2;border-left:3px solid #ccc;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#888">중립</span>"탈모는 원인이 다양해서 바이오틴 하나로 해결은 무리. 전문 케어 병행해야"
+    </div></div>
+    </div>
+    <div style="border-radius:12px;padding:1.25rem;margin-bottom:1rem;background:#E1F5EE;border:1px solid #5DCAA5">
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:#085041">
+        <i class="ti ti-circle-check" style="font-size:18px"></i>이런 경우에 써봐
+      </div>
+      <ul style="list-style:none;padding:0">
+        <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>헤어케어 제품(샴푸·트리트먼트)으로 모발 볼륨·윤기 개선을 원할 때</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>바이오틴+카페인 복합 두피 세럼으로 두피 케어 루틴 추가할 때</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>판테놀·케라틴 복합 처방 헤어 마스크와 병행</li>
+      </ul>
+    </div>
+    <div style="border-radius:12px;padding:1.25rem;margin-bottom:1rem;background:#FAEEDA;border:1px solid #E8B568">
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:#633806">
+        <i class="ti ti-alert-circle" style="font-size:18px"></i>이런 경우엔 다시 생각해봐
+      </div>
+      <ul style="list-style:none;padding:0">
+        <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>샴푸에 들어간 바이오틴만으로 탈모 개선 기대 — 체류 시간 짧아 효과 제한</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>화장품 단독으로 심각한 탈모 해결 기대 — 원인 파악 및 전문 치료 필요</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>외용만으로 모발 성장 속도 개선 기대 — 효과 미미</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel">어떻게 쓸까</div>
+      <div style="margin-bottom:10px"><div style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:13px;background:#FAEEDA;color:#633806">💆 두피 세럼은 세발 후 두피에 직접 도포</div></div>
+      <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:8px">
+    <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45">
+      <div style="font-size:9px;margin-bottom:2px">1</div>샴푸
+    </div>
+    <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+    <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45">
+      <div style="font-size:9px;margin-bottom:2px">2</div>트리트먼트
+    </div>
+    <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+    <div style="flex:1;min-width:68px;border:2px solid #185FA5;border-radius:7px;padding:7px 6px;text-align:center;background:#E6F1FB;font-size:11px;color:#185FA5;font-weight:500">
+      <div style="font-size:9px;margin-bottom:2px">3</div>두피 세럼
+    </div>
+    <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+    <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45">
+      <div style="font-size:9px;margin-bottom:2px">4</div>헤어
+에센스
+    </div>
+    </div>
+      <div style="font-size:12px;color:#aaa;margin-bottom:14px">두피 세럼은 세발 후 물기 제거 후 두피에 직접 도포. 마사지 후 헹구지 않음.</div>
+      <div class="clabel">제품 고를 때 체크리스트</div>
+      <ul style="list-style:none;padding:0">
+        <li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>리브온(Leave-on) 두피 세럼 형태 선택 — 샴푸보다 효과적</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>바이오틴+카페인 복합 성분 두피 세럼이 탈모 케어에 더 유효</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>판테놀·케라틴 복합 처방 헤어 마스크와 병행 추천</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-x" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#D85A30"></i>샴푸에만 바이오틴 — 헹굼으로 대부분 제거됨</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#BA7517"></i>화장품만으로 탈모 치료 기대 — 원인 파악 후 전문가 상담 권장</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="r" class="panel">
+  <div class="pc"><div class="pt">Biotin deficiency and supplementation: A review</div><div class="pm">Zempleni et al. · 2009 · Journal of Nutrition</div><div class="ps">바이오틴 결핍과 보충의 효과를 종합적으로 리뷰한 논문. 결핍 상태에서의 모발·손발톱 개선 효과는 명확하지만, 정상 수준에서의 추가 효과는 제한적이라는 결론을 제시.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=biotin+deficiency+supplementation+hair+nails+review" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">A Review of the Use of Biotin for Hair Loss</div><div class="pm">Patel et al. · 2017 · Skin Appendage Disorders</div><div class="ps">바이오틴과 탈모의 관계를 분석한 체계적 리뷰. 18개 케이스 연구를 검토했으며, 바이오틴 결핍이 있는 경우에만 보충이 탈모 개선에 효과적임을 확인.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=biotin+hair+loss+review+supplementation+deficiency" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Biotin interference with troponin assay</div><div class="pm">Tramboli et al. · 2019 · Clinical Biochemistry</div><div class="ps">고용량 바이오틴 보충제가 심장 마커(트로포닌) 혈액검사 수치를 왜곡할 수 있다는 것을 경고한 논문. 검사 전 바이오틴 복용 중단이 필요함을 지적.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=biotin+interference+troponin+assay+clinical" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+</div>
+
+<script>
+const TERMS={
+  "케라틴":{"def":"모발·손발톱·피부를 구성하는 단백질. 모발의 주성분으로 약 95%를 차지해. 케라틴이 손상되면 모발이 끊기고 윤기가 없어져.","wiki":"https://ko.wikipedia.org/wiki/케라틴","dict":"https://terms.naver.com/search.naver?query=케라틴"},
+  "보조효소":{"def":"효소가 제 기능을 하도록 도와주는 물질. 바이오틴은 여러 효소의 보조효소로 작용해 세포 대사를 원활하게 해.","wiki":"https://ko.wikipedia.org/wiki/보조인자","dict":"https://terms.naver.com/search.naver?query=보조효소"},
+  "모낭":{"def":"모발이 자라나는 피부 속 구조물. 모발 성장의 시작점으로, 영양과 산소를 공급받아 새 모발을 만들어내.","wiki":"https://ko.wikipedia.org/wiki/모낭","dict":"https://terms.naver.com/search.naver?query=모낭"},
+  "큐티클":{"def":"모발의 가장 바깥층. 비늘처럼 겹쳐져 모발 내부를 보호해. 손상되면 모발이 거칠고 푸석해 보여.","wiki":"https://ko.wikipedia.org/wiki/모표피","dict":"https://terms.naver.com/search.naver?query=모발+큐티클"},
+  "아미노산":{"def":"단백질을 구성하는 기본 단위. 케라틴을 만들기 위해서는 다양한 아미노산이 필요해.","wiki":"https://ko.wikipedia.org/wiki/아미노산","dict":"https://terms.naver.com/search.naver?query=아미노산"},
+  "판테놀":{"def":"비타민B5(프로비타민 B5). 피부와 모발에 흡수되면 판토텐산으로 전환돼 보습·장벽 강화에 작용해.","wiki":"https://ko.wikipedia.org/wiki/판토텐산","dict":"https://terms.naver.com/search.naver?query=판테놀"},
+  "수용성":{"def":"물에 녹는 성질. 바이오틴은 수용성 비타민이라 과잉 섭취하면 소변으로 배출돼. 하지만 무제한 복용은 좋지 않아.","wiki":"https://ko.wikipedia.org/wiki/수용성_비타민","dict":"https://terms.naver.com/search.naver?query=수용성+비타민"},
+  "지루성 피부염":{"def":"두피나 얼굴에 생기는 만성 염증성 피부 질환. 비듬, 각질, 가려움이 주요 증상이야.","wiki":"https://ko.wikipedia.org/wiki/지루성_피부염","dict":"https://terms.naver.com/search.naver?query=지루성피부염"},
+  "트로포닌":{"def":"심장 근육 손상 여부를 확인하는 혈액검사 마커. 고용량 바이오틴이 이 검사 수치를 왜곡할 수 있어.","wiki":"https://ko.wikipedia.org/wiki/트로포닌","dict":"https://terms.naver.com/search.naver?query=트로포닌"},
+};
+
+const tipBox=document.getElementById('tooltip-box');
+let activeTerm=null;
+function showTip(el,word){
+  if(activeTerm===el){hideTip();return;}
+  activeTerm=el;const g=TERMS[word];
+  document.getElementById('tip-title').textContent=word;
+  document.getElementById('tip-def').textContent=g.def;
+  document.getElementById('tip-wiki').href=g.wiki;
+  document.getElementById('tip-dict').href=g.dict;
+  tipBox.classList.add('show');
+  const rect=el.getBoundingClientRect();
+  let left=rect.left+window.scrollX,top=rect.bottom+window.scrollY+4;
+  if(left+248>window.innerWidth)left=window.innerWidth-248;
+  if(left<8)left=8;
+  tipBox.style.left=left+'px';tipBox.style.top=top+'px';
+}
+function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
+function annotate(html){
+  const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);
+  const marks={};
+  terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});
+  Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});
+  return html;
+}
+function sw(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');btn.classList.add('on');
+}
+
+document.getElementById('mech-text').innerHTML=annotate("바이오틴은 비타민 B7으로, 모발 단백질인 케라틴 합성에 필수적인 보조효소야. 모낭 세포 안에서 아미노산 대사와 세포 성장에 관여하는 효소들을 활성화시켜. 쉽게 말하면 공장에서 기계를 돌리는 전기 같은 역할이야. 결핍되면 모발 생성 자체가 느려지고 가늘어지는데, 결핍 상태가 아니면 추가 섭취 효과가 제한적이라는 게 핵심이야.");
+document.getElementById('ctx-text').innerHTML=annotate("바이오틴과 판테놀은 둘 다 모발 건강에 좋다고 알려져 있지만 작용 방식이 완전히 달라. 바이오틴은 모낭 내부에서 케라틴을 만드는 과정에 개입하고, 판테놀은 외부에서 모발 표면의 큐티클을 수분으로 채워줘. 목적이 다르니까 비교 자체가 공정하지 않아 — 둘 다 필요하다면 함께 써도 돼.");
+
+const PRODUCTS={
+  supplement:[
+    {brand:"Natrol",product:"Biotin 10,000mcg",note:"미국 대표 바이오틴 보충제. 고용량 단일 성분",badge:"Biotin 10,000mcg",url:"https://www.natrol.com/products/biotin",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=natrol+biotin&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=natrol+biotin"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=natrol+biotin+10000mcg&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=biotin+supplement&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=biotin+supplement+hair&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/Supplements 토론",url:"https://www.reddit.com/r/Supplements/search/?q=biotin+hair+growth&sort=top"}]}},
+    {brand:"Sports Research",product:"Biotin with Coconut Oil 5,000mcg",note:"코코넛 오일과 복합 처방. 흡수율 개선",badge:"Biotin 5,000mcg",url:"https://www.sportsresearch.com/products/biotin",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=sports+research+biotin&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=sports+research+biotin"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=sports+research+biotin+5000mcg&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=sports+research+biotin&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Sports+Research+Biotin&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/Supplements 토론",url:"https://www.reddit.com/r/Supplements/search/?q=sports+research+biotin&sort=top"}]}},
+  ],
+  hair:[
+    {brand:"OGX",product:"Thick & Full Biotin & Collagen Shampoo",note:"바이오틴 + 콜라겐 복합 샴푸. 모발 볼륨 강화",badge:"Biotin 함유",url:"https://www.ogxbeauty.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=ogx+biotin+collagen&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=ogx+biotin+collagen+shampoo"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=OGX+biotin+collagen+shampoo&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=ogx+biotin&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=OGX+biotin+collagen+shampoo&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/HaircareScience 토론",url:"https://www.reddit.com/r/HaircareScience/search/?q=ogx+biotin+collagen&sort=top"}]}},
+    {brand:"Alpecin",product:"Biotin Shampoo",note:"독일 탈모 전문 브랜드. 바이오틴+카페인 복합",badge:"Biotin 함유",url:"https://www.alpecin.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=alpecin+biotin&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=alpecin+biotin"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=alpecin+biotin+shampoo&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=alpecin+biotin&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Alpecin+biotin+shampoo&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/HaircareScience 토론",url:"https://www.reddit.com/r/HaircareScience/search/?q=alpecin+biotin&sort=top"}]}},
+  ]
+};
+
+function renderProducts(items,containerId){
+  document.getElementById(containerId).innerHTML=items.map((p,idx)=>{
+    const id=containerId+'_'+idx;
+    return '<div class="prod-item"><div class="prod-head" onclick="toggleExpand(\''+id+'\')"><div class="prod-info"><div class="prod-brand">'+p.brand+'</div><div class="prod-pname">'+p.product+'</div><div class="prod-note">'+p.note+'</div><span class="prod-badge">'+p.badge+'</span></div><div class="prod-right"><a class="prod-official" href="'+p.url+'" target="_blank" onclick="event.stopPropagation()"><i class="ti ti-external-link" style="font-size:11px"></i> 공식</a><i class="ti ti-chevron-down chevron" id="chevron_'+id+'"></i></div></div><div class="prod-expand" id="expand_'+id+'"><div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px">시장 반응 확인</div><div style="margin-bottom:6px"><span class="mkt-flag flag-kr">한국</span></div><div class="mkt-grid">'+p.market.kr.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-global">글로벌</span></div><div class="mkt-grid">'+p.market.global.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-trend">트렌드</span><span class="mkt-flag flag-community" style="margin-left:4px">커뮤니티</span></div><div class="mkt-grid">'+[...p.market.trend,...p.market.community].map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div></div></div>';
+  }).join('');
+}
+function toggleExpand(id){
+  const ex=document.getElementById('expand_'+id),ch=document.getElementById('chevron_'+id);
+  const isOpen=ex.classList.contains('open');
+  document.querySelectorAll('.prod-expand').forEach(e=>e.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(e=>e.classList.remove('open'));
+  if(!isOpen){ex.classList.add('open');ch.classList.add('open');}
+}
+renderProducts(PRODUCTS.supplement,'prod-supplement');
+renderProducts(PRODUCTS.hair,'prod-hair');
+
+const GOALS=["모발 성장","탈모 예방","모발 강화","두피 건강","손발톱 강화","영양 보충"];
+const FORMS=["보충제 (경구)","샴푸","두피 세럼","트리트먼트"];
+const COMBOS=[
+  {name:"아연 (Zinc)",goals:["모발 성장","탈모 예방"],forms:["보충제 (경구)"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"아연은 모낭 세포 분열과 단백질 합성에 필수적이야. 바이오틴과 함께 복용하면 모발 성장에 필요한 영양소를 더 폭넓게 커버할 수 있어.",how:"종합 모발 영양제에 두 성분이 함께 포함된 경우가 많아. 식후 복용 권장."},
+  {name:"판테놀",goals:["모발 강화","두피 건강"],forms:["샴푸","두피 세럼","트리트먼트"],tags:[{t:"상호 보완",c:"tag-ok"}],desc:"바이오틴이 모낭 내부에서 케라틴 생성을 돕는 동안, 판테놀은 외부에서 모발 표면을 보습해줘. 내외부를 동시에 케어하는 조합이야.",how:"바이오틴은 경구 복용, 판테놀은 헤어 트리트먼트로 외부 도포. 병행 사용 가능."},
+  {name:"비오틴 B 컴플렉스",goals:["영양 보충","모발 성장"],forms:["보충제 (경구)"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"바이오틴 단독보다 비타민 B군 전체를 함께 섭취하면 세포 대사와 에너지 생성에 더 넓게 작용해.",how:"B 컴플렉스에 이미 바이오틴이 포함된 경우가 많아. 중복 복용 주의."},
+  {name:"콜라겐",goals:["모발 강화","손발톱 강화"],forms:["보충제 (경구)"],tags:[{t:"조합 가능",c:"tag-ok"}],desc:"콜라겐은 모발과 손발톱의 구조적 강도를 높여줘. 바이오틴과 함께 OGX 제품처럼 복합 처방에 많이 쓰여.",how:"단백질 보충제와 함께 복용 시 흡수율 향상."},
+];
+const DANGERS=[
+  {level:"amber",levelText:"검사 수치 왜곡",name:"혈액검사 전 고용량 복용",desc:"고용량 바이오틴(5,000mcg 이상)이 갑상선 호르몬·트로포닌(심장 마커) 검사 수치를 왜곡할 수 있어. 잘못된 진단으로 이어질 수 있어.",tip:"혈액검사 최소 3~7일 전부터 바이오틴 보충제 복용 중단. 담당 의사에게 복용 사실 알리기."},
+  {level:"gray",levelText:"효과 과대 기대",name:"결핍이 없는 상태에서 고용량 복용",desc:"바이오틴이 정상 수준일 때 추가 섭취해도 모발 성장이 빨라지거나 탈모가 줄어든다는 근거가 부족해. 기대치를 현실적으로 조정해야 해.",tip:"모발 고민이 있다면 혈액검사로 결핍 여부를 먼저 확인하는 게 논리적이야."},
+  {level:"gray",levelText:"여드름 악화 가능성",name:"판토텐산(비타민B5) 부족과 여드름",desc:"바이오틴 고용량 복용 시 판토텐산 흡수를 방해해 일부에서 여드름이 악화될 수 있다는 보고가 있어.",tip:"여드름성 피부라면 판테놀(B5)과 함께 복용하거나 용량을 낮추는 것을 고려해봐."},
+];
+
+let selGoals=new Set(),selForms=new Set();
+function renderChips(){
+  document.getElementById('goal-chips').innerHTML=GOALS.map(g=>'<button class="goal-chip'+(selGoals.has(g)?' on':'')+'" onclick="toggleGoal(\''+g+'\')">'+g+'</button>').join('');
+  document.getElementById('form-chips').innerHTML=FORMS.map(f=>'<button class="form-chip'+(selForms.has(f)?' on':'')+'" onclick="toggleForm(\''+f+'\')">'+f+'</button>').join('');
+}
+function toggleGoal(g){selGoals.has(g)?selGoals.delete(g):selGoals.add(g);renderChips();renderCombos();}
+function toggleForm(f){selForms.has(f)?selForms.delete(f):selForms.add(f);renderChips();renderCombos();}
+function renderCombos(){
+  const res=document.getElementById('combo-result');
+  if(selGoals.size===0&&selForms.size===0){res.innerHTML='<div class="empty-msg">원하는 효과나 제형을 선택해봐</div>';return;}
+  const matched=COMBOS.filter(c=>{
+    const gOk=selGoals.size===0||[...selGoals].some(g=>c.goals.includes(g));
+    const fOk=selForms.size===0||[...selForms].some(f=>c.forms.includes(f));
+    return gOk&&fOk;
+  });
+  if(!matched.length){res.innerHTML='<div class="empty-msg">해당 조건에 맞는 조합 성분이 없어.</div>';return;}
+  res.innerHTML=matched.map(c=>'<div class="combo-item"><div class="combo-head"><span class="combo-name">'+c.name+'</span><div class="combo-tags">'+c.tags.map(t=>'<span class="ctag '+t.c+'">'+t.t+'</span>').join('')+'</div></div><div class="combo-desc">'+c.desc+'</div><div class="combo-how">'+c.how+'</div></div>').join('');
+}
+function renderDangers(){
+  const im={red:'<i class="ti ti-alert-triangle" style="font-size:12px;color:#A32D2D"></i>',amber:'<i class="ti ti-alert-circle" style="font-size:12px;color:#633806"></i>',gray:'<i class="ti ti-minus-circle" style="font-size:12px;color:#444"></i>'};
+  const bm={red:'db-red',amber:'db-amber',gray:'db-gray'};
+  const bgm={red:'di-red',amber:'di-amber',gray:'di-gray'};
+  document.getElementById('danger-list').innerHTML=DANGERS.map(d=>'<div class="danger-item"><div class="danger-head"><div class="danger-icon '+bgm[d.level]+'">'+im[d.level]+'</div><span class="danger-name">'+d.name+'</span><span class="danger-badge '+bm[d.level]+'">'+d.levelText+'</span></div><div class="danger-desc">'+d.desc+'</div><div class="danger-tip">'+d.tip+'</div></div>').join('');
+}
+renderChips();renderCombos();renderDangers();
+</script>
+</body>
+</html>

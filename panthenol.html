@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>판테놀 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+.compare-context{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.dual-card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem}
+.dual-card.hi{border:2px solid #378ADD}
+.rec{font-size:11px;background:#dceefb;color:#0c447c;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.dual-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:10px}
+.dual-row{display:flex;flex-direction:column;gap:8px}
+.dual-item{font-size:13px;color:#555;line-height:1.5}
+.dual-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:6px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-neutral{background:#f0f0ec;color:#444}
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1;min-width:0}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-badge{font-size:11px;background:#E1F5EE;color:#085041;padding:1px 7px;border-radius:3px;display:inline-block}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}
+.flag-global{background:#E6F1FB;color:#185FA5}
+.flag-trend{background:#E1F5EE;color:#085041}
+.flag-community{background:#EEEDFE;color:#3C3489}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff}
+.i-oy{background:#FF6B35}.i-amz{background:#FF9900}.i-gt{background:#4285F4}.i-rd{background:#FF4500}.i-sep{background:#000}.i-hwh{background:#FF6B6B}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+.goal-chip,.form-chip{padding:5px 12px;border-radius:20px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.goal-chip.on{background:#E1F5EE;color:#085041;border-color:#5DCAA5;font-weight:500}
+.form-chip.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}
+.tag-ok{background:#E6F1FB;color:#0C447C}
+.tag-care{background:#FAEEDA;color:#633806}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}.di-gray{background:#F1EFE8}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-red{background:#FCEBEB;color:#A32D2D}.db-amber{background:#FAEEDA;color:#633806}.db-gray{background:#F1EFE8;color:#444}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+.term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
+.term:hover{color:#185FA5}
+.empty-msg{text-align:center;padding:2rem 1rem;font-size:14px;color:#aaa}
+#tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#tooltip-box.show{display:block}
+.tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
+.tip-links{display:flex;gap:8px;margin-top:8px}
+.tl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
+.tl:hover{background:#B5D4F4}
+@media(max-width:480px){.dual-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl" id="tip-dict" href="#" target="_blank">사전</a></div></div>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">판테놀</div>
+<div class="ing-sub">Panthenol / Pro-Vitamin B5 · 보습·모발 강화 기능성 성분</div>
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab" style="border-color:#378ADD;color:#185FA5" onclick="sw('h',this)">⑤ 결론</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<div id="m" class="panel on">
+  <div class="card"><div class="clabel">작용 기전</div><div class="cbody" id="mech-text"></div></div>
+  <div class="compare-context" id="ctx-text"></div>
+  <div class="dual-grid">
+    <div class="dual-card hi">
+      <span class="rec">피부에 적용 시</span>
+      <div class="dual-name">피부 보습·장벽</div>
+      <div class="dual-row">
+        <div class="dual-item"><div class="dual-label">흡수 후 변환</div>판테놀 → 판토텐산(비타민B5)</div>
+        <div class="dual-item"><div class="dual-label">주요 작용</div>수분 흡수·유지, 피부 세포 재생, 염증 완화</div>
+        <div class="dual-item"><div class="dual-label">권장 농도</div>피부 5% 이상 / 민감성 1~2%</div>
+        <span class="diff-badge diff-good">모든 피부 타입 적합</span>
+      </div>
+    </div>
+    <div class="dual-card hi">
+      <span class="rec">모발에 적용 시</span>
+      <div class="dual-name">모발 보습·강화</div>
+      <div class="dual-row">
+        <div class="dual-item"><div class="dual-label">작용 위치</div>큐티클층 — 갈라진 틈 수분 충전</div>
+        <div class="dual-item"><div class="dual-label">주요 작용</div>모발 수분 함량 증가, 탄력 개선, 손상 임시 복구</div>
+        <div class="dual-item"><div class="dual-label">권장 농도</div>헤어 제품 5% 이상 권장</div>
+        <span class="diff-badge diff-good">즉각 효과 체감 가능</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="e" class="panel">
+  <div class="card"><div class="clabel">주요 효능</div><ul class="rlist">
+    <li><span class="dot dg"></span>강력한 보습 — 히알루론산처럼 물 분자를 끌어당겨 수분 유지</li>
+    <li><span class="dot dg"></span>피부 장벽 강화 — 손상된 장벽 세포 재생 촉진</li>
+    <li><span class="dot dg"></span>진정·항염 — 자극받은 피부 염증 완화</li>
+    <li><span class="dot dg"></span>모발 큐티클 보습 — 갈라진 틈 메우기. 윤기·탄력 즉각 개선</li>
+    <li><span class="dot dg"></span>두피 진정 — 건조·자극성 두피 케어</li>
+    <li><span class="dot dg"></span>거의 모든 피부·모발 타입에 자극 없이 사용 가능</li>
+  </ul></div>
+  <div class="card"><div class="clabel">주의점</div><ul class="rlist">
+    <li><span class="dot dr"></span>모발 표면에 임시로 작용하는 것이라 근본적인 모발 손상 복구는 불가 — 꾸준한 관리 필요</li>
+    <li><span class="dot dr"></span>고농도 사용 시 일부 피부에 끈적임 유발 가능</li>
+    <li><span class="dot dr"></span>극히 드물게 접촉성 피부염 보고 있으나 매우 안전한 성분</li>
+  </ul></div>
+  <div class="card"><div class="clabel">사용 팁</div><div class="cbody">
+    <span class="dot da" style="display:inline-block;margin-right:8px"></span><strong>피부 권장 농도</strong> 1~5% (민감성은 1~2%, 일반 보습엔 5%)<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>헤어 권장 농도</strong> 5% 이상 함유 제품 선택<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>pH 안정성</strong> 넓은 pH 범위에서 안정적. 대부분 제형과 호환
+  </div></div>
+</div>
+
+<div id="p" class="panel">
+  <div class="card"><div class="clabel">스킨케어 — 클릭하면 시장 반응 확인</div><div id="prod-skin"></div></div>
+  <div class="card"><div class="clabel">헤어케어 — 클릭하면 시장 반응 확인</div><div id="prod-hair"></div></div>
+</div>
+
+<div id="s" class="panel">
+  <div class="card">
+    <div class="clabel">조합 탐색</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px">원하는 효과와 제형을 선택하면 판테놀과 함께 쓰기 좋은 성분을 알려줄게</div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px">원하는 효과</div>
+    <div class="chip-row" id="goal-chips"></div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px;margin-top:12px">제형 타입</div>
+    <div class="chip-row" id="form-chips"></div>
+    <div id="combo-result" style="margin-top:1rem"></div>
+  </div>
+  <div class="card"><div class="clabel">같이 쓰면 주의할 성분</div><div id="danger-list"></div></div>
+</div>
+
+
+  <div id="h" class="panel">
+    <div class="card">
+      <div class="clabel">📊 시장 반응 요약 — 2025년 기준</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.5rem">
+        
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">📈</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">글로벌 시장</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#E1F5EE;color:#085041">안정적 고성장</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">판테놀 스킨케어 시장 2025년 약 81억 달러, 2030년까지 연 6.4% 성장. 거의 모든 화장품 카테고리에 사용되는 범용 핵심 성분.</div>
+      <div style="margin-top:8px"><div style="font-size:11px;color:#aaa;margin-bottom:3px">스킨케어+헤어케어 내 판테놀 활용도</div><div style="height:6px;background:#efefeb;border-radius:3px;overflow:hidden"><div style="height:100%;width:88%;border-radius:3px;background:linear-gradient(90deg,#5DCAA5,#1D9E75)"></div></div></div>
+    </div>
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">🤝</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">복합 처방</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#E6F1FB;color:#185FA5">HA와 황금 조합</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">히알루론산+판테놀 조합이 업계 표준. The Ordinary HA 2%+B5가 대표. 세라마이드+판테놀 장벽 복구 제품도 급성장.</div>
+      
+    </div>
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">🌿</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">클린뷰티</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#FAEEDA;color:#633806">비건 수요 급증</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">식물 유래 판테놀(Plant-based) 2024년 시장 58.3% 점유. 비건·크루얼티프리 인증 제품 필수 성분화. 클린뷰티 핵심 성분으로 채택 가속.</div>
+      
+    </div>
+    <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:16px">💆</span>
+        <span style="font-size:13px;font-weight:500;color:#1a1a1a">헤어케어</span>
+      </div>
+      <span style="font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block;margin-bottom:6px;background:#FAECE7;color:#993C1D">모발 보습 필수</span>
+      <div style="font-size:12px;color:#555;line-height:1.6">화장품·개인케어가 시장 39.8% 점유. 2025년 여름 판테놀 페이스 모이스처라이저 검색량 급증. Pantene Pro-V가 판테놀 대중화 상징.</div>
+      
+    </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="clabel">💬 실사용자 반응</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f0faf6;border-left:3px solid #1D9E75;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#1D9E75">긍정</span>"피부 장벽 무너졌을 때 라로슈포제 시카플라스트 B5 발랐더니 하룻밤 만에 진정됨"
+    </div>
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f0faf6;border-left:3px solid #1D9E75;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#1D9E75">긍정</span>"The Ordinary HA+B5는 그냥 필수템. 히알루론산+판테놀 조합이 보습 황금 공식"
+    </div>
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f0faf6;border-left:3px solid #1D9E75;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#1D9E75">긍정</span>"헤어 트리트먼트에 판테놀 들어가면 모발 매끄러움이 다름. 고데기 손상모에 특히 효과"
+    </div>
+    <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f5f5f2;border-left:3px solid #ccc;color:#555">
+      <span style="font-size:10px;font-weight:600;margin-right:6px;color:#888">중립</span>"자극 없고 효과 확실한데 극적이진 않아. 꾸준히 써야 하는 기본 성분"
+    </div></div>
+    </div>
+    <div style="border-radius:12px;padding:1.25rem;margin-bottom:1rem;background:#E1F5EE;border:1px solid #5DCAA5">
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:#085041">
+        <i class="ti ti-circle-check" style="font-size:18px"></i>이런 경우에 써봐
+      </div>
+      <ul style="list-style:none;padding:0">
+        <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>피부 장벽이 무너진 상태 — 즉각 진정 효과</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>레티놀·AHA 등 자극성 성분과 함께 쓸 때 장벽 보호</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>모발 손상·건조로 푸석거릴 때 — 큐티클 즉각 보습</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>민감성·건성·지성 모든 피부 타입 — 자극 거의 없음</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>히알루론산과 조합해 보습 효과 극대화</li>
+      </ul>
+    </div>
+    <div style="border-radius:12px;padding:1.25rem;margin-bottom:1rem;background:#FAEEDA;border:1px solid #E8B568">
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:#633806">
+        <i class="ti ti-alert-circle" style="font-size:18px"></i>이런 경우엔 다시 생각해봐
+      </div>
+      <ul style="list-style:none;padding:0">
+        <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>근본적인 피부 구조 개선 기대 — 표면 보습·장벽 지원 성분이지 주름 제거제 아님</li><li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>모발 내부 손상 완전 복구 기대 — 큐티클 임시 보수이지 내부 재건 아님</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel">어떻게 쓸까</div>
+      <div style="margin-bottom:10px"><div style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:13px;background:#E1F5EE;color:#085041">🌅 아침·저녁 모두 가능 (모든 루틴 단계 적합)</div></div>
+      <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:8px">
+    <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45">
+      <div style="font-size:9px;margin-bottom:2px">1</div>클렌저
+    </div>
+    <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+    <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45">
+      <div style="font-size:9px;margin-bottom:2px">2</div>토너
+    </div>
+    <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+    <div style="flex:1;min-width:68px;border:2px solid #185FA5;border-radius:7px;padding:7px 6px;text-align:center;background:#E6F1FB;font-size:11px;color:#185FA5;font-weight:500">
+      <div style="font-size:9px;margin-bottom:2px">3</div>판테놀
+세럼
+    </div>
+    <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+    <div style="flex:1;min-width:68px;border:2px solid #185FA5;border-radius:7px;padding:7px 6px;text-align:center;background:#E6F1FB;font-size:11px;color:#185FA5;font-weight:500">
+      <div style="font-size:9px;margin-bottom:2px">4</div>크림
+    </div>
+    <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+    <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45">
+      <div style="font-size:9px;margin-bottom:2px">5</div>선크림
+    </div>
+    </div>
+      <div style="font-size:12px;color:#aaa;margin-bottom:14px">세럼 또는 크림 단계 모두 가능. 히알루론산 후 판테놀 세럼 → 세라마이드 크림 순서 추천.</div>
+      <div class="clabel">제품 고를 때 체크리스트</div>
+      <ul style="list-style:none;padding:0">
+        <li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>성분표에 Panthenol 또는 D-Panthenol 명시 여부</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>피부용 1~5%, 헤어용 5% 이상 함유 제품 선택</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>히알루론산 또는 세라마이드와 복합 처방 제품 우선</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>La Roche-Posay, CeraVe 등 피부과학 브랜드 신뢰도 높음</li><li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#BA7517"></i>고농도(10%+) 단독 사용 — 끈적임 유발 가능</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="r" class="panel">
+  <div class="pc"><div class="pt">Panthenol and its role in skin and hair care</div><div class="pm">Camargo et al. · 2011 · International Journal of Cosmetic Science</div><div class="ps">판테놀이 피부와 모발에 흡수되는 경로와 보습·장벽 강화 메커니즘을 종합적으로 분석한 리뷰 논문. 피부 보습과 모발 윤기 개선에 대한 과학적 근거를 제시.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=panthenol+skin+hair+care+moisturizing+review" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Dexpanthenol in wound healing after superficial and reconstructive surgery</div><div class="pm">Ebner et al. · 2002 · Journal of Wound Care</div><div class="ps">판테놀(덱스판테놀)이 피부 상처 치유와 세포 재생에 미치는 효과를 임상적으로 입증한 연구. 피부 장벽 복구와 항염증 효과를 확인.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=dexpanthenol+wound+healing+skin+repair" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">The effect of panthenol on hair fiber properties</div><div class="pm">Dias et al. · 2007 · International Journal of Cosmetic Science</div><div class="ps">판테놀이 모발 섬유의 수분 함량, 탄성, 마찰계수에 미치는 영향을 측정한 연구. 5% 이상 농도에서 모발 보습과 탄력 개선 효과가 유의미하게 나타남을 확인.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=panthenol+hair+fiber+moisture+elasticity" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+</div>
+
+<script>
+const TERMS={
+  "판토텐산":{"def":"비타민B5의 활성형. 판테놀이 피부·모발에 흡수되면 판토텐산으로 전환돼 실제 효과를 발휘해.","wiki":"https://ko.wikipedia.org/wiki/판토텐산","dict":"https://terms.naver.com/search.naver?query=판토텐산"},
+  "프로비타민":{"def":"체내에서 활성 비타민으로 전환되는 전구체. 판테놀은 프로비타민B5로, 흡수 후 판토텐산(비타민B5)이 돼.","wiki":"https://ko.wikipedia.org/wiki/프로비타민","dict":"https://terms.naver.com/search.naver?query=프로비타민"},
+  "큐티클":{"def":"모발의 가장 바깥층. 비늘처럼 겹쳐져 모발 내부를 보호해. 손상되면 모발이 거칠고 푸석해 보여.","wiki":"https://ko.wikipedia.org/wiki/모표피","dict":"https://terms.naver.com/search.naver?query=모발+큐티클"},
+  "흡습":{"def":"공기나 주변 환경에서 수분을 끌어당기는 성질. 판테놀과 히알루론산이 대표적인 흡습제야.","wiki":"https://ko.wikipedia.org/wiki/흡습","dict":"https://terms.naver.com/search.naver?query=흡습+보습"},
+  "피부 장벽":{"def":"외부 자극과 수분 손실을 막는 피부의 보호 구조. 세라마이드·지질·천연보습인자로 구성돼.","wiki":"https://ko.wikipedia.org/wiki/피부_장벽","dict":"https://terms.naver.com/search.naver?query=피부장벽"},
+  "히알루론산":{"def":"피부 속 보습 물질. 자기 무게의 1000배 수분을 흡수해. 판테놀과 유사한 흡습 보습 성분이야.","wiki":"https://ko.wikipedia.org/wiki/히알루론산","dict":"https://terms.naver.com/search.naver?query=히알루론산"},
+  "세라마이드":{"def":"피부 장벽을 구성하는 지질 성분. 피부 속 수분이 빠져나가지 않게 잡아주는 역할을 해.","wiki":"https://ko.wikipedia.org/wiki/세라마이드","dict":"https://terms.naver.com/search.naver?query=세라마이드+피부"},
+  "케라틴":{"def":"모발·손발톱·피부를 구성하는 단백질. 모발의 주성분으로 케라틴이 손상되면 모발이 끊기고 윤기가 없어져.","wiki":"https://ko.wikipedia.org/wiki/케라틴","dict":"https://terms.naver.com/search.naver?query=케라틴"},
+  "항염":{"def":"염증을 억제하는 작용. 판테놀은 자극받은 피부의 염증 반응을 완화해줘.","wiki":"https://ko.wikipedia.org/wiki/항염증","dict":"https://terms.naver.com/search.naver?query=항염증"},
+};
+
+const tipBox=document.getElementById('tooltip-box');
+let activeTerm=null;
+function showTip(el,word){
+  if(activeTerm===el){hideTip();return;}
+  activeTerm=el;const g=TERMS[word];
+  document.getElementById('tip-title').textContent=word;
+  document.getElementById('tip-def').textContent=g.def;
+  document.getElementById('tip-wiki').href=g.wiki;
+  document.getElementById('tip-dict').href=g.dict;
+  tipBox.classList.add('show');
+  const rect=el.getBoundingClientRect();
+  let left=rect.left+window.scrollX,top=rect.bottom+window.scrollY+4;
+  if(left+248>window.innerWidth)left=window.innerWidth-248;
+  if(left<8)left=8;
+  tipBox.style.left=left+'px';tipBox.style.top=top+'px';
+}
+function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
+function annotate(html){
+  const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);
+  const marks={};
+  terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});
+  Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});
+  return html;
+}
+function sw(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');btn.classList.add('on');
+}
+
+document.getElementById('mech-text').innerHTML=annotate("판테놀(프로비타민 B5)은 피부와 모발에 흡수되면 판토텐산으로 전환돼. 히알루론산처럼 흡습 성질이 있어서 물 분자를 끌어당겨 수분을 오래 잡아둬. 피부에서는 손상된 세포 재생을 도와 피부 장벽을 복구하고, 모발에서는 큐티클층에 침투해 갈라진 틈을 수분으로 채워줘. 바르는 즉시 효과를 체감할 수 있다는 게 가장 큰 장점이야.");
+document.getElementById('ctx-text').innerHTML=annotate("판테놀은 피부용이냐 헤어용이냐에 따라 같은 성분이지만 작용하는 방식이 달라. 피부에선 세포 재생을 촉진하고 장벽을 강화하는 쪽으로 작용하고, 모발에선 큐티클 보습과 손상 부위 임시 복구에 집중해. 두 용도 모두 자극이 거의 없어서 민감성 피부·두피에도 안심하고 쓸 수 있어.");
+
+const PRODUCTS={
+  skin:[
+    {brand:"The Ordinary",product:"Hyaluronic Acid 2% + B5",note:"히알루론산 + 판테놀(B5) 보습 시너지 세럼. 대표 가성비",badge:"Panthenol (B5) 함유",url:"https://theordinary.com/en-us/hyaluronic-acid-2-b5-100422.html",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=the+ordinary+hyaluronic+acid+b5&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=the+ordinary+hyaluronic+acid+b5"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=the+ordinary+hyaluronic+acid+2+B5&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=the+ordinary+hyaluronic+acid+B5&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=The+Ordinary+Hyaluronic+Acid+B5&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=the+ordinary+hyaluronic+acid+B5&sort=top"}]}},
+    {brand:"La Roche-Posay",product:"Cicaplast Baume B5",note:"판테놀(B5) + 시카 복합 진정 크림. 민감·손상 피부 대표",badge:"Panthenol 함유",url:"https://www.laroche-posay.com/cicaplast-baume-b5",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=라로슈포제+시카플라스트+B5&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=라로슈포제+시카플라스트+B5"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=La+Roche-Posay+Cicaplast+Baume+B5&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=la+roche-posay+cicaplast+B5&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=La+Roche+Posay+Cicaplast+B5&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=cicaplast+baume+B5&sort=top"}]}},
+    {brand:"CeraVe",product:"Healing Ointment",note:"판테놀 + 세라마이드. 피부 장벽 복구 연고",badge:"Panthenol 함유",url:"https://www.cerave.com/skincare/moisturizers/healing-ointment",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=cerave+healing+ointment&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=cerave+healing+ointment"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=CeraVe+healing+ointment+panthenol&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=cerave+healing+ointment&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=CeraVe+healing+ointment&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=cerave+healing+ointment&sort=top"}]}},
+  ],
+  hair:[
+    {brand:"Pantene",product:"Pro-V Repair & Protect Shampoo",note:"판테놀 대표 브랜드. 판테놀 집중 모발 복구",badge:"Panthenol (Pro-V) 함유",url:"https://www.pantene.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=pantene+pro-v+repair&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=pantene+pro-v+repair"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=pantene+pro-v+repair+protect+shampoo&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=pantene+repair&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Pantene+Pro-V+Repair&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/HaircareScience 토론",url:"https://www.reddit.com/r/HaircareScience/search/?q=pantene+pro-v+panthenol&sort=top"}]}},
+    {brand:"Schwarzkopf",product:"Bonacure Moisture Kick Conditioner",note:"판테놀 + 히알루론산 모발 보습 컨디셔너",badge:"Panthenol 함유",url:"https://www.schwarzkopfprofessional.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=schwarzkopf+bonacure+moisture&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=schwarzkopf+bonacure+moisture"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=schwarzkopf+bonacure+moisture+kick+conditioner&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=schwarzkopf+bonacure&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Schwarzkopf+Bonacure+panthenol&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/HaircareScience 토론",url:"https://www.reddit.com/r/HaircareScience/search/?q=schwarzkopf+bonacure+panthenol&sort=top"}]}},
+  ]
+};
+
+function renderProducts(items,containerId){
+  document.getElementById(containerId).innerHTML=items.map((p,idx)=>{
+    const id=containerId+'_'+idx;
+    return '<div class="prod-item"><div class="prod-head" onclick="toggleExpand(\''+id+'\')"><div class="prod-info"><div class="prod-brand">'+p.brand+'</div><div class="prod-pname">'+p.product+'</div><div class="prod-note">'+p.note+'</div><span class="prod-badge">'+p.badge+'</span></div><div class="prod-right"><a class="prod-official" href="'+p.url+'" target="_blank" onclick="event.stopPropagation()"><i class="ti ti-external-link" style="font-size:11px"></i> 공식</a><i class="ti ti-chevron-down chevron" id="chevron_'+id+'"></i></div></div><div class="prod-expand" id="expand_'+id+'"><div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px">시장 반응 확인</div><div style="margin-bottom:6px"><span class="mkt-flag flag-kr">한국</span></div><div class="mkt-grid">'+p.market.kr.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-global">글로벌</span></div><div class="mkt-grid">'+p.market.global.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-trend">트렌드</span><span class="mkt-flag flag-community" style="margin-left:4px">커뮤니티</span></div><div class="mkt-grid">'+[...p.market.trend,...p.market.community].map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div></div></div>';
+  }).join('');
+}
+function toggleExpand(id){
+  const ex=document.getElementById('expand_'+id),ch=document.getElementById('chevron_'+id);
+  const isOpen=ex.classList.contains('open');
+  document.querySelectorAll('.prod-expand').forEach(e=>e.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(e=>e.classList.remove('open'));
+  if(!isOpen){ex.classList.add('open');ch.classList.add('open');}
+}
+renderProducts(PRODUCTS.skin,'prod-skin');
+renderProducts(PRODUCTS.hair,'prod-hair');
+
+const GOALS=["보습","피부 장벽 강화","모발 강화","진정·염증 완화","손상 모발 복구","두피 케어"];
+const FORMS=["세럼·앰플","크림·로션","샴푸","트리트먼트·컨디셔너","두피 세럼"];
+const COMBOS=[
+  {name:"히알루론산",goals:["보습","피부 장벽 강화"],forms:["세럼·앰플","크림·로션"],tags:[{t:"시너지",c:"tag-syn"},{t:"대표 조합",c:"tag-ok"}],desc:"히알루론산이 수분을 끌어당기면, 판테놀이 세포 재생을 도와 장벽이 그 수분을 더 오래 유지해줘. The Ordinary HA 2%+B5가 바로 이 조합이야.",how:"동일 제형 배합 쉬움. 세럼 단계에서 함께 사용 추천."},
+  {name:"세라마이드",goals:["피부 장벽 강화","보습"],forms:["크림·로션","세럼·앰플"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"판테놀이 장벽 세포 재생을 돕고, 세라마이드가 지질층을 채워줘. 손상된 피부 장벽 복구에 최강 조합이야.",how:"판테놀 세럼 → 세라마이드 크림 순서 레이어링."},
+  {name:"알란토인",goals:["진정·염증 완화","피부 장벽 강화"],forms:["세럼·앰플","크림·로션"],tags:[{t:"시너지",c:"tag-syn"},{t:"민감성 OK",c:"tag-ok"}],desc:"알란토인은 피부 세포 재생과 진정에 탁월해. 판테놀과 함께 쓰면 손상·자극 피부를 더 빠르게 회복시켜줘.",how:"동일 제형 배합 가능. 예민한 피부 복구 루틴에 특히 추천."},
+  {name:"케라틴 단백질",goals:["모발 강화","손상 모발 복구"],forms:["트리트먼트·컨디셔너","샴푸"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"케라틴이 모발 내부 구조를 채워주고, 판테놀이 큐티클 외부를 보습해줘. 내부+외부 동시 복구 전략이야.",how:"케라틴 트리트먼트 + 판테놀 함유 컨디셔너 조합 추천."},
+  {name:"나이아신아마이드",goals:["피부 장벽 강화","보습"],forms:["세럼·앰플","크림·로션"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"나이아신아마이드가 피부 장벽 지질 합성을 도와 판테놀의 보습 효과가 더 오래 유지되게 해줘.",how:"동일 제형 배합 가능. 순서 무관."},
+];
+const DANGERS=[
+  {level:"gray",levelText:"효과 과대 기대",name:"모발 근본 손상 복구",desc:"판테놀은 큐티클 표면을 임시로 수분 채워주는 것이라 열·화학 처리로 인한 모발 내부 손상을 완전히 복구할 수는 없어.",tip:"근본적인 모발 건강을 위해서는 단백질 트리트먼트, 열 보호제 사용, 과도한 시술 자제가 함께 필요해."},
+  {level:"gray",levelText:"끈적임 주의",name:"고농도 단독 사용",desc:"고농도(10% 이상) 판테놀 단독 사용 시 피부·모발에 끈적임이 남을 수 있어. 제형에 따라 다르지만 일부 불쾌감을 유발할 수 있어.",tip:"완제품 기준 적정 농도(피부 1~5%, 헤어 5%)로 설계된 제품을 선택하면 돼."},
+];
+
+let selGoals=new Set(),selForms=new Set();
+function renderChips(){
+  document.getElementById('goal-chips').innerHTML=GOALS.map(g=>'<button class="goal-chip'+(selGoals.has(g)?' on':'')+'" onclick="toggleGoal(\''+g+'\')">'+g+'</button>').join('');
+  document.getElementById('form-chips').innerHTML=FORMS.map(f=>'<button class="form-chip'+(selForms.has(f)?' on':'')+'" onclick="toggleForm(\''+f+'\')">'+f+'</button>').join('');
+}
+function toggleGoal(g){selGoals.has(g)?selGoals.delete(g):selGoals.add(g);renderChips();renderCombos();}
+function toggleForm(f){selForms.has(f)?selForms.delete(f):selForms.add(f);renderChips();renderCombos();}
+function renderCombos(){
+  const res=document.getElementById('combo-result');
+  if(selGoals.size===0&&selForms.size===0){res.innerHTML='<div class="empty-msg">원하는 효과나 제형을 선택해봐</div>';return;}
+  const matched=COMBOS.filter(c=>{
+    const gOk=selGoals.size===0||[...selGoals].some(g=>c.goals.includes(g));
+    const fOk=selForms.size===0||[...selForms].some(f=>c.forms.includes(f));
+    return gOk&&fOk;
+  });
+  if(!matched.length){res.innerHTML='<div class="empty-msg">해당 조건에 맞는 조합 성분이 없어.</div>';return;}
+  res.innerHTML=matched.map(c=>'<div class="combo-item"><div class="combo-head"><span class="combo-name">'+c.name+'</span><div class="combo-tags">'+c.tags.map(t=>'<span class="ctag '+t.c+'">'+t.t+'</span>').join('')+'</div></div><div class="combo-desc">'+c.desc+'</div><div class="combo-how">'+c.how+'</div></div>').join('');
+}
+function renderDangers(){
+  const im={red:'<i class="ti ti-alert-triangle" style="font-size:12px;color:#A32D2D"></i>',amber:'<i class="ti ti-alert-circle" style="font-size:12px;color:#633806"></i>',gray:'<i class="ti ti-minus-circle" style="font-size:12px;color:#444"></i>'};
+  const bm={red:'db-red',amber:'db-amber',gray:'db-gray'};
+  const bgm={red:'di-red',amber:'di-amber',gray:'di-gray'};
+  document.getElementById('danger-list').innerHTML=DANGERS.map(d=>'<div class="danger-item"><div class="danger-head"><div class="danger-icon '+bgm[d.level]+'">'+im[d.level]+'</div><span class="danger-name">'+d.name+'</span><span class="danger-badge '+bm[d.level]+'">'+d.levelText+'</span></div><div class="danger-desc">'+d.desc+'</div><div class="danger-tip">'+d.tip+'</div></div>').join('');
+}
+renderChips();renderCombos();renderDangers();
+</script>
+</body>
+</html>

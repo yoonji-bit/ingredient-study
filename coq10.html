@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코엔자임Q10 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.tab.highlight{border-color:#378ADD;color:#185FA5}
+.tab.highlight.on{background:#E6F1FB;color:#185FA5;border-color:#378ADD}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+.compare-context{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.cmp{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem}
+.cmp.hi{border:2px solid #378ADD}
+.rec{font-size:11px;background:#dceefb;color:#0c447c;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.cmp-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:10px}
+.cmp-row{display:flex;flex-direction:column;gap:8px}
+.cmp-item{font-size:13px;color:#555;line-height:1.5}
+.cmp-item-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:6px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-neutral{background:#f0f0ec;color:#444}
+.diff-amber{background:#FAEEDA;color:#633806}
+.formulation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
+.form-card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem;text-align:center}
+.form-card.hi{border:2px solid #1D9E75}
+.form-icon{font-size:24px;margin-bottom:8px}
+.form-name{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:6px}
+.form-desc{font-size:12px;color:#888;line-height:1.5}
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1;min-width:0}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-badge{font-size:11px;background:#E1F5EE;color:#085041;padding:1px 7px;border-radius:3px;display:inline-block}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}
+.flag-global{background:#E6F1FB;color:#185FA5}
+.flag-trend{background:#E1F5EE;color:#085041}
+.flag-community{background:#EEEDFE;color:#3C3489}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff}
+.i-oy{background:#FF6B35}.i-amz{background:#FF9900}.i-gt{background:#4285F4}.i-rd{background:#FF4500}.i-sep{background:#000}.i-hwh{background:#FF6B6B}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+.goal-chip,.form-chip{padding:5px 12px;border-radius:20px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.goal-chip.on{background:#E1F5EE;color:#085041;border-color:#5DCAA5;font-weight:500}
+.form-chip.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}
+.tag-ok{background:#E6F1FB;color:#0C447C}
+.tag-care{background:#FAEEDA;color:#633806}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}.di-gray{background:#F1EFE8}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-red{background:#FCEBEB;color:#A32D2D}.db-amber{background:#FAEEDA;color:#633806}.db-gray{background:#F1EFE8;color:#444}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+.term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
+.term:hover{color:#185FA5}
+.empty-msg{text-align:center;padding:2rem 1rem;font-size:14px;color:#aaa}
+#tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#tooltip-box.show{display:block}
+.tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
+.tip-links{display:flex;gap:8px;margin-top:8px}
+.tl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
+.tl:hover{background:#B5D4F4}
+
+/* ── ⑤ 이렇게 써봐 탭 전용 스타일 ── */
+.how-section{margin-bottom:1.25rem}
+.how-section-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.how-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.hb-blue{background:#E6F1FB;color:#185FA5}
+.hb-teal{background:#E1F5EE;color:#085041}
+.hb-amber{background:#FAEEDA;color:#633806}
+.hb-coral{background:#FAECE7;color:#993C1D}
+
+/* 루틴 순서 타임라인 */
+.routine-row{display:flex;align-items:stretch;gap:0;margin-bottom:.5rem;flex-wrap:wrap;gap:4px}
+.routine-step{flex:1;min-width:80px;border:0.5px solid #e0e0db;border-radius:8px;padding:8px 10px;text-align:center;background:#fff;position:relative;font-size:12px;color:#555}
+.routine-step.active{border:2px solid #185FA5;background:#E6F1FB}
+.routine-step.active .rs-name{color:#185FA5;font-weight:500}
+.routine-step.dim{opacity:.45}
+.rs-num{font-size:10px;color:#aaa;margin-bottom:3px}
+.rs-name{font-size:12px;color:#555;font-weight:400}
+.rs-arrow{display:flex;align-items:center;padding:0 2px;color:#ccc;font-size:14px;flex-shrink:0}
+
+/* 아침/저녁 pill */
+.timing-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.5rem}
+.timing-pill{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:13px}
+.tp-am{background:#FAEEDA;color:#633806}
+.tp-pm{background:#EEEDFE;color:#3C3489}
+.tp-both{background:#E1F5EE;color:#085041}
+
+/* 함량 체크 */
+.conc-bar-wrap{margin-top:6px}
+.conc-label-row{display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:4px}
+.conc-bar{height:8px;background:#efefeb;border-radius:4px;overflow:hidden;position:relative}
+.conc-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#B5D4F4,#185FA5)}
+.conc-marker{position:absolute;top:-2px;height:12px;width:2px;background:#D85A30;border-radius:1px}
+.conc-desc{font-size:12px;color:#888;margin-top:6px;line-height:1.5}
+
+/* 용기 안정성 */
+.container-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.container-card{border:0.5px solid #e0e0db;border-radius:10px;padding:.75rem;text-align:center;background:#fff}
+.container-card.good{border-color:#1D9E75;background:#f5fcf9}
+.container-card.bad{border-color:#D85A30;background:#fdf5f3}
+.container-card.ok{border-color:#ccc;background:#f9f9f7}
+.cc-icon{font-size:20px;margin-bottom:6px}
+.cc-name{font-size:12px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.cc-desc{font-size:11px;color:#888}
+
+/* 루틴 예시 */
+.routine-example{background:#f5f5f2;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.re-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:10px}
+.re-steps{display:flex;flex-direction:column;gap:6px}
+.re-step{display:flex;align-items:center;gap:10px;font-size:13px;color:#555}
+.re-num{width:20px;height:20px;border-radius:50%;background:#1a1a1a;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.re-num.highlight{background:#185FA5}
+.re-arrow-v{width:20px;text-align:center;color:#ccc;font-size:12px;flex-shrink:0}
+.check-list{list-style:none;padding:0}
+.check-list li{font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.check-list li:last-child{border-bottom:none}
+.check-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.ci-good{color:#1D9E75}
+.ci-bad{color:#D85A30}
+.ci-warn{color:#BA7517}
+
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}.formulation-grid{grid-template-columns:1fr}.container-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl" id="tip-dict" href="#" target="_blank">사전</a></div></div>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">코엔자임Q10</div>
+<div class="ing-sub">Coenzyme Q10 / CoQ10 · 항산화·항노화 기능성 성분</div>
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab highlight" onclick="sw('h',this)">⑤ 결론</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<!-- ① 기전 -->
+<div id="m" class="panel on">
+  <div class="card"><div class="clabel">작용 기전</div><div class="cbody" id="mech-text"></div></div>
+  <div class="compare-context" id="ctx-text"></div>
+  <div class="cmp-grid">
+    <div class="cmp">
+      <div class="cmp-name">유비퀴논 (Ubiquinone)</div>
+      <div class="cmp-row">
+        <div class="cmp-item"><div class="cmp-item-label">상태</div>산화형 — 충전 전 배터리</div>
+        <div class="cmp-item"><div class="cmp-item-label">안정성</div>높음 — 화장품에 주로 사용</div>
+        <div class="cmp-item"><div class="cmp-item-label">흡수 후</div>체내에서 유비퀴놀로 전환 후 작용</div>
+        <div class="cmp-item"><div class="cmp-item-label">색상</div>노란색 (제품에서 확인 가능)</div>
+        <span class="diff-badge diff-neutral">화장품 주류 형태</span>
+      </div>
+    </div>
+    <div class="cmp hi">
+      <span class="rec">흡수율 우위</span>
+      <div class="cmp-name">유비퀴놀 (Ubiquinol)</div>
+      <div class="cmp-row">
+        <div class="cmp-item"><div class="cmp-item-label">상태</div>환원형 — 충전 완료된 배터리</div>
+        <div class="cmp-item"><div class="cmp-item-label">안정성</div>낮음 — 제형 설계 까다로움</div>
+        <div class="cmp-item"><div class="cmp-item-label">흡수 후</div>전환 없이 바로 작용</div>
+        <div class="cmp-item"><div class="cmp-item-label">적합 대상</div>30대 이상 (전환 효율 저하 시)</div>
+        <span class="diff-badge diff-good">생체 이용률 높음</span>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="clabel">피부 흡수를 위한 3가지 제형 조건</div>
+    <div class="formulation-grid">
+      <div class="form-card hi">
+        <div class="form-icon">🔬</div>
+        <div class="form-name">나노화 기술</div>
+        <div class="form-desc">입자 200nm 이하로 축소. 리포좀·나노에멀젼·SLN 등 각질층 틈새 침투</div>
+      </div>
+      <div class="form-card hi">
+        <div class="form-icon">💧</div>
+        <div class="form-name">유화 시스템</div>
+        <div class="form-desc">오일상에 용해 후 에멀젼화. W/O 또는 크림 타입이 전달력 우수</div>
+      </div>
+      <div class="form-card hi">
+        <div class="form-icon">⚡</div>
+        <div class="form-name">침투촉진제</div>
+        <div class="form-desc">스쿠알란·올레산·에탄올이 각질층을 일시 이완. 배합 비율이 핵심</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 효능 & 주의점 -->
+<div id="e" class="panel">
+  <div class="card"><div class="clabel">주요 효능</div><ul class="rlist">
+    <li><span class="dot dg"></span>미토콘드리아 내부 활성산소 직접 제거 — 세포 에너지 생산 보호</li>
+    <li><span class="dot dg"></span>콜라겐 분해효소(MMP-1) 발현 억제 → 주름 생성 속도 감소</li>
+    <li><span class="dot dg"></span>섬유아세포 콜라겐 합성 촉진 → 피부 탄력 개선</li>
+    <li><span class="dot dg"></span>자외선 후 산화 스트레스 완화</li>
+    <li><span class="dot dg"></span>피부 에너지 대사 효율 향상 → 세포 재생 속도 개선</li>
+    <li><span class="dot dg"></span>독일 BDF 연구: 0.3% 나노에멀젼 12주 사용 시 주름 깊이 27% 감소</li>
+  </ul></div>
+  <div class="card"><div class="clabel">주의점</div><ul class="rlist">
+    <li><span class="dot dr"></span>제형이 부실하면 각질층 통과 불가 — 나노화·유화 기술 없으면 효과 거의 없음</li>
+    <li><span class="dot dr"></span>분자량 863Da로 크고 지용성 — 단순 크림에 섞으면 피부 표면에만 머묾</li>
+    <li><span class="dot dr"></span>유비퀴논은 빛·열에 불안정 — 차광 용기·저온 보관 필수</li>
+    <li><span class="dot dr"></span>침투촉진제 과다 시 자극 가능 — 배합 비율 설계가 핵심</li>
+  </ul></div>
+  <div class="card"><div class="clabel">사용 팁</div><div class="cbody">
+    <span class="dot da" style="display:inline-block;margin-right:8px"></span><strong>권장 농도</strong> 0.1~1% (임상 연구 기준 0.3%에서 유의미한 효과 확인)<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>제형 확인</strong> 나노에멀젼·리포좀·SLN 기술 포함 여부 성분표에서 확인<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>보관</strong> 차광 용기, 직사광선·고온 피하기
+  </div></div>
+</div>
+
+<!-- ③ 적용 사례 -->
+<div id="p" class="panel">
+  <div class="card"><div class="clabel">해외 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-global"></div></div>
+  <div class="card"><div class="clabel">국내 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-korea"></div></div>
+</div>
+
+<!-- ④ 유사 성분 -->
+<div id="s" class="panel">
+  <div class="card">
+    <div class="clabel">조합 탐색</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px">원하는 효과와 제형을 선택하면 CoQ10과 함께 쓰기 좋은 성분을 알려줄게</div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px">원하는 효과</div>
+    <div class="chip-row" id="goal-chips"></div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px;margin-top:12px">제형 타입</div>
+    <div class="chip-row" id="form-chips"></div>
+    <div id="combo-result" style="margin-top:1rem"></div>
+  </div>
+  <div class="card"><div class="clabel">같이 쓰면 주의할 성분</div><div id="danger-list"></div></div>
+</div>
+
+<!-- ⑤ 이렇게 써봐 -->
+<div id="h" class="panel">
+
+  <!-- 1. 루틴 순서 -->
+  <div class="card">
+    <div class="clabel">스킨케어 루틴에서 위치</div>
+    <div class="how-section">
+      <div style="font-size:13px;color:#555;margin-bottom:10px">CoQ10은 <strong>세럼 또는 크림 단계</strong>에서 사용해. 나노에멀젼 제형은 세럼 단계, 일반 크림 제형은 크림 단계가 적합해.</div>
+      <div class="routine-row">
+        <div class="routine-step dim"><div class="rs-num">1</div><div class="rs-name">클렌저</div></div>
+        <div class="rs-arrow">›</div>
+        <div class="routine-step dim"><div class="rs-num">2</div><div class="rs-name">토너</div></div>
+        <div class="rs-arrow">›</div>
+        <div class="routine-step active"><div class="rs-num">3</div><div class="rs-name">CoQ10 세럼</div></div>
+        <div class="rs-arrow">›</div>
+        <div class="routine-step active"><div class="rs-num">4</div><div class="rs-name">CoQ10 크림</div></div>
+        <div class="rs-arrow">›</div>
+        <div class="routine-step dim"><div class="rs-num">5</div><div class="rs-name">선크림</div></div>
+      </div>
+      <div style="font-size:12px;color:#aaa;margin-top:8px">* 세럼 타입이면 3단계, 크림 타입이면 4단계에 사용. 둘 다라면 세럼 먼저.</div>
+    </div>
+  </div>
+
+  <!-- 2. 아침/저녁 -->
+  <div class="card">
+    <div class="clabel">언제 쓰는 게 좋아?</div>
+    <div class="timing-row">
+      <div class="timing-pill tp-pm"><i class="ti ti-moon" style="font-size:14px"></i> 저녁 권장</div>
+    </div>
+    <div style="font-size:13px;color:#555;line-height:1.6">CoQ10(유비퀴논)은 빛에 불안정해서 <strong>저녁 사용이 기본</strong>이야. 자외선이 없는 밤에 세포 에너지 재생을 돕는 게 원래 취지와도 맞아. 유비퀴놀 형태의 안정화 제품이라면 아침에도 가능하지만, 선크림을 반드시 덧발라야 해.</div>
+  </div>
+
+  <!-- 3. 앞뒤 성분 궁합 -->
+  <div class="card">
+    <div class="clabel">앞뒤 성분 궁합</div>
+    <ul class="check-list">
+      <li><i class="ti ti-circle-check check-icon ci-good"></i><div><strong>바로 앞에 쓰면 좋은 것 — 히알루론산 토너</strong><br><span style="font-size:12px;color:#888">수분이 충분히 올라온 상태에서 CoQ10 세럼을 얹으면 흡수율이 높아져.</span></div></li>
+      <li><i class="ti ti-circle-check check-icon ci-good"></i><div><strong>바로 앞에 쓰면 좋은 것 — 나이아신아마이드 세럼</strong><br><span style="font-size:12px;color:#888">장벽을 정돈한 후 CoQ10이 더 안정적으로 침투해.</span></div></li>
+      <li><i class="ti ti-circle-check check-icon ci-good"></i><div><strong>바로 뒤에 쓰면 좋은 것 — 세라마이드 크림</strong><br><span style="font-size:12px;color:#888">CoQ10 세럼 후 크림으로 봉인하면 수분 손실 방지 + 침투 시간 확보.</span></div></li>
+      <li><i class="ti ti-alert-circle check-icon ci-warn"></i><div><strong>같은 단계 주의 — 비타민C (저 pH)</strong><br><span style="font-size:12px;color:#888">pH 차이로 CoQ10이 불안정해질 수 있어. 아침에 비타민C, 저녁에 CoQ10으로 분리 추천.</span></div></li>
+      <li><i class="ti ti-x check-icon ci-bad"></i><div><strong>함께 쓰지 말 것 — 강한 산 계열 (AHA/BHA 고농도)</strong><br><span style="font-size:12px;color:#888">산성 환경에서 CoQ10 산화 가속. 각질 제거 후 최소 20분 간격 두기.</span></div></li>
+    </ul>
+  </div>
+
+  <!-- 4. 함량 체크 -->
+  <div class="card">
+    <div class="clabel">제품 함량 확인 방법</div>
+    <div style="font-size:13px;color:#555;margin-bottom:12px">성분표(INCI)에서 <strong>Ubiquinone(유비퀴논)</strong> 또는 <strong>Ubiquinol(유비퀴놀)</strong>을 찾아봐.</div>
+    <div class="conc-bar-wrap">
+      <div class="conc-label-row"><span>0%</span><span style="color:#D85A30">최소 유효 농도 0.1%</span><span style="color:#185FA5">연구 기준 0.3%</span><span>1%+</span></div>
+      <div class="conc-bar">
+        <div class="conc-fill" style="width:30%"></div>
+        <div class="conc-marker" style="left:10%"></div>
+      </div>
+    </div>
+    <div class="conc-desc">성분표에서 Ubiquinone이 <strong>전체 성분 중 절반 이상 뒤</strong>에 위치하면 유효 농도 미달일 가능성 높아. "CoQ10 함유"라고 광고해도 극미량만 넣은 경우가 많으니 꼭 확인해.</div>
+  </div>
+
+  <!-- 5. 용기 안정성 -->
+  <div class="card">
+    <div class="clabel">어떤 용기가 안전해?</div>
+    <div style="font-size:13px;color:#555;margin-bottom:10px">CoQ10은 <strong>빛·공기·열에 민감</strong>해. 용기 선택이 제품 효과를 크게 좌우해.</div>
+    <div class="container-grid">
+      <div class="container-card good">
+        <div class="cc-icon">🟢</div>
+        <div class="cc-name">차광 불투명 용기</div>
+        <div class="cc-desc">빛 차단 최고. 가장 안전. 어두운 색 유리·플라스틱</div>
+      </div>
+      <div class="container-card good">
+        <div class="cc-icon">🟢</div>
+        <div class="cc-name">에어리스 펌프</div>
+        <div class="cc-desc">공기 접촉 차단. 산화 방지에 탁월. CoQ10 최적</div>
+      </div>
+      <div class="container-card bad">
+        <div class="cc-icon">🔴</div>
+        <div class="cc-name">투명 유리·플라스틱</div>
+        <div class="cc-desc">빛 그대로 통과. CoQ10 산화 가속. 비추천</div>
+      </div>
+      <div class="container-card bad">
+        <div class="cc-icon">🔴</div>
+        <div class="cc-name">뚜껑 여닫는 넓은 입구</div>
+        <div class="cc-desc">공기 반복 노출. 매번 산화. 크림 타입에서 특히 주의</div>
+      </div>
+      <div class="container-card ok">
+        <div class="cc-icon">🟡</div>
+        <div class="cc-name">색상 있는 유리</div>
+        <div class="cc-desc">빛 부분 차단. 에어리스와 조합 시 괜찮음</div>
+      </div>
+      <div class="container-card ok">
+        <div class="cc-icon">🟡</div>
+        <div class="cc-name">일반 펌프</div>
+        <div class="cc-desc">공기 부분 차단. 차광 용기와 조합 시 보통 수준</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 루틴 예시 -->
+  <div class="card">
+    <div class="clabel">저녁 루틴 예시</div>
+    <div class="routine-example">
+      <div class="re-title">🌙 CoQ10 중심 저녁 루틴</div>
+      <div class="re-steps">
+        <div class="re-step"><div class="re-num">1</div>클렌저로 세안</div>
+        <div class="re-step"><div class="re-arrow-v">↓</div></div>
+        <div class="re-step"><div class="re-num">2</div>히알루론산 토너 — 수분 베이스 충전</div>
+        <div class="re-step"><div class="re-arrow-v">↓</div></div>
+        <div class="re-step"><div class="re-num highlight">3</div><strong>CoQ10 나노에멀젼 세럼 ← 여기!</strong></div>
+        <div class="re-step"><div class="re-arrow-v">↓</div></div>
+        <div class="re-step"><div class="re-num">4</div>세라마이드·나이아신아마이드 크림으로 봉인</div>
+        <div class="re-step"><div class="re-arrow-v">↓</div></div>
+        <div class="re-step"><div class="re-num">5</div>(선택) 눈가엔 CoQ10 아이크림</div>
+      </div>
+    </div>
+
+    <div class="clabel" style="margin-top:1rem">제품 고를 때 체크리스트</div>
+    <ul class="check-list">
+      <li><i class="ti ti-circle-check check-icon ci-good"></i>성분표에 Ubiquinone 또는 Ubiquinol이 명시되어 있는가</li>
+      <li><i class="ti ti-circle-check check-icon ci-good"></i>나노에멀젼·리포좀·SLN 등 제형 기술이 언급되어 있는가</li>
+      <li><i class="ti ti-circle-check check-icon ci-good"></i>차광 용기 또는 에어리스 펌프 용기인가</li>
+      <li><i class="ti ti-circle-check check-icon ci-good"></i>Ubiquinone이 성분표 중간 이상 앞쪽에 있는가 (0.1% 이상)</li>
+      <li><i class="ti ti-x check-icon ci-bad"></i>투명 용기 + 뚜껑 방식이면 재고 (산화 위험)</li>
+      <li><i class="ti ti-alert-circle check-icon ci-warn"></i>"CoQ10 함유"만 강조하고 제형 기술 언급 없으면 주의</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- 논문 -->
+<div id="r" class="panel">
+  <div class="pc"><div class="pt">Topical application of coenzyme Q10 reduces the level of MMP-1 in human skin</div><div class="pm">Hoppe et al. · 1999 · BioFactors</div><div class="ps">CoQ10이 자외선으로 활성화되는 콜라겐 분해효소(MMP-1) 발현을 억제한다는 것을 처음 입증한 연구. CoQ10의 항노화 기전을 과학적으로 밝힌 핵심 논문.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=coenzyme+Q10+topical+MMP-1+skin+collagen" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Skin aging and oxidative stress: Equol's anti-aging effects via biochemical and molecular mechanisms</div><div class="pm">Knott et al. · 2008 · Skin Pharmacology and Physiology</div><div class="ps">0.3% CoQ10 나노에멀젼을 12주 사용했을 때 주름 깊이가 27% 감소했다는 임상 연구. 나노화 기술이 CoQ10 전달에 필수적임을 입증한 BDF 연구와 연관된 핵심 데이터.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=CoQ10+nano+emulsion+wrinkle+reduction+skin+aging" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Coenzyme Q10: absorption, tissue uptake, metabolism and pharmacokinetics</div><div class="pm">Bhagavan & Chopra · 2006 · Free Radical Research</div><div class="ps">CoQ10의 흡수 경로, 조직 분포, 대사 과정을 종합 분석한 리뷰. 지용성·고분자량 특성이 피부 흡수를 방해하는 이유와 제형 기술의 중요성을 과학적으로 정리.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=coenzyme+Q10+absorption+bioavailability+pharmacokinetics" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+</div>
+
+<script>
+const TERMS={
+  "미토콘드리아":{"def":"세포의 발전소. ATP(에너지)를 만드는 곳이야. 피부 세포가 콜라겐을 만들고 재생하려면 미토콘드리아가 건강해야 해.","wiki":"https://ko.wikipedia.org/wiki/미토콘드리아","dict":"https://terms.naver.com/search.naver?query=미토콘드리아"},
+  "활성산소":{"def":"세포 내에서 에너지를 만드는 과정에서 생기는 불안정한 산소 분자. 피부 노화·DNA 손상의 주요 원인이야.","wiki":"https://ko.wikipedia.org/wiki/활성산소","dict":"https://terms.naver.com/search.naver?query=활성산소"},
+  "ATP":{"def":"세포의 에너지 화폐. 모든 세포 활동(콜라겐 합성, 세포 분열 등)에 쓰이는 에너지 단위야.","wiki":"https://ko.wikipedia.org/wiki/ATP","dict":"https://terms.naver.com/search.naver?query=ATP+세포에너지"},
+  "유비퀴논":{"def":"CoQ10의 산화형. 화장품에 주로 사용되는 안정적인 형태. 충전 전 배터리처럼 피부 흡수 후 유비퀴놀로 전환돼야 작용해.","wiki":"https://ko.wikipedia.org/wiki/코엔자임Q10","dict":"https://terms.naver.com/search.naver?query=유비퀴논+CoQ10"},
+  "유비퀴놀":{"def":"CoQ10의 환원형. 이미 활성화된 상태라 흡수 후 바로 작용해. 30대 이후 체내 전환 효율이 떨어질 때 유리해.","wiki":"https://ko.wikipedia.org/wiki/코엔자임Q10","dict":"https://terms.naver.com/search.naver?query=유비퀴놀+CoQ10"},
+  "나노에멀젼":{"def":"200nm 이하 초미세 입자로 만든 에멀젼. CoQ10처럼 분자가 큰 성분이 각질층을 통과하도록 도와주는 제형 기술이야.","wiki":"https://ko.wikipedia.org/wiki/나노에멀젼","dict":"https://terms.naver.com/search.naver?query=나노에멀젼+화장품"},
+  "리포좀":{"def":"인지질로 만든 구형 캡슐. 활성 성분을 안에 담아 피부 깊이 전달하는 기술. CoQ10 전달에 자주 사용돼.","wiki":"https://ko.wikipedia.org/wiki/리포좀","dict":"https://terms.naver.com/search.naver?query=리포좀+화장품"},
+  "섬유아세포":{"def":"피부 진피층에 있는 세포. 콜라겐·엘라스틴 등 피부 구조 단백질을 만들어내는 역할을 해.","wiki":"https://ko.wikipedia.org/wiki/섬유아세포","dict":"https://terms.naver.com/search.naver?query=섬유아세포+콜라겐"},
+  "MMP-1":{"def":"콜라겐을 분해하는 효소. 자외선·활성산소에 의해 활성화되어 주름을 만들어. CoQ10이 이 효소를 억제해.","wiki":"https://ko.wikipedia.org/wiki/기질_금속단백분해효소","dict":"https://terms.naver.com/search.naver?query=MMP-1+콜라겐+분해효소"},
+  "스쿠알란":{"def":"피부 친화적인 오일 성분. 각질층을 부드럽게 해서 다른 성분의 침투를 도와줘. CoQ10의 침투촉진제로 자주 쓰여.","wiki":"https://ko.wikipedia.org/wiki/스쿠알렌","dict":"https://terms.naver.com/search.naver?query=스쿠알란+화장품"},
+  "각질층":{"def":"피부의 가장 바깥층. 죽은 세포들이 벽돌처럼 쌓인 구조. 분자가 크거나 물과 안 친한 성분은 통과하기 어려워.","wiki":"https://ko.wikipedia.org/wiki/각질층","dict":"https://terms.naver.com/search.naver?query=각질층+피부"},
+  "지용성":{"def":"기름에 녹는 성질. CoQ10은 지용성이라 수분이 많은 제형에서 불안정하고 피부 흡수가 어려워.","wiki":"https://ko.wikipedia.org/wiki/지용성","dict":"https://terms.naver.com/search.naver?query=지용성+수용성+비타민"},
+  "콜라겐":{"def":"피부 탄력과 구조를 유지하는 단백질. 나이 들수록 줄어들어 주름이 생기고 피부가 처져.","wiki":"https://ko.wikipedia.org/wiki/콜라겐","dict":"https://terms.naver.com/search.naver?query=콜라겐+피부"},
+};
+
+const tipBox=document.getElementById('tooltip-box');
+let activeTerm=null;
+function showTip(el,word){
+  if(activeTerm===el){hideTip();return;}
+  activeTerm=el;const g=TERMS[word];
+  document.getElementById('tip-title').textContent=word;
+  document.getElementById('tip-def').textContent=g.def;
+  document.getElementById('tip-wiki').href=g.wiki;
+  document.getElementById('tip-dict').href=g.dict;
+  tipBox.classList.add('show');
+  const rect=el.getBoundingClientRect();
+  let left=rect.left+window.scrollX,top=rect.bottom+window.scrollY+4;
+  if(left+248>window.innerWidth)left=window.innerWidth-248;
+  if(left<8)left=8;
+  tipBox.style.left=left+'px';tipBox.style.top=top+'px';
+}
+function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
+function annotate(html){
+  const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);
+  const marks={};
+  terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});
+  Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});
+  return html;
+}
+function sw(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');btn.classList.add('on');
+}
+
+document.getElementById('mech-text').innerHTML=annotate("코엔자임Q10은 세포 발전소인 미토콘드리아에서 ATP 에너지를 만들 때 전자를 운반하는 핵심 성분이야. 이 과정에서 생기는 활성산소를 현장에서 바로 잡아주는 항산화제이기도 해. 비타민C나 E가 세포 밖에서 순찰하는 경비원이라면, CoQ10은 발전소 내부 안전요원인 셈이야. 나이 들수록 피부 CoQ10 농도가 떨어지고 활성산소 제거 능력이 줄어들면서 주름·탄력 저하로 이어져.");
+document.getElementById('ctx-text').innerHTML=annotate("CoQ10은 두 가지 형태가 있어. 산화형 유비퀴논은 충전 전 배터리처럼 흡수 후 유비퀴놀로 전환돼야 작용해. 환원형 유비퀴놀은 충전 완료된 배터리로 바로 작용해. 나이 들수록 전환 효율이 떨어지기 때문에, 30대 이상이라면 유비퀴놀 함유 제품을 고려해볼 만해. 단, CoQ10이 아무리 좋아도 각질층을 통과하지 못하면 효과가 없어 — 제형 기술이 핵심이야.");
+
+const PRODUCTS={
+  global:[
+    {brand:"Nivea",product:"Q10 Anti-Wrinkle + Energy Serum",note:"CoQ10 나노에멀젼 대중화 선구자. 독일 Beiersdorf 제조",badge:"Ubiquinone (CoQ10) 함유",url:"https://www.nivea.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=nivea+Q10&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=니베아+Q10"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=Nivea+Q10+anti+wrinkle+serum&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=nivea+Q10+serum&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Nivea+Q10+anti+wrinkle&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=nivea+Q10+coenzyme&sort=top"}]}},
+    {brand:"Peter Thomas Roth",product:"Potent-C Power Serum",note:"고농도 비타민C + CoQ10 복합 항산화 세럼",badge:"Coenzyme Q10 함유",url:"https://www.peterthomasroth.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=peter+thomas+roth+potent+c&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=peter+thomas+roth+potent+c"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=peter+thomas+roth+potent+c+serum&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=peter+thomas+roth+potent-c&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Peter+Thomas+Roth+Potent-C+serum&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=peter+thomas+roth+potent+c+coq10&sort=top"}]}},
+    {brand:"Eucerin",product:"Q10 Anti-Wrinkle Face Cream",note:"독일 피부과학 브랜드. CoQ10 + 카르니틴 복합 주름 크림",badge:"Coenzyme Q10 함유",url:"https://www.eucerin.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=eucerin+Q10&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=유세린+Q10"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=Eucerin+Q10+anti+wrinkle+cream&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=eucerin+Q10+cream&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Eucerin+Q10+anti+wrinkle&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=eucerin+Q10+coenzyme&sort=top"}]}},
+  ],
+  korea:[
+    {brand:"셀퓨전씨",product:"포토나노 Q10 에센스",note:"나노 CoQ10 기술 적용 한국 브랜드 대표 제품",badge:"Ubiquinone (CoQ10) 나노화",url:"https://www.cellfusionc.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=셀퓨전씨+Q10&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=셀퓨전씨+Q10+에센스"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=cellfusionc+coenzyme+Q10+essence&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=cellfusionc+Q10&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=cellfusionc+coenzyme+Q10&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=cellfusionc+Q10&sort=top"}]}},
+    {brand:"AHC",product:"슈프림 리얼 아이크림 포 페이스",note:"CoQ10 + 콜라겐 복합. 눈가 주름 특화 대표 제품",badge:"Coenzyme Q10 함유",url:"https://www.ahcbeauty.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=AHC+슈프림+리얼+아이크림&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=AHC+슈프림+리얼+아이크림"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=AHC+supreme+real+eye+cream+coenzyme+Q10&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=AHC+supreme+eye+cream&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=AHC+supreme+real+eye+cream&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=AHC+eye+cream+coenzyme+Q10&sort=top"}]}},
+    {brand:"웰라쥬",product:"리얼 히아루 0.1% 앰플",note:"CoQ10 + 히알루론산 복합 앰플. 항노화+보습 이중 효과",badge:"Coenzyme Q10 함유",url:"https://wellage.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=웰라쥬+Q10+앰플&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=웰라쥬+Q10"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=wellage+coenzyme+Q10+ampoule&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=wellage+Q10&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=wellage+coenzyme+Q10&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=wellage+Q10&sort=top"}]}},
+  ]
+};
+
+function renderProducts(items,containerId){
+  document.getElementById(containerId).innerHTML=items.map((p,idx)=>{
+    const id=containerId+'_'+idx;
+    return '<div class="prod-item"><div class="prod-head" onclick="toggleExpand(\''+id+'\')"><div class="prod-info"><div class="prod-brand">'+p.brand+'</div><div class="prod-pname">'+p.product+'</div><div class="prod-note">'+p.note+'</div><span class="prod-badge">'+p.badge+'</span></div><div class="prod-right"><a class="prod-official" href="'+p.url+'" target="_blank" onclick="event.stopPropagation()"><i class="ti ti-external-link" style="font-size:11px"></i> 공식</a><i class="ti ti-chevron-down chevron" id="chevron_'+id+'"></i></div></div><div class="prod-expand" id="expand_'+id+'"><div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px">시장 반응 확인</div><div style="margin-bottom:6px"><span class="mkt-flag flag-kr">한국</span></div><div class="mkt-grid">'+p.market.kr.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-global">글로벌</span></div><div class="mkt-grid">'+p.market.global.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-trend">트렌드</span><span class="mkt-flag flag-community" style="margin-left:4px">커뮤니티</span></div><div class="mkt-grid">'+[...p.market.trend,...p.market.community].map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div></div></div>';
+  }).join('');
+}
+function toggleExpand(id){
+  const ex=document.getElementById('expand_'+id),ch=document.getElementById('chevron_'+id);
+  const isOpen=ex.classList.contains('open');
+  document.querySelectorAll('.prod-expand').forEach(e=>e.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(e=>e.classList.remove('open'));
+  if(!isOpen){ex.classList.add('open');ch.classList.add('open');}
+}
+renderProducts(PRODUCTS.global,'prod-global');
+renderProducts(PRODUCTS.korea,'prod-korea');
+
+const GOALS=["항노화·주름","항산화","피부 탄력","콜라겐 합성","피부 에너지","눈가 케어"];
+const FORMS=["세럼·앰플","크림","아이크림","선크림"];
+const COMBOS=[
+  {name:"비타민E (토코페롤)",goals:["항산화","항노화·주름"],forms:["세럼·앰플","크림"],tags:[{t:"시너지",c:"tag-syn"},{t:"조합 추천",c:"tag-ok"}],desc:"비타민E는 CoQ10을 산화 손상으로부터 보호해줘. CoQ10이 활성산소를 제거한 후 비타민E가 CoQ10을 다시 환원시켜주는 '재생 순환' 관계야.",how:"동일 제형 배합 가능. CoQ10 세럼 → 비타민E 함유 크림 순서 추천."},
+  {name:"레티놀",goals:["항노화·주름","피부 탄력","콜라겐 합성"],forms:["세럼·앰플","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"레티놀은 세포 재생을 촉진하고, CoQ10은 재생에 필요한 에너지를 공급해줘. 항노화 효과를 극대화하는 조합이야.",how:"레티놀은 저녁에만, CoQ10도 저녁 추천. 함께 쓰되 레티놀 자극 있으면 격일 적용."},
+  {name:"나이아신아마이드",goals:["피부 에너지","항노화·주름"],forms:["세럼·앰플","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"나이아신아마이드는 NAD+ 생성을 도와 CoQ10과 함께 미토콘드리아 에너지 대사를 강화해줘.",how:"동일 제형 배합 가능. 나이아신아마이드 세럼 → CoQ10 세럼 또는 크림."},
+  {name:"비타민C",goals:["항산화","항노화·주름"],forms:["세럼·앰플"],tags:[{t:"조합 가능",c:"tag-ok"},{t:"시간 분리",c:"tag-care"}],desc:"두 성분 모두 강력한 항산화제지만 pH가 달라. 함께 쓰면 CoQ10 안정성이 저하될 수 있어.",how:"비타민C(아침) + CoQ10(저녁) 분리 사용 강력 권장."},
+  {name:"히알루론산",goals:["피부 에너지","항노화·주름"],forms:["세럼·앰플","크림"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"히알루론산이 수분을 충분히 공급하면 CoQ10 나노에멀젼이 더 효과적으로 침투해.",how:"히알루론산 토너·세럼 먼저, 이후 CoQ10 세럼 적용."},
+];
+const DANGERS=[
+  {level:"amber",levelText:"안정성 저하",name:"강한 산성 성분 (AHA/BHA, 비타민C 저 pH)",desc:"산성 환경에서 CoQ10 산화가 가속돼. 특히 AHA/BHA 각질 제거제와 같은 단계에서 사용하면 효과가 크게 떨어져.",tip:"각질 제거제 사용 후 최소 20분 간격. 비타민C는 아침, CoQ10은 저녁으로 완전 분리."},
+  {level:"amber",levelText:"안정성 저하",name:"빛·열 노출",desc:"CoQ10(유비퀴논)은 자외선과 열에 불안정해. 투명 용기나 욕실 보관은 빠르게 분해시켜.",tip:"차광 용기 + 에어리스 펌프 제품 선택. 직사광선 피해 서늘한 곳에 보관. 개봉 후 6개월 이내 사용."},
+  {level:"gray",levelText:"효과 반감",name:"제형 기술 없는 단순 크림",desc:"나노화·유화 기술 없이 단순히 CoQ10을 배합한 제품은 각질층을 통과하지 못해 효과가 거의 없어.",tip:"성분표에서 나노에멀젼·리포좀·SLN 기술 언급 확인 필수. 없다면 다른 제품 탐색 권장."},
+];
+
+let selGoals=new Set(),selForms=new Set();
+function renderChips(){
+  document.getElementById('goal-chips').innerHTML=GOALS.map(g=>'<button class="goal-chip'+(selGoals.has(g)?' on':'')+'" onclick="toggleGoal(\''+g+'\')">'+g+'</button>').join('');
+  document.getElementById('form-chips').innerHTML=FORMS.map(f=>'<button class="form-chip'+(selForms.has(f)?' on':'')+'" onclick="toggleForm(\''+f+'\')">'+f+'</button>').join('');
+}
+function toggleGoal(g){selGoals.has(g)?selGoals.delete(g):selGoals.add(g);renderChips();renderCombos();}
+function toggleForm(f){selForms.has(f)?selForms.delete(f):selForms.add(f);renderChips();renderCombos();}
+function renderCombos(){
+  const res=document.getElementById('combo-result');
+  if(selGoals.size===0&&selForms.size===0){res.innerHTML='<div class="empty-msg">원하는 효과나 제형을 선택해봐</div>';return;}
+  const matched=COMBOS.filter(c=>{
+    const gOk=selGoals.size===0||[...selGoals].some(g=>c.goals.includes(g));
+    const fOk=selForms.size===0||[...selForms].some(f=>c.forms.includes(f));
+    return gOk&&fOk;
+  });
+  if(!matched.length){res.innerHTML='<div class="empty-msg">해당 조건에 맞는 조합 성분이 없어.</div>';return;}
+  res.innerHTML=matched.map(c=>'<div class="combo-item"><div class="combo-head"><span class="combo-name">'+c.name+'</span><div class="combo-tags">'+c.tags.map(t=>'<span class="ctag '+t.c+'">'+t.t+'</span>').join('')+'</div></div><div class="combo-desc">'+c.desc+'</div><div class="combo-how">'+c.how+'</div></div>').join('');
+}
+function renderDangers(){
+  const im={red:'<i class="ti ti-alert-triangle" style="font-size:12px;color:#A32D2D"></i>',amber:'<i class="ti ti-alert-circle" style="font-size:12px;color:#633806"></i>',gray:'<i class="ti ti-minus-circle" style="font-size:12px;color:#444"></i>'};
+  const bm={red:'db-red',amber:'db-amber',gray:'db-gray'};
+  const bgm={red:'di-red',amber:'di-amber',gray:'di-gray'};
+  document.getElementById('danger-list').innerHTML=DANGERS.map(d=>'<div class="danger-item"><div class="danger-head"><div class="danger-icon '+bgm[d.level]+'">'+im[d.level]+'</div><span class="danger-name">'+d.name+'</span><span class="danger-badge '+bm[d.level]+'">'+d.levelText+'</span></div><div class="danger-desc">'+d.desc+'</div><div class="danger-tip">'+d.tip+'</div></div>').join('');
+}
+renderChips();renderCombos();renderDangers();
+</script>
+</body>
+</html>

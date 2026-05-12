@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비타민K 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.tab.highlight{border-color:#378ADD;color:#185FA5}
+.tab.highlight.on{background:#E6F1FB;color:#185FA5;border-color:#378ADD;font-weight:600}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+.compare-context{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem}
+.cmp{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem}
+.cmp.hi{border:2px solid #378ADD}
+.cmp.warn{border:2px solid #D85A30}
+.rec{font-size:11px;background:#dceefb;color:#0c447c;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.rec-warn{font-size:11px;background:#FAECE7;color:#993C1D;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.rec-gray{font-size:11px;background:#f0f0ec;color:#555;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.cmp-name{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:8px}
+.cmp-body{font-size:12px;color:#555;line-height:1.55}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:6px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-warn{background:#FAECE7;color:#993C1D}
+.diff-neutral{background:#f0f0ec;color:#444}
+.press-test{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.press-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:0.5px solid #efefeb}
+.press-row:last-child{border-bottom:none}
+.press-dot{width:32px;height:32px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px}
+.pd-blue{border-color:#378ADD;background:#E6F1FB;color:#185FA5}
+.pd-brown{border-color:#D85A30;background:#FAECE7;color:#993C1D}
+.press-info{flex:1}
+.press-type{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:2px}
+.press-desc{font-size:12px;color:#888}
+.press-result{font-size:12px;font-weight:500}
+.pr-blue{color:#185FA5}.pr-brown{color:#D85A30}
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1;min-width:0}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-badge{font-size:11px;background:#E1F5EE;color:#085041;padding:1px 7px;border-radius:3px;display:inline-block}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}
+.flag-global{background:#E6F1FB;color:#185FA5}
+.flag-trend{background:#E1F5EE;color:#085041}
+.flag-community{background:#EEEDFE;color:#3C3489}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff}
+.i-oy{background:#FF6B35}.i-amz{background:#FF9900}.i-gt{background:#4285F4}.i-rd{background:#FF4500}.i-sep{background:#000}.i-hwh{background:#FF6B6B}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+.goal-chip,.form-chip{padding:5px 12px;border-radius:20px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.goal-chip.on{background:#E1F5EE;color:#085041;border-color:#5DCAA5;font-weight:500}
+.form-chip.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}
+.tag-ok{background:#E6F1FB;color:#0C447C}
+.tag-care{background:#FAEEDA;color:#633806}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}.di-gray{background:#F1EFE8}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-red{background:#FCEBEB;color:#A32D2D}.db-amber{background:#FAEEDA;color:#633806}.db-gray{background:#F1EFE8;color:#444}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+.term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
+.term:hover{color:#185FA5}
+.empty-msg{text-align:center;padding:2rem 1rem;font-size:14px;color:#aaa}
+#tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#tooltip-box.show{display:block}
+.tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
+.tip-links{display:flex;gap:8px;margin-top:8px}
+.tl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
+.tl:hover{background:#B5D4F4}
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl" id="tip-dict" href="#" target="_blank">사전</a></div></div>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">비타민K</div>
+<div class="ing-sub">Vitamin K / Phytonadione (K1) · 혈관성 색소 개선 성분</div>
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab highlight" onclick="sw('h',this)">⑤ 결론</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<!-- ① 기전 -->
+<div id="m" class="panel on">
+  <div class="card"><div class="clabel">작용 기전</div><div class="cbody" id="mech-text"></div></div>
+  <div class="compare-context" id="ctx-text"></div>
+
+  <!-- 홍반 타입 구분 -->
+  <div class="card">
+    <div class="clabel">홍반 타입별 비타민K 효과 — 누르면 알 수 있어</div>
+    <div class="press-test">
+      <div class="press-row">
+        <div class="press-dot pd-blue"><i class="ti ti-hand-finger" style="font-size:14px"></i></div>
+        <div class="press-info">
+          <div class="press-type">누르면 하얘짐 → 혈관 확장형</div>
+          <div class="press-desc">혈관이 확장되어 혈류량이 많아진 상태. 자외선·자극·염증 반응.</div>
+        </div>
+        <div class="press-result pr-blue">비타민K 효과 제한적</div>
+      </div>
+      <div class="press-row">
+        <div class="press-dot pd-brown"><i class="ti ti-hand-finger" style="font-size:14px"></i></div>
+        <div class="press-info">
+          <div class="press-type">눌러도 색이 그대로 → 출혈성</div>
+          <div class="press-desc">모세혈관이 실제로 파열되어 혈액이 조직에 새어나온 상태. 멍·자반·점상출혈.</div>
+        </div>
+        <div class="press-result pr-brown">비타민K 효과 있음 ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 다크서클 타입 비교 -->
+  <div class="compare-context" style="margin-bottom:12px">눈 밑 다크서클도 타입에 따라 비타민K 효과가 완전히 달라. 색상으로 먼저 구분해봐.</div>
+  <div class="cmp-grid">
+    <div class="cmp hi">
+      <span class="rec">비타민K 적합</span>
+      <div class="cmp-name">혈관성 다크서클</div>
+      <div class="cmp-body">색상: 푸르스름·보라빛<br>원인: 모세혈관 투시, 혈액 풀링<br>누르면: 일시적으로 옅어짐</div>
+      <span class="diff-badge diff-good">비타민K로 모세혈관 강화</span>
+    </div>
+    <div class="cmp">
+      <span class="rec-gray">아르부틴·나이아신아마이드</span>
+      <div class="cmp-name">색소성 다크서클</div>
+      <div class="cmp-body">색상: 갈색·황갈색<br>원인: 멜라닌 과잉 침착, 자외선<br>누르면: 변화 없음</div>
+      <span class="diff-badge diff-neutral">미백 성분이 맞아</span>
+    </div>
+    <div class="cmp">
+      <span class="rec-gray">필러·리프팅</span>
+      <div class="cmp-name">구조성 다크서클</div>
+      <div class="cmp-body">색상: 그림자색<br>원인: 눈가 꺼짐, 볼륨 손실<br>누르면: 변화 없음</div>
+      <span class="diff-badge diff-neutral">화장품으로 해결 어려움</span>
+    </div>
+  </div>
+</div>
+
+<!-- ② 효능 & 주의점 -->
+<div id="e" class="panel">
+  <div class="card"><div class="clabel">주요 효능</div><ul class="rlist">
+    <li><span class="dot dg"></span>혈관성 다크서클 개선 — 모세혈관 강화 + 혈액 풀링 감소</li>
+    <li><span class="dot dg"></span>멍 회복 가속 — 응고 인자 활성화로 출혈 빠르게 차단</li>
+    <li><span class="dot dg"></span>모세혈관 확장증(실핏줄) 완화</li>
+    <li><span class="dot dg"></span>시술 후 출혈성 멍·자반 회복 지원</li>
+    <li><span class="dot dg"></span>헤모시데린(철 색소) 침착 추가 진행 억제</li>
+  </ul></div>
+  <div class="card"><div class="clabel">주의점</div><ul class="rlist">
+    <li><span class="dot dr"></span>혈관 확장형 홍반에는 직접 효과 없음 — 진정 성분이 우선</li>
+    <li><span class="dot dr"></span>색소성·구조성 다크서클에는 효과 없음 — 타입 구분 필수</li>
+    <li><span class="dot dr"></span>외용 화장품 농도에서 전신 혈액 응고에 영향 없음 — 안전</li>
+    <li><span class="dot dr"></span>피부과 기준 유효 농도: K1(Phytonadione) 0.1~1%, K 옥사이드(K Oxide) 1%</li>
+    <li><span class="dot dr"></span>스피큘 시술 직후: 장벽 복구 성분(판테놀·세라마이드) 먼저, 비타민K는 멍 단계 이후</li>
+  </ul></div>
+  <div class="card"><div class="clabel">사용 팁</div><div class="cbody">
+    <span class="dot da" style="display:inline-block;margin-right:8px"></span><strong>권장 농도</strong> Phytonadione(K1) 0.1~1% / Vitamin K Oxide 1%<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>효과 발현</strong> 4~8주 꾸준한 사용 후 판단<br>
+    <span class="dot da" style="display:inline-block;margin-right:8px;margin-top:8px"></span><strong>타입 확인</strong> 사용 전 반드시 누르기 테스트로 혈관성인지 확인
+  </div></div>
+</div>
+
+<!-- ③ 적용 사례 -->
+<div id="p" class="panel">
+  <div class="card"><div class="clabel">해외 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-global"></div></div>
+  <div class="card"><div class="clabel">국내 브랜드 — 클릭하면 시장 반응 확인</div><div id="prod-korea"></div></div>
+</div>
+
+<!-- ④ 유사 성분 -->
+<div id="s" class="panel">
+  <div class="card">
+    <div class="clabel">조합 탐색</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px">원하는 효과와 제형을 선택하면 비타민K와 함께 쓰기 좋은 성분을 알려줄게</div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px">원하는 효과</div>
+    <div class="chip-row" id="goal-chips"></div>
+    <div style="font-size:12px;color:#555;font-weight:500;margin-bottom:6px;margin-top:12px">제형 타입</div>
+    <div class="chip-row" id="form-chips"></div>
+    <div id="combo-result" style="margin-top:1rem"></div>
+  </div>
+  <div class="card"><div class="clabel">같이 쓰면 안 되는 성분</div><div id="danger-list"></div></div>
+</div>
+
+<!-- ⑤ 결론 -->
+<div id="h" class="panel">
+  <div class="card">
+    <div class="clabel">📊 시장 반응 요약 — 2025년 기준</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.5rem">
+      <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px"><span style="font-size:16px">👁️</span><span style="font-size:13px;font-weight:500;color:#1a1a1a">포지셔닝</span></div>
+        <span style="font-size:11px;padding:1px 7px;border-radius:3px;background:#E6F1FB;color:#185FA5;display:inline-block;margin-bottom:6px">아이크림 특화 성분</span>
+        <div style="font-size:12px;color:#555;line-height:1.6">비타민K는 전체 스킨케어 시장보다 <strong>아이크림·눈가 전용 세럼</strong>에 집중된 틈새 성분이야. 광범위한 스킨케어 성분이라기보다는 다크서클·눈가 멍 전문 성분으로 포지셔닝.</div>
+      </div>
+      <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px"><span style="font-size:16px">🤝</span><span style="font-size:13px;font-weight:500;color:#1a1a1a">복합 처방 트렌드</span></div>
+        <span style="font-size:11px;padding:1px 7px;border-radius:3px;background:#E1F5EE;color:#085041;display:inline-block;margin-bottom:6px">복합 성분 주류</span>
+        <div style="font-size:12px;color:#555;line-height:1.6">비타민K 단독보다 <strong>카페인+비타민K+레티날</strong> 또는 <strong>나이아신아마이드+비타민K</strong> 복합 처방이 2024~2025년 트렌드. Minimalist, Naturium, ISDIN 등 신규 출시 집중.</div>
+      </div>
+      <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px"><span style="font-size:16px">⚠️</span><span style="font-size:13px;font-weight:500;color:#1a1a1a">규제 이슈</span></div>
+        <span style="font-size:11px;padding:1px 7px;border-radius:3px;background:#FAECE7;color:#993C1D;display:inline-block;margin-bottom:6px">캘리포니아 규제 주의</span>
+        <div style="font-size:12px;color:#555;line-height:1.6">2024년 캘리포니아 Toxic-Free Cosmetics Act에서 Phytonadione(비타민K1)이 알레르기 반응 가능성으로 제한 성분 목록에 포함됨. 미국 시장 진출 제품은 K Oxide 형태로 전환 추세.</div>
+      </div>
+      <div style="border:0.5px solid #e0e0db;border-radius:10px;padding:.875rem;background:#fff">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px"><span style="font-size:16px">💬</span><span style="font-size:13px;font-weight:500;color:#1a1a1a">소비자 반응</span></div>
+        <span style="font-size:11px;padding:1px 7px;border-radius:3px;background:#FAEEDA;color:#633806;display:inline-block;margin-bottom:6px">타입 구분이 핵심</span>
+        <div style="font-size:12px;color:#555;line-height:1.6">"푸른 다크서클에는 효과 있었는데 갈색 다크서클엔 전혀 안 들었어"라는 반응이 가장 많아. 타입 구분 없이 쓰면 효과 없다는 리뷰 다수.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">💬 실사용자 반응</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f0faf6;border-left:3px solid #1D9E75;color:#555"><span style="font-size:10px;font-weight:600;margin-right:6px;color:#1D9E75">긍정</span>"멍 자주 드는 편인데 비타민K 아이크림 쓰고 나서 눈 밑 멍이 훨씬 빨리 없어짐. 확실히 도움 됨"</div>
+      <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f0faf6;border-left:3px solid #1D9E75;color:#555"><span style="font-size:10px;font-weight:600;margin-right:6px;color:#1D9E75">긍정</span>"카페인+비타민K 조합 아이크림이 혈관성 다크서클에 진짜 효과 있었어. 4주 만에 티 남"</div>
+      <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#fdf5f3;border-left:3px solid #D85A30;color:#555"><span style="font-size:10px;font-weight:600;margin-right:6px;color:#D85A30">부정</span>"갈색 다크서클에는 전혀 효과 없었음. 타입 구분이 중요한 것 같아"</div>
+      <div style="border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6;background:#f5f5f2;border-left:3px solid #ccc;color:#555"><span style="font-size:10px;font-weight:600;margin-right:6px;color:#888">중립</span>"레이저 시술 후 생긴 멍에 발랐더니 회복이 빠른 것 같기도 하고. 비타민K 덕인지는 모르겠음"</div>
+    </div>
+  </div>
+
+  <div style="border-radius:12px;padding:1.25rem;margin-bottom:1rem;background:#E1F5EE;border:1px solid #5DCAA5">
+    <div style="font-size:15px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:#085041">
+      <i class="ti ti-circle-check" style="font-size:18px"></i>이런 경우에 써봐
+    </div>
+    <ul style="list-style:none;padding:0">
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>눈 밑 다크서클이 푸르스름한 혈관성 타입 — 비타민K 핵심 적응증</li>
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>멍이 자주 들거나 회복이 느릴 때 — 응고 인자 활성화로 회복 가속</li>
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>레이저·필러 시술 후 멍이 생겼을 때</li>
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>모세혈관 확장증으로 실핏줄이 보일 때</li>
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-check" style="font-size:13px;color:#1D9E75;flex-shrink:0;margin-top:2px"></i>스피큘 시술 후 출혈성 멍이 동반된 경우 (시술 직후가 아닌 멍 단계)</li>
+    </ul>
+  </div>
+
+  <div style="border-radius:12px;padding:1.25rem;margin-bottom:1rem;background:#FAEEDA;border:1px solid #E8B568">
+    <div style="font-size:15px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:#633806">
+      <i class="ti ti-alert-circle" style="font-size:18px"></i>이런 경우엔 다시 생각해봐
+    </div>
+    <ul style="list-style:none;padding:0">
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>갈색·황갈색 다크서클 — 멜라닌 색소 타입이라 비타민K 효과 없음. 아르부틴·나이아신아마이드 선택</li>
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>스피큘 시술 직후 홍반 — 혈관 확장형이라 비타민K 효과 제한적. 판테놀·마데카소사이드 먼저</li>
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-x" style="font-size:13px;color:#D85A30;flex-shrink:0;margin-top:2px"></i>눈 밑 꺼짐·볼륨 감소로 생긴 그림자 — 구조적 문제라 화장품으로 해결 어려움</li>
+      <li style="font-size:13px;padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.55;color:#333"><i class="ti ti-alert-circle" style="font-size:13px;color:#BA7517;flex-shrink:0;margin-top:2px"></i>일반 피부 홍반·트러블 — 비타민K보다 진정 성분이 적합</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="clabel">어떻게 쓸까</div>
+    <div style="margin-bottom:10px"><div style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:13px;background:#EEEDFE;color:#3C3489"><i class="ti ti-moon" style="font-size:13px"></i> 저녁 권장 (눈가 아이크림 단계)</div></div>
+    <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:8px">
+      <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45"><div style="font-size:9px;margin-bottom:2px">1</div>클렌저</div>
+      <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+      <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45"><div style="font-size:9px;margin-bottom:2px">2</div>세럼</div>
+      <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+      <div style="flex:1;min-width:68px;border:2px solid #185FA5;border-radius:7px;padding:7px 6px;text-align:center;background:#E6F1FB;font-size:11px;color:#185FA5;font-weight:500"><div style="font-size:9px;margin-bottom:2px">3</div>비타민K 아이크림</div>
+      <span style="color:#ccc;font-size:12px;flex-shrink:0">›</span>
+      <div style="flex:1;min-width:68px;border:0.5px solid #e0e0db;border-radius:7px;padding:7px 6px;text-align:center;background:#fff;font-size:11px;color:#aaa;opacity:.45"><div style="font-size:9px;margin-bottom:2px">4</div>크림</div>
+    </div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:14px">아이크림 단계에서 눈가에만 소량 도포. 링 핑거로 가볍게 두드려 흡수.</div>
+    <div class="clabel">제품 고를 때 체크리스트</div>
+    <ul style="list-style:none;padding:0">
+      <li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>성분표에 Phytonadione(K1) 또는 Vitamin K Oxide 명시 여부</li>
+      <li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>농도 0.1~1% 이상 함유 여부 (너무 낮으면 효과 없음)</li>
+      <li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-circle-check" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#1D9E75"></i>카페인·나이아신아마이드·레티날 복합 처방이면 더 효과적</li>
+      <li style="font-size:13px;color:#555;padding:5px 0;border-bottom:0.5px solid #efefeb;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-x" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#D85A30"></i>사용 전 누르기 테스트 없이 구매 — 타입 먼저 확인</li>
+      <li style="font-size:13px;color:#555;padding:5px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><i class="ti ti-alert-circle" style="font-size:14px;flex-shrink:0;margin-top:1px;color:#BA7517"></i>Phytonadione(K1) 함유 제품은 민감성 피부 패치 테스트 권장</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 논문 -->
+<div id="r" class="panel">
+  <div class="pc"><div class="pt">Topical vitamin K cream in the treatment of bruising</div><div class="pm">Leu et al. · 2010 · Journal of the American Academy of Dermatology</div><div class="ps">레이저 시술 후 생긴 멍에 비타민K 크림을 적용했을 때 회복 속도가 빨라졌음을 입증한 임상 연구. 비타민K 외용 제품의 대표적 임상 근거 논문.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=topical+vitamin+K+cream+bruising+laser+treatment" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Vitamin K and the skin</div><div class="pm">Halder & Richards · 2004 · Journal of Drugs in Dermatology</div><div class="ps">피부에서 비타민K의 역할과 화장품 성분으로서의 가능성을 종합 검토한 리뷰 논문. 혈관성 다크서클·멍 개선 기전과 외용 흡수율을 분석.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=vitamin+K+skin+dark+circles+vascular+topical" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+  <div class="pc"><div class="pt">Efficacy of topical vitamin K in postprocedural ecchymoses</div><div class="pm">Cohen & Cohen · 2000 · Dermatologic Surgery</div><div class="ps">시술 후 발생한 반상출혈(멍)에 비타민K 외용제를 적용해 회복 기간이 단축됨을 확인한 연구. 피부과 시술 후 회복 관리에서 비타민K 활용의 초기 근거.</div><a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=topical+vitamin+K+ecchymoses+postprocedural+efficacy" target="_blank"><i class="ti ti-external-link" style="font-size:12px"></i> PubMed 검색</a></div>
+</div>
+
+<script>
+const TERMS={
+  "카르복실화":{"def":"비타민K가 특정 단백질에 카르복실기(-COOH)를 붙여 활성화하는 반응. 혈액 응고 인자와 Gla 단백질을 작동시키는 핵심 메커니즘이야.","wiki":"https://ko.wikipedia.org/wiki/카르복실화","dict":"https://terms.naver.com/search.naver?query=카르복실화"},
+  "Gla 단백질":{"def":"비타민K에 의해 활성화되는 단백질 그룹. 혈액 응고, 칼슘 대사, 혈관 보호에 관여해. 비타민K가 없으면 작동하지 않아.","wiki":"https://ko.wikipedia.org/wiki/감마-카르복시글루탐산","dict":"https://terms.naver.com/search.naver?query=Gla단백질"},
+  "헤모시데린":{"def":"혈액 속 헤모글로빈이 분해될 때 생기는 철 함유 색소. 모세혈관이 파열되어 혈액이 조직에 새어나오면 침착되어 갈색 자국으로 남아.","wiki":"https://ko.wikipedia.org/wiki/헤모시데린","dict":"https://terms.naver.com/search.naver?query=헤모시데린"},
+  "모세혈관":{"def":"피부 속 아주 가는 혈관. 눈가는 피부가 얇아서 모세혈관이 비쳐 보이기 쉬워. 손상되면 혈액이 새어나와 멍이 생겨.","wiki":"https://ko.wikipedia.org/wiki/모세혈관","dict":"https://terms.naver.com/search.naver?query=모세혈관"},
+  "혈액 응고":{"def":"혈관 손상 시 혈액이 굳어 출혈을 막는 과정. 비타민K는 이 과정에 필수적인 응고 인자들을 활성화해.","wiki":"https://ko.wikipedia.org/wiki/혈액_응고","dict":"https://terms.naver.com/search.naver?query=혈액응고"},
+  "프로트롬빈":{"def":"혈액 응고에 필수적인 단백질. 비타민K에 의해 활성화되어 트롬빈으로 전환되고 혈액을 응고시켜.","wiki":"https://ko.wikipedia.org/wiki/프로트롬빈","dict":"https://terms.naver.com/search.naver?query=프로트롬빈"},
+  "Phytonadione":{"def":"비타민K1의 화학명. 식물에서 유래하는 천연 형태의 비타민K. 화장품에서 주로 쓰이는 형태야.","wiki":"https://ko.wikipedia.org/wiki/필로퀴논","dict":"https://terms.naver.com/search.naver?query=phytonadione+비타민K1"},
+  "와파린":{"def":"혈전 예방에 쓰이는 항응고제 약물. 비타민K의 작용을 차단하는 방식으로 작동해. 와파린 복용자는 비타민K 섭취에 주의 필요.","wiki":"https://ko.wikipedia.org/wiki/와파린","dict":"https://terms.naver.com/search.naver?query=와파린+항응고제"},
+  "반상출혈":{"def":"피부 아래 혈액이 새어나와 생기는 멍. 모세혈관 파열로 혈액이 조직에 침투한 상태야.","wiki":"https://ko.wikipedia.org/wiki/반상출혈","dict":"https://terms.naver.com/search.naver?query=반상출혈+멍"},
+};
+
+const tipBox=document.getElementById('tooltip-box');
+let activeTerm=null;
+function showTip(el,word){
+  if(activeTerm===el){hideTip();return;}
+  activeTerm=el;const g=TERMS[word];
+  document.getElementById('tip-title').textContent=word;
+  document.getElementById('tip-def').textContent=g.def;
+  document.getElementById('tip-wiki').href=g.wiki;
+  document.getElementById('tip-dict').href=g.dict;
+  tipBox.classList.add('show');
+  const rect=el.getBoundingClientRect();
+  let left=rect.left+window.scrollX,top=rect.bottom+window.scrollY+4;
+  if(left+248>window.innerWidth)left=window.innerWidth-248;
+  if(left<8)left=8;
+  tipBox.style.left=left+'px';tipBox.style.top=top+'px';
+}
+function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
+function annotate(html){
+  const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);
+  const marks={};
+  terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});
+  Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});
+  return html;
+}
+function sw(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');btn.classList.add('on');
+}
+
+document.getElementById('mech-text').innerHTML=annotate("비타민K는 카르복실화 반응을 통해 Gla 단백질을 활성화하는 보조인자야. 피부에서는 모세혈관이 손상되면 혈액이 조직으로 새어나오는데, 비타민K가 프로트롬빈 등 혈액 응고 인자를 활성화해서 출혈을 빠르게 차단해. 새어나온 적혈구가 분해되면 헤모시데린이라는 철 색소가 피부에 침착되는데, 비타민K가 추가 출혈을 막아서 색소 침착이 더 진행되지 않게 해. 색소를 직접 없애는 게 아니라 출혈의 근본 원인을 차단하는 방식이야.");
+document.getElementById('ctx-text').innerHTML=annotate("비타민K의 핵심은 혈관성·출혈성 문제에만 효과가 있다는 거야. 그래서 사용 전 피부를 눌러서 타입을 먼저 확인하는 게 중요해. 와파린(항응고제)이 비타민K를 차단하는 방식으로 작동한다는 걸 알면, 반대로 비타민K가 응고를 촉진한다는 걸 쉽게 이해할 수 있어.");
+
+const PRODUCTS={
+  global:[
+    {brand:"Minimalist",product:"Vitamin K + Retinal 0.1% Eye Cream",note:"비타민K + 레티날 + 카페인 복합. 다크서클·부기·주름 동시 케어",badge:"Phytonadione (Vitamin K) 함유",url:"https://beminimalist.co/products/vitamin-k-retinal-01-eye-cream",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=minimalist+vitamin+k+eye&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=minimalist+비타민k+아이크림"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=minimalist+vitamin+k+retinal+eye+cream&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=minimalist+vitamin+k+eye+cream&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Minimalist+Vitamin+K+eye+cream&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=minimalist+vitamin+k+eye+cream&sort=top"}]}},
+    {brand:"Naturium",product:"Vitamin Bright Illuminating Eye Cream",note:"2% 비타민K 리포좀 복합 + 광반사 펄 성분",badge:"Vitamin K 2% Liposome 함유",url:"https://naturium.com/products/vitamin-bright-illuminating-eye-cream",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=naturium+vitamin+bright+eye&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=naturium+vitamin+bright+eye"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=naturium+vitamin+bright+eye+cream&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=naturium+vitamin+bright+eye&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Naturium+vitamin+K+eye+cream&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=naturium+vitamin+k+eye&sort=top"}]}},
+    {brand:"ISDIN",product:"Isdinceutics K-Ox Eyes",note:"Vitamin K Oxide 1% 함유 다크서클 아이크림. 피부과학 브랜드",badge:"Vitamin K Oxide 1% 함유",url:"https://www.isdin.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=isdin+k-ox+eyes&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=isdin+k-ox+아이크림"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=ISDIN+K-Ox+eyes+vitamin+K&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=ISDIN+K-Ox+eyes&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=ISDIN+K-Ox+eyes&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=ISDIN+K-ox+eyes+vitamin+K&sort=top"}]}},
+    {brand:"Naturopathica",product:"Vitamin K Brightening Eye Complex",note:"비타민K + 마로니에 꽃 추출물 복합. 다크서클+부기 동시 케어",badge:"Vitamin K 함유",url:"https://www.naturopathica.com/products/vitamin-k-brightening-eye-complex",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=naturopathica+vitamin+k+eye&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=naturopathica+vitamin+k"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=naturopathica+vitamin+k+brightening+eye&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=naturopathica+vitamin+k+eye&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=Naturopathica+vitamin+K+eye&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/SkincareAddiction 토론",url:"https://www.reddit.com/r/SkincareAddiction/search/?q=naturopathica+vitamin+k+eye+cream&sort=top"}]}},
+  ],
+  korea:[
+    {brand:"메디필",product:"비타민K 다크서클 아이크림",note:"비타민K + 히알루론산. 국내 약국·드럭스토어 대표 비타민K 아이크림",badge:"Vitamin K 함유",url:"https://www.medipeel.co.kr",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=메디필+비타민k+아이크림&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=메디필+비타민k"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=medipeel+vitamin+k+eye+cream&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=medipeel+vitamin+k&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=medipeel+vitamin+K+eye&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=medipeel+vitamin+k+eye&sort=top"}]}},
+    {brand:"CNP Laboratory",product:"프로폴리스 에너젠 아이크림",note:"프로폴리스 + 비타민K 복합. 진정·혈관 케어 이중 효과",badge:"Vitamin K 함유",url:"https://www.cnplaboratory.com",market:{kr:[{icon:"i-oy",name:"올리브영",desc:"국내 판매 순위",url:"https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=cnp+프로폴리스+아이크림&orderBy=BEST_SELLER"},{icon:"i-hwh",name:"화해",desc:"실사용자 리뷰",url:"https://www.hwahae.co.kr/search?q=cnp+프로폴리스+아이크림"}],global:[{icon:"i-amz",name:"아마존",desc:"글로벌 판매+리뷰",url:"https://www.amazon.com/s?k=CNP+laboratory+propolis+eye+cream&s=review-rank"},{icon:"i-sep",name:"세포라",desc:"북미·유럽 반응",url:"https://www.sephora.com/search?keyword=CNP+laboratory+eye+cream&sortBy=BEST_SELLERS"}],trend:[{icon:"i-gt",name:"구글 트렌드",desc:"검색 관심도 추이",url:"https://trends.google.com/trends/explore?q=CNP+Laboratory+propolis+eye&date=today+12-m"}],community:[{icon:"i-rd",name:"레딧",desc:"r/AsianBeauty 토론",url:"https://www.reddit.com/r/AsianBeauty/search/?q=CNP+laboratory+eye+cream&sort=top"}]}},
+  ]
+};
+
+function renderProducts(items,containerId){
+  document.getElementById(containerId).innerHTML=items.map((p,idx)=>{
+    const id=containerId+'_'+idx;
+    return '<div class="prod-item"><div class="prod-head" onclick="toggleExpand(\''+id+'\')"><div class="prod-info"><div class="prod-brand">'+p.brand+'</div><div class="prod-pname">'+p.product+'</div><div class="prod-note">'+p.note+'</div><span class="prod-badge">'+p.badge+'</span></div><div class="prod-right"><a class="prod-official" href="'+p.url+'" target="_blank" onclick="event.stopPropagation()"><i class="ti ti-external-link" style="font-size:11px"></i> 공식</a><i class="ti ti-chevron-down chevron" id="chevron_'+id+'"></i></div></div><div class="prod-expand" id="expand_'+id+'"><div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px">시장 반응 확인</div><div style="margin-bottom:6px"><span class="mkt-flag flag-kr">한국</span></div><div class="mkt-grid">'+p.market.kr.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-global">글로벌</span></div><div class="mkt-grid">'+p.market.global.map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div><div style="margin-bottom:6px"><span class="mkt-flag flag-trend">트렌드</span><span class="mkt-flag flag-community" style="margin-left:4px">커뮤니티</span></div><div class="mkt-grid">'+[...p.market.trend,...p.market.community].map(m=>'<a class="mkt-btn" href="'+m.url+'" target="_blank"><div class="mkt-icon '+m.icon+'"><i class="ti ti-external-link" style="font-size:11px"></i></div><div><div class="mkt-name">'+m.name+'</div><div class="mkt-desc">'+m.desc+'</div></div></a>').join('')+'</div></div></div>';
+  }).join('');
+}
+function toggleExpand(id){
+  const ex=document.getElementById('expand_'+id),ch=document.getElementById('chevron_'+id);
+  const isOpen=ex.classList.contains('open');
+  document.querySelectorAll('.prod-expand').forEach(e=>e.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(e=>e.classList.remove('open'));
+  if(!isOpen){ex.classList.add('open');ch.classList.add('open');}
+}
+renderProducts(PRODUCTS.global,'prod-global');
+renderProducts(PRODUCTS.korea,'prod-korea');
+
+const GOALS=["다크서클 개선","멍 회복","혈관 케어","시술 후 회복","눈가 케어","항노화"];
+const FORMS=["아이크림","세럼·앰플","크림","에센스"];
+const COMBOS=[
+  {name:"카페인",goals:["다크서클 개선","눈가 케어"],forms:["아이크림","세럼·앰플"],tags:[{t:"시너지",c:"tag-syn"},{t:"대표 조합",c:"tag-ok"}],desc:"카페인은 혈관을 수축시켜 부기를 빠르게 제거하고, 비타민K는 모세혈관을 강화해 혈액 풀링을 줄여줘. 부기+다크서클 동시 케어하는 눈가 황금 조합.",how:"Minimalist 비타민K+레티날+카페인 아이크림이 이 조합의 대표 제품."},
+  {name:"나이아신아마이드",goals:["다크서클 개선","눈가 케어"],forms:["아이크림","세럼·앰플","에센스"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"나이아신아마이드는 색소성 다크서클(갈색 타입)에, 비타민K는 혈관성 다크서클(푸른 타입)에 각각 작용해. 타입이 섞여 있는 경우 함께 쓰면 보완이 돼.",how:"Jouer 나이아신아마이드+비타민K 아이밤이 이 조합 대표 제품."},
+  {name:"레티날 / 레티놀",goals:["항노화","다크서클 개선"],forms:["아이크림"],tags:[{t:"조합 가능",c:"tag-ok"},{t:"자극 주의",c:"tag-care"}],desc:"레티날은 눈가 주름·탄력에, 비타민K는 혈관성 다크서클에 각각 작용해. 항노화+다크서클을 동시에 케어하는 고급 조합.",how:"레티날 자극 있는 경우 저농도(0.1%)부터 시작. 저녁 전용."},
+  {name:"판테놀",goals:["시술 후 회복","멍 회복"],forms:["크림","아이크림","세럼·앰플"],tags:[{t:"조합 추천",c:"tag-ok"}],desc:"시술 후 장벽 손상이 있는 경우 판테놀이 피부 복구를 돕고, 비타민K가 멍 회복을 가속해줘. 시술 후 회복 루틴에 잘 맞는 조합.",how:"시술 직후엔 판테놀 먼저, 멍이 생긴 이후 단계에서 비타민K 추가."},
+  {name:"아르니카 추출물",goals:["멍 회복","시술 후 회복"],forms:["크림","아이크림"],tags:[{t:"시너지",c:"tag-syn"}],desc:"아르니카는 항염+멍 회복에 오랫동안 쓰여온 식물 성분이야. 비타민K와 같은 방향으로 작용해 멍 회복 시너지가 좋아.",how:"멍·시술 후 회복용 제품에 두 성분이 함께 배합된 경우 많아."},
+];
+const DANGERS=[
+  {level:"amber",levelText:"효과 없음",name:"혈관 확장형 홍반에 단독 사용",desc:"스피큘 시술 직후, 자외선 홍반, 일반 트러블 홍반은 혈관 확장 타입이라 비타민K 효과가 없어. 오히려 시간만 낭비할 수 있어.",tip:"홍반에는 판테놀·마데카소사이드·알란토인 진정 성분 우선. 멍이 생긴 이후 단계에서 비타민K 추가."},
+  {level:"gray",levelText:"알레르기 주의",name:"Phytonadione (K1) 민감성 피부",desc:"캘리포니아 규제에서 알레르기 반응 가능성으로 제한 성분에 포함됨. 민감성 피부라면 패치 테스트 필수.",tip:"민감성 피부라면 K Oxide 형태 제품을 선택하거나 패치 테스트 후 사용."},
+  {level:"gray",levelText:"효과 제한",name:"색소성·구조성 다크서클에 사용",desc:"갈색 다크서클(색소성)이나 눈가 꺼짐(구조성)에는 비타민K가 작용할 메커니즘이 없어. 타입 구분 없이 쓰면 4~8주 기다려도 효과 없어.",tip:"사용 전 눌러보기 테스트로 타입 확인 필수. 색소성이면 아르부틴·나이아신아마이드."},
+];
+
+let selGoals=new Set(),selForms=new Set();
+function renderChips(){
+  document.getElementById('goal-chips').innerHTML=GOALS.map(g=>'<button class="goal-chip'+(selGoals.has(g)?' on':'')+'" onclick="toggleGoal(\''+g+'\')">'+g+'</button>').join('');
+  document.getElementById('form-chips').innerHTML=FORMS.map(f=>'<button class="form-chip'+(selForms.has(f)?' on':'')+'" onclick="toggleForm(\''+f+'\')">'+f+'</button>').join('');
+}
+function toggleGoal(g){selGoals.has(g)?selGoals.delete(g):selGoals.add(g);renderChips();renderCombos();}
+function toggleForm(f){selForms.has(f)?selForms.delete(f):selForms.add(f);renderChips();renderCombos();}
+function renderCombos(){
+  const res=document.getElementById('combo-result');
+  if(selGoals.size===0&&selForms.size===0){res.innerHTML='<div class="empty-msg">원하는 효과나 제형을 선택해봐</div>';return;}
+  const matched=COMBOS.filter(c=>{
+    const gOk=selGoals.size===0||[...selGoals].some(g=>c.goals.includes(g));
+    const fOk=selForms.size===0||[...selForms].some(f=>c.forms.includes(f));
+    return gOk&&fOk;
+  });
+  if(!matched.length){res.innerHTML='<div class="empty-msg">해당 조건에 맞는 조합 성분이 없어.</div>';return;}
+  res.innerHTML=matched.map(c=>'<div class="combo-item"><div class="combo-head"><span class="combo-name">'+c.name+'</span><div class="combo-tags">'+c.tags.map(t=>'<span class="ctag '+t.c+'">'+t.t+'</span>').join('')+'</div></div><div class="combo-desc">'+c.desc+'</div><div class="combo-how">'+c.how+'</div></div>').join('');
+}
+function renderDangers(){
+  const im={red:'<i class="ti ti-alert-triangle" style="font-size:12px;color:#A32D2D"></i>',amber:'<i class="ti ti-alert-circle" style="font-size:12px;color:#633806"></i>',gray:'<i class="ti ti-minus-circle" style="font-size:12px;color:#444"></i>'};
+  const bm={red:'db-red',amber:'db-amber',gray:'db-gray'};
+  const bgm={red:'di-red',amber:'di-amber',gray:'di-gray'};
+  document.getElementById('danger-list').innerHTML=DANGERS.map(d=>'<div class="danger-item"><div class="danger-head"><div class="danger-icon '+bgm[d.level]+'">'+im[d.level]+'</div><span class="danger-name">'+d.name+'</span><span class="danger-badge '+bm[d.level]+'">'+d.levelText+'</span></div><div class="danger-desc">'+d.desc+'</div><div class="danger-tip">'+d.tip+'</div></div>').join('');
+}
+renderChips();renderCombos();renderDangers();
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:32px 16px;max-width:720px;margin:0 auto}
+.header{margin-bottom:2rem}
+.header h1{font-size:24px;font-weight:500;color:#1a1a1a;margin-bottom:6px}
+.header p{font-size:14px;color:#888}
+.tip-box{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1.25rem;margin-bottom:1.5rem;font-size:13px;color:#555;line-height:1.6;display:flex;align-items:flex-start;gap:10px}
+.tip-icon{font-size:16px;color:#378ADD;flex-shrink:0;margin-top:1px}
+.search-wrap{position:relative;margin-bottom:1.25rem}
+.search-wrap input{width:100%;padding:10px 16px 10px 40px;border:0.5px solid #ddd;border-radius:10px;font-size:14px;background:#fff;color:#1a1a1a;outline:none}
+.search-wrap input:focus{border-color:#378ADD}
+.search-wrap i{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;color:#aaa}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.filter-chip{padding:4px 12px;border-radius:20px;border:0.5px solid #ddd;background:#fff;font-size:12px;color:#666;cursor:pointer;transition:all .12s}
+.filter-chip.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.count{font-size:13px;color:#aaa;margin-bottom:.75rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ing-card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1.25rem;text-decoration:none;color:inherit;transition:all .15s;display:block;position:relative}
+.ing-card:hover{border-color:#378ADD;transform:translateY(-1px)}
+.ing-card-cat{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.ing-card-name{font-size:16px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-card-en{font-size:12px;color:#aaa;margin-bottom:8px}
+.ing-card-desc{font-size:12px;color:#888;line-height:1.5;margin-bottom:10px}
+.ing-card-tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 8px;border-radius:4px}
+.tag-blue{background:#E6F1FB;color:#0C447C}
+.tag-teal{background:#E1F5EE;color:#085041}
+.tag-amber{background:#FAEEDA;color:#633806}
+.tag-coral{background:#FAECE7;color:#993C1D}
+.tag-purple{background:#EEEDFE;color:#3C3489}
+.new-badge{position:absolute;top:12px;right:12px;font-size:10px;background:#185FA5;color:#fff;padding:1px 7px;border-radius:10px}
+.empty{text-align:center;padding:3rem;color:#aaa;font-size:14px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>성분 학습 카드</h1>
+  <p>화장품·헬스케어 성분을 쉽게 공부해보자</p>
+</div>
+<div class="tip-box">
+  <i class="ti ti-info-circle tip-icon"></i>
+  <span>카드를 클릭하면 기전·효능·적용 사례·유사 성분·논문까지 확인할 수 있어. <strong>⑤ 결론</strong> 탭에서는 시장 반응 + 써봐/재고 결론 + 루틴 + 체크리스트까지 한 번에 볼 수 있어.</span>
+</div>
+<div class="search-wrap">
+  <i class="ti ti-search"></i>
+  <input type="text" id="search" placeholder="성분명 검색 (예: 아르부틴, CoQ10, 비타민K...)" oninput="render()">
+</div>
+<div class="filter-row" id="filters"></div>
+<div class="count" id="count"></div>
+<div class="grid" id="grid"></div>
+
+<script>
+const INGREDIENTS=[
+  {name:"아르부틴",nameEn:"Arbutin / α-Arbutin",category:"미백",desc:"티로시나아제를 억제해 멜라닌 생성을 차단",tags:["미백","색소 침착 개선","티로시나아제 억제"],tagStyle:["tag-teal","tag-teal","tag-blue"],url:"arbutin.html",isNew:false},
+  {name:"히알루론산",nameEn:"Hyaluronic Acid",category:"보습",desc:"자기 무게의 1,000배 수분을 흡수하는 강력한 보습 성분",tags:["보습","피부 장벽","수분 유지"],tagStyle:["tag-blue","tag-blue","tag-teal"],url:"hyaluronic-acid.html",isNew:false},
+  {name:"바이오틴",nameEn:"Biotin / Vitamin B7",category:"모발 강화",desc:"모낭 세포에서 케라틴 합성을 돕는 보조효소. 결핍 시 효과적",tags:["모발 성장","케라틴 합성","탈모 예방"],tagStyle:["tag-amber","tag-amber","tag-purple"],url:"biotin.html",isNew:false},
+  {name:"판테놀",nameEn:"Panthenol / Pro-Vitamin B5",category:"보습·모발",desc:"피부 장벽 강화 + 모발 큐티클 보습. 즉각 효과 체감",tags:["보습","피부 장벽","모발 강화"],tagStyle:["tag-teal","tag-blue","tag-amber"],url:"panthenol.html",isNew:false},
+  {name:"코엔자임Q10",nameEn:"Coenzyme Q10 / CoQ10",category:"항노화",desc:"미토콘드리아 내부 항산화 + 콜라겐 분해 억제. 제형 기술이 핵심",tags:["항산화","항노화·주름","콜라겐 합성"],tagStyle:["tag-coral","tag-coral","tag-teal"],url:"coq10.html",isNew:false},
+  {name:"비타민K",nameEn:"Vitamin K / Phytonadione",category:"혈관·눈가",desc:"혈관성 다크서클·멍 개선. 출혈 차단으로 색소 침착 억제. 타입 구분 필수",tags:["다크서클","멍 회복","모세혈관 강화"],tagStyle:["tag-purple","tag-coral","tag-blue"],url:"vitamin-k.html",isNew:false},
+  {name:"리쥬란 (PN/PDRN)",nameEn:"Rejuran / PN / PDRN",category:"재생·항노화",desc:"연어 DNA 유래 폴리뉴클레오타이드. 세포 재생·콜라겐 합성 촉진. 피부과 시술→스킨케어로 확장",tags:["세포 재생","콜라겐 합성","항노화"],tagStyle:["tag-teal","tag-teal","tag-coral"],url:"pn-pdrn.html",isNew:true},
+];
+
+const CATEGORIES=["전체",...new Set(INGREDIENTS.map(i=>i.category))];
+let activecat="전체";
+
+function renderFilters(){
+  document.getElementById('filters').innerHTML=CATEGORIES.map(c=>`<button class="filter-chip${activecat===c?' on':''}" onclick="setcat('${c}')">${c}</button>`).join('');
+}
+function setcat(c){activecat=c;renderFilters();render();}
+
+function render(){
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  const filtered=INGREDIENTS.filter(i=>{
+    const catOk=activecat==='전체'||i.category===activecat;
+    const searchOk=!q||i.name.includes(q)||i.nameEn.toLowerCase().includes(q)||i.tags.some(t=>t.includes(q))||i.desc.includes(q);
+    return catOk&&searchOk;
+  });
+  document.getElementById('count').textContent=`${filtered.length}개 성분`;
+  if(!filtered.length){document.getElementById('grid').innerHTML='<div class="empty">검색 결과가 없어</div>';return;}
+  document.getElementById('grid').innerHTML=filtered.map(i=>`
+    <a class="ing-card" href="${i.url}">
+      ${i.isNew?'<span class="new-badge">NEW</span>':''}
+      <div class="ing-card-cat">${i.category}</div>
+      <div class="ing-card-name">${i.name}</div>
+      <div class="ing-card-en">${i.nameEn}</div>
+      <div class="ing-card-desc">${i.desc}</div>
+      <div class="ing-card-tags">${i.tags.map((t,j)=>`<span class="tag ${i.tagStyle[j]}">${t}</span>`).join('')}</div>
+    </a>
+  `).join('');
+}
+renderFilters();render();
+</script>
+</body>
+</html>

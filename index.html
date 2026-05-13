@@ -63,7 +63,8 @@ const INGREDIENTS=[
   {name:"바이오틴",nameEn:"Biotin / Vitamin B7",category:"모발 강화",desc:"모낭 세포에서 케라틴 합성을 돕는 보조효소. 결핍 시 효과적",tags:["모발 성장","케라틴 합성","탈모 예방"],tagStyle:["tag-amber","tag-amber","tag-purple"],url:"biotin.html",isNew:false},
   {name:"판테놀",nameEn:"Panthenol / Pro-Vitamin B5",category:"보습·모발",desc:"피부 장벽 강화 + 모발 큐티클 보습. 즉각 효과 체감",tags:["보습","피부 장벽","모발 강화"],tagStyle:["tag-teal","tag-blue","tag-amber"],url:"panthenol.html",isNew:false},
   {name:"코엔자임Q10",nameEn:"Coenzyme Q10 / CoQ10",category:"항노화",desc:"미토콘드리아 내부 항산화 + 콜라겐 분해 억제. 제형 기술이 핵심",tags:["항산화","항노화·주름","콜라겐 합성"],tagStyle:["tag-coral","tag-coral","tag-teal"],url:"coq10.html",isNew:false},
-  {name:"비타민K",nameEn:"Vitamin K / Phytonadione",category:"혈관·눈가",desc:"혈관성 다크서클·멍 개선. 출혈 차단으로 색소 침착 억제. 타입 구분 필수",tags:["다크서클","멍 회복","모세혈관 강화"],tagStyle:["tag-purple","tag-coral","tag-blue"],url:"vitamin-k.html",isNew:true},
+  {name:"비타민K",nameEn:"Vitamin K / Phytonadione",category:"혈관·눈가",desc:"혈관성 다크서클·멍 개선. 출혈 차단으로 색소 침착 억제. 타입 구분 필수",tags:["다크서클","멍 회복","모세혈관 강화"],tagStyle:["tag-purple","tag-coral","tag-blue"],url:"vitamin-k.html",isNew:false},
+  {name:"리쥬란 (PN/PDRN)",nameEn:"Rejuran / PN / PDRN",category:"재생·항노화",desc:"연어 DNA 유래 폴리뉴클레오타이드. 세포 재생·콜라겐 합성 촉진. 피부과 시술→스킨케어로 확장",tags:["세포 재생","콜라겐 합성","항노화"],tagStyle:["tag-teal","tag-teal","tag-coral"],url:"pn-pdrn.html",isNew:true},
 ];
 
 const CATEGORIES=["전체",...new Set(INGREDIENTS.map(i=>i.category))];

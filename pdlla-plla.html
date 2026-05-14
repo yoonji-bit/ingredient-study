@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDLLA / PLLA 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.tab.highlight{border-color:#378ADD;color:#185FA5}
+.tab.highlight.on{background:#E6F1FB;color:#185FA5;border-color:#378ADD;font-weight:600}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+.ctx-box{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.cmp{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem}
+.cmp.hi{border:2px solid #378ADD}
+.rec{font-size:11px;background:#dceefb;color:#0c447c;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.cmp-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:10px}
+.cmp-row{display:flex;flex-direction:column;gap:8px}
+.cmp-item{font-size:13px;color:#555;line-height:1.5}
+.cil{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:6px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-neutral{background:#f0f0ec;color:#444}
+.diff-amber{background:#FAEEDA;color:#633806}
+.timeline{margin-bottom:1rem}
+.tl-item{display:flex;gap:12px;margin-bottom:10px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:#e0e0db;flex-shrink:0;margin-top:4px}
+.tl-dot.active{background:#378ADD}
+.tl-dot.warn{background:#D85A30}
+.tl-dot.success{background:#1D9E75}
+.tl-body{flex:1}
+.tl-period{font-size:11px;color:#aaa;margin-bottom:2px}
+.tl-desc{font-size:13px;color:#555;line-height:1.55}
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1;min-width:0}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-badge{font-size:11px;background:#E1F5EE;color:#085041;padding:1px 7px;border-radius:3px;display:inline-block}
+.prod-badge.amber{background:#FAEEDA;color:#633806}
+.prod-badge.blue{background:#E6F1FB;color:#0C447C}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff}
+.i-oy{background:#FF6B35}.i-amz{background:#FF9900}.i-gt{background:#4285F4}.i-rd{background:#FF4500}.i-sep{background:#000}.i-hwh{background:#FF6B6B}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}
+.tag-ok{background:#E6F1FB;color:#0C447C}
+.tag-care{background:#FAEEDA;color:#633806}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-red{background:#FCEBEB;color:#A32D2D}.db-amber{background:#FAEEDA;color:#633806}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}.flag-global{background:#E6F1FB;color:#185FA5}.flag-trend{background:#E1F5EE;color:#085041}
+.checklist{list-style:none;padding:0}
+.checklist li{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:0.5px solid #efefeb;font-size:13px;color:#555;line-height:1.55}
+.checklist li:last-child{border-bottom:none}
+.ck{width:16px;height:16px;border-radius:4px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.ck.done{background:#1D9E75;border-color:#1D9E75}
+.routine-box{background:#f5f5f2;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.routine-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
+.routine-step:last-child{margin-bottom:0}
+.step-num{width:22px;height:22px;border-radius:50%;background:#1a1a1a;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;font-size:13px;color:#555;line-height:1.55}
+.step-label{font-size:11px;color:#aaa;margin-bottom:1px}
+.verdict-box{border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.v-yes{background:#E1F5EE;border:0.5px solid #5DCAA5}
+.v-no{background:#FCEBEB;border:0.5px solid #E8A0A0}
+.verdict-title{font-size:14px;font-weight:600;margin-bottom:6px}
+.vt-yes{color:#085041}.vt-no{color:#A32D2D}
+.verdict-body{font-size:13px;line-height:1.65}
+.vb-yes{color:#085041}.vb-no{color:#A32D2D}
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">PDLLA / PLLA</div>
+<div class="ing-sub">Poly-D,L-Lactic Acid / Poly-L-Lactic Acid · 콜라겐 부스터 · 생분해성 폴리젖산 성분</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab highlight" onclick="sw('h',this)">⑤ 결론</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<!-- ① 기전 -->
+<div id="m" class="panel on">
+  <div class="card">
+    <div class="clabel">작용 기전 — 공통 원리</div>
+    <div class="cbody">
+      PDLLA와 PLLA는 둘 다 <strong>폴리젖산(PLA)</strong> 계열의 생분해성 합성 폴리머야. 피부 진피층에 미세구 형태로 주입되면, 면역 세포(대식세포)가 이 입자를 이물질로 인식해 <strong>"의도적 이물 반응"</strong>을 일으켜. 이 반응이 섬유아세포를 깨워 Type 1·3 콜라겐을 스스로 만들게 하는 게 핵심 원리야. 필러처럼 공간을 채우는 게 아니라, 피부 자체가 콜라겐을 만들도록 자극하는 <strong>"콜라겐 부스터"</strong>야.
+    </div>
+  </div>
+
+  <div class="ctx-box">
+    💡 기전 단계: 미세구 주입 → 대식세포 인식 → TGF-β 분비 → 섬유아세포 활성화 → Type 1/3 콜라겐 합성 → 진피 리모델링. 이 과정이 3~6개월에 걸쳐 서서히 진행되기 때문에 "즉각 효과"가 없는 게 정상이야.
+  </div>
+
+  <div class="cmp-grid">
+    <div class="cmp">
+      <span class="rec" style="background:#FAEEDA;color:#633806">글로벌 오리지널</span>
+      <div class="cmp-name">PLLA (스컬트라)</div>
+      <div class="cmp-row">
+        <div class="cmp-item"><div class="cil">구조</div>L형 젖산만으로 이루어진 결정형. 표면이 거칠고 각진 형태 (화강암)</div>
+        <div class="cmp-item"><div class="cil">이물 반응</div>강함 — 조직 고정력이 높아 콜라겐 자극 효과 강력</div>
+        <div class="cmp-item"><div class="cil">입자 크기</div>40~60 μm — 상대적으로 큰 편</div>
+        <div class="cmp-item"><div class="cil">분해 속도</div>느림 — 18~24개월+ 유지</div>
+        <span class="diff-badge diff-amber">깊고 강한 볼륨</span>
+      </div>
+    </div>
+    <div class="cmp hi">
+      <span class="rec">K-뷰티 대표</span>
+      <div class="cmp-name">PDLLA (쥬베룩)</div>
+      <div class="cmp-row">
+        <div class="cmp-item"><div class="cil">구조</div>L형+D형 혼합. 다공성 스펀지 구조, 표면이 둥글고 매끄러움 (현무암)</div>
+        <div class="cmp-item"><div class="cil">이물 반응</div>온화함 — 부작용 리스크 낮고 생체적합성 높음</div>
+        <div class="cmp-item"><div class="cil">입자 크기</div>20~40 μm — 더 작아 잔주름 침투 유리</div>
+        <div class="cmp-item"><div class="cil">분해 속도</div>빠름 — 18개월 내외. HA 복합으로 즉각 보습 보완</div>
+        <span class="diff-badge diff-good">잔주름·피부결 개선</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">PDLLA 타임라인 — 쥬베룩 기준</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-body">
+          <div class="tl-period">시술 직후 ~ 2주</div>
+          <div class="tl-desc">HA(히알루론산) 덕분에 즉각 볼륨감. 단, 이건 일시적 효과야. HA가 서서히 분해됨.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot warn"></div>
+        <div class="tl-body">
+          <div class="tl-period">1~3개월</div>
+          <div class="tl-desc">HA 분해 완료 → 볼륨이 오히려 줄어든 것처럼 느껴짐. 이때 실망하는 사람 많음. 정상 과정이야, 기다려야 해.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot success"></div>
+        <div class="tl-body">
+          <div class="tl-period">3~6개월</div>
+          <div class="tl-desc">진짜 콜라겐이 쌓이기 시작. 자연스러운 탄력·볼륨·피부결 개선.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot success"></div>
+        <div class="tl-body">
+          <div class="tl-period">12개월 이상</div>
+          <div class="tl-desc">PDLLA 완전 분해되지만 생성된 콜라겐은 18개월 내외 유지. PLLA는 2년+ 유지.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">화장품 vs 시술 — 기대 효과 구분 필수</div>
+    <div class="cbody">
+      현재 PLA 계열은 <strong>시술(주사제)</strong>이 주류야. 화장품에 PDLLA·PLLA를 넣은 제품도 나오고 있지만, 피부 표면에 도포해서는 진피까지 침투하기 어려워. 화장품 제형은 "시술 후 홈케어 보조" 또는 "표피 수분·장벽 개선" 수준으로 이해하는 게 맞아.
+      <div style="margin-top:10px;font-size:12px;color:#aaa">시술 효과 = 진피 콜라겐 리모델링 / 화장품 효과 = 표피 보습·장벽 보조 — 두 개를 동일시하면 안 돼.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 효능 & 주의점 -->
+<div id="e" class="panel">
+  <div class="card">
+    <div class="clabel">주요 효능 (시술 기준)</div>
+    <ul class="rlist">
+      <li><span class="dot dg"></span>섬유아세포 활성화 → Type 1·3 콜라겐 합성 촉진 (진피 리모델링)</li>
+      <li><span class="dot dg"></span>대식세포 M2 편극 → TGF-β 분비 → 콜라겐 생성 경로 강화</li>
+      <li><span class="dot dg"></span>MMP-1(콜라겐 분해 효소) 억제 → 기존 콜라겐 보호</li>
+      <li><span class="dot dg"></span>안면 볼륨 회복, 깊은 주름 개선, 피부 탄력 개선</li>
+      <li><span class="dot dg"></span>PDLLA+HA 복합: 즉각 보습(HA) + 장기 콜라겐(PDLLA) 릴레이 전략</li>
+      <li><span class="dot dg"></span>생분해성 — 최종적으로 수분·이산화탄소로 분해. 체내 잔류 없음</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="clabel">PDLLA vs PLLA — 어떤 상황에 맞나?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px">
+      <div style="background:#f5f5f2;border-radius:10px;padding:12px">
+        <div style="font-size:12px;font-weight:600;color:#BA7517;margin-bottom:8px">PLLA (스컬트라) 적합</div>
+        <ul class="rlist">
+          <li><span class="dot da"></span>볼이 꺼지거나 안면 볼륨이 크게 감소한 경우</li>
+          <li><span class="dot da"></span>깊은 주름·팔자 개선이 목적</li>
+          <li><span class="dot da"></span>50~60대 이상, 대사 능력이 떨어지는 경우</li>
+          <li><span class="dot da"></span>효과를 2년 이상 유지하고 싶은 경우</li>
+        </ul>
+      </div>
+      <div style="background:#f5f5f2;border-radius:10px;padding:12px">
+        <div style="font-size:12px;font-weight:600;color:#085041;margin-bottom:8px">PDLLA (쥬베룩) 적합</div>
+        <ul class="rlist">
+          <li><span class="dot dg"></span>잔주름·피부결 개선이 목적</li>
+          <li><span class="dot dg"></span>30~40대, 예방적 항노화 목적</li>
+          <li><span class="dot dg"></span>즉각적 수분감도 원하는 경우 (HA 복합)</li>
+          <li><span class="dot dg"></span>결절 부작용 걱정이 있는 경우</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">주의점</div>
+    <ul class="rlist">
+      <li><span class="dot dr"></span><strong>즉각 효과 없음</strong> — 진짜 효과는 3~6개월 후. "즉시 효과"를 강조하는 병원은 의심해볼 것</li>
+      <li><span class="dot dr"></span><strong>결절(Nodule) 부작용</strong> — 특히 PLLA. 최근 희석·수화 프로토콜 정착으로 리스크 감소했지만 여전히 존재. 시술 후 마사지 필수 (5회×5분×5일)</li>
+      <li><span class="dot dr"></span><strong>1~3개월 볼륨 저하 구간</strong> — HA 분해 후 정상적인 현상. 이 시기에 효과 없다고 오해하는 경우 많음</li>
+      <li><span class="dot dr"></span><strong>반복 시술 필요</strong> — 보통 3~4회 권장. 한 번으로 완성 안 됨</li>
+      <li><span class="dot dr"></span><strong>화장품 ≠ 시술</strong> — 화장품 등급 PLA는 진피 리모델링 기대 어려움. 마케팅 과장 주의</li>
+      <li><span class="dot dr"></span>임신·수유 중, 자가면역 질환, 켈로이드 체질은 주의</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ③ 적용 사례 -->
+<div id="p" class="panel">
+  <div class="card">
+    <div class="clabel">시술 브랜드 — PLLA</div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p1')">
+        <div class="prod-info">
+          <div class="prod-brand">Sculptra® (스컬트라)</div>
+          <div class="prod-pname">Galderma · PLLA-SCA™ 기반 바이오스티뮬레이터</div>
+          <div class="prod-note">1999년 출시, FDA 승인 (2004). 전 세계 40개국 이상 사용. 콜라겐 부스터 카테고리 오리지널</div>
+          <span class="prod-badge amber">PLLA 오리지널</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://sculptra.co.kr" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>공식</a>
+          <i class="ti ti-chevron-down chevron" id="c-p1"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p1">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:8px">
+          25년 이상 임상 데이터 축적. 2025년 '0% 결절 안정성 캠페인' 진행 중. 글로벌 에스테틱 시장에서 콜라겐 부스터 카테고리를 사실상 정의한 제품.
+        </div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=스컬트라+후기" target="_blank">
+            <div class="mkt-icon i-gt">N</div>
+            <div><div class="mkt-name">네이버 후기</div><div class="mkt-desc">스컬트라 시술 후기</div></div>
+          </a>
+          <a class="mkt-btn" href="https://www.youtube.com/results?search_query=스컬트라+시술+후기" target="_blank">
+            <div class="mkt-icon" style="background:#FF0000">▶</div>
+            <div><div class="mkt-name">유튜브</div><div class="mkt-desc">시술 전후 영상</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p2')">
+        <div class="prod-info">
+          <div class="prod-brand">Gana Fill (가나필)</div>
+          <div class="prod-pname">Boryung · PLLA 기반 비교 임상 진행 중</div>
+          <div class="prod-note">스컬트라와 비열등성 임상(split-face) 진행. 국내 PLLA 후발 제품. B2B 병원 유통 중심 — 일반 소비자 공식몰 없음</div>
+          <span class="prod-badge amber">PLLA</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://search.naver.com/search.naver?query=가나필+PLLA+시술" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>검색</a>
+          <i class="ti ti-chevron-down chevron" id="c-p2"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p2">
+        <div style="font-size:13px;color:#555;line-height:1.65">
+          2023년 스컬트라 대비 비열등성을 주장한 split-face RCT 발표. 국내 보령에서 개발. 글로벌 시장 진출을 노리는 K-뷰티 PLLA 브랜드. 의료기기로 분류되어 병원 처방·유통 전용 — 소비자가 직접 구매 불가.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">시술 브랜드 — PDLLA</div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p3')">
+        <div class="prod-info">
+          <div class="prod-brand">쥬베룩 / 쥬베룩 볼륨 (Juvelook)</div>
+          <div class="prod-pname">바임글로벌 (VAIM) · PDLLA 170mg + HA 30mg</div>
+          <div class="prod-note">4세대 스킨부스터 대표. PDLLA+HA 복합 처방. DOT™ 기술 특허 보유</div>
+          <span class="prod-badge">PDLLA 대표</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://www.juvelook.com" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>공식</a>
+          <i class="ti ti-chevron-down chevron" id="c-p3"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p3">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:8px">
+          2025년 가파른 글로벌 성장세. PN(리쥬란)과 함께 K-뷰티 스킨부스터 양대 축. 쥬베룩(잔주름·피부결)과 쥬베룩 볼륨(볼륨 복원) 라인 구분 사용.
+        </div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=쥬베룩+후기" target="_blank">
+            <div class="mkt-icon i-gt">N</div>
+            <div><div class="mkt-name">네이버 후기</div><div class="mkt-desc">쥬베룩 시술 후기</div></div>
+          </a>
+          <a class="mkt-btn" href="https://www.youtube.com/results?search_query=쥬베룩+시술+후기" target="_blank">
+            <div class="mkt-icon" style="background:#FF0000">▶</div>
+            <div><div class="mkt-name">유튜브</div><div class="mkt-desc">시술 전후 영상</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">화장품 라인 — 지금은 초기 단계</div>
+    <div class="ctx-box" style="margin-bottom:12px;border-left-color:#BA7517">
+      💡 <strong>기획자 포인트:</strong> PDLLA 화장품은 지금 거의 없어. PN(리쥬란)이 걸어온 길 — 시술 → 화장품화 → 아누아·웰라쥬 등 대중 브랜드 적용 → 올리브영 입점 — 을 PDLLA는 아직 시작도 못 한 상태. 지금이 선점 타이밍일 수 있어.
+    </div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p4')">
+        <div class="prod-info">
+          <div class="prod-brand">쥬베룩 홈케어 라인</div>
+          <div class="prod-pname">PDLLA 함유 세럼·크림 · 현재 가장 앞선 화장품 사례</div>
+          <div class="prod-note">시술 후 홈케어·유지 목적. 시술 효과 연장 포지셔닝. 올리브영 미입점 — 병원·자사몰 중심 유통</div>
+          <span class="prod-badge blue">화장품</span>
+        </div>
+        <div class="prod-right">
+          <i class="ti ti-chevron-down chevron" id="c-p4"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p4">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:10px">
+          현재 PDLLA 화장품 시장은 초기 단계. 대중 채널(올리브영·다이소)에 PDLLA 단독 성분 제품이 거의 없음. PN이 대중화되는 데 약 3~4년 걸렸던 것처럼, PDLLA도 시술 신뢰도가 쌓이면서 화장품으로 확장될 가능성 높음.
+        </div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=쥬베룩+홈케어+화장품" target="_blank">
+            <div class="mkt-icon i-gt">N</div>
+            <div><div class="mkt-name">네이버 검색</div><div class="mkt-desc">쥬베룩 홈케어 라인</div></div>
+          </a>
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=PDLLA+화장품+세럼" target="_blank">
+            <div class="mkt-icon i-gt">N</div>
+            <div><div class="mkt-name">네이버 검색</div><div class="mkt-desc">PDLLA 화장품 전체</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p5')">
+        <div class="prod-info">
+          <div class="prod-brand">📌 PN vs PDLLA 화장품화 비교</div>
+          <div class="prod-pname">시장 진입 시점 비교 — 기획 참고용</div>
+          <div class="prod-note">PN이 먼저 열어준 대중화 경로를 PDLLA가 따라올 가능성</div>
+          <span class="prod-badge" style="background:#EEEDFE;color:#3C3489">트렌드</span>
+        </div>
+        <div class="prod-right">
+          <i class="ti ti-chevron-down chevron" id="c-p5"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p5">
+        <div style="font-size:13px;color:#555;line-height:1.75">
+          <div style="margin-bottom:8px"><strong>PN (리쥬란) 화장품화 경로</strong><br>
+          시술 인기 상승 → 아누아·웰라쥬 등 인디 브랜드 적용 → 올리브영 입점 → 화해 TOP 10 진입 → 대중 성분화 완료</div>
+          <div style="margin-bottom:8px"><strong>PDLLA 현재 위치</strong><br>
+          시술 인기 상승 중 → 화장품 제품 거의 없음 → 대중 채널 미진입 → <span style="color:#BA7517;font-weight:500">지금이 초기 선점 구간</span></div>
+          <div style="font-size:12px;color:#888;padding:8px 10px;background:#f5f5f2;border-radius:8px">기획 아이디어: PDLLA+PN 듀얼 성분 세럼, 시술 후 홈케어 라인, 더마 콘셉트 앰플 등이 공백 포지션.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ 유사 성분 -->
+<div id="s" class="panel">
+  <div class="ctx-box">
+    PLA 계열(PLLA·PDLLA)은 넓게 보면 <strong>콜라겐 바이오스티뮬레이터</strong> 카테고리에 속해. 같은 카테고리 안에서 비교하는 게 중요해.
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head">
+      <div class="combo-name">PN / PDRN (리쥬란)</div>
+      <div class="combo-tags">
+        <span class="ctag tag-ok">비교 성분</span>
+        <span class="ctag tag-syn">조합 가능</span>
+      </div>
+    </div>
+    <div class="combo-desc">
+      <strong>공통점:</strong> 섬유아세포 활성화 → 콜라겐 합성 촉진. 둘 다 진피 재생·항노화 목적.<br>
+      <strong>차이점:</strong> PN은 DNA 유래 핵산 → ECM 수분 환경 복원 + 항염 중심. PLA는 폴리젖산 → 이물 반응으로 콜라겐 부스팅 중심.<br>
+      PN은 화장품 활용 가능성이 더 높고, PLA는 시술 효과가 더 강력해.
+    </div>
+    <div class="combo-how">💡 조합: 피부과에서 리쥬란 + 쥬베룩 동시 또는 순차 시술이 증가 중. 각각의 기전이 달라 시너지 기대.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head">
+      <div class="combo-name">CaHA (칼슘 하이드록시아파타이트)</div>
+      <div class="combo-tags">
+        <span class="ctag tag-ok">같은 카테고리</span>
+      </div>
+    </div>
+    <div class="combo-desc">
+      라디에스(Radiesse) 성분. PLA와 마찬가지로 콜라겐 바이오스티뮬레이터. 즉각 볼륨+장기 콜라겐 자극 효과. 단, 분해 시 칼슘 잔류 가능성·로컬 석회화 리스크 있음. PLA 대비 입자 구조 다름.
+    </div>
+    <div class="combo-how">⚠️ 다른 바이오스티뮬레이터와 혼용 시 전문의 판단 필수.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head">
+      <div class="combo-name">레티놀 / 레티날</div>
+      <div class="combo-tags">
+        <span class="ctag tag-syn">화장품 대안</span>
+      </div>
+    </div>
+    <div class="combo-desc">
+      <strong>공통점:</strong> 콜라겐 합성 촉진 목적.<br>
+      <strong>차이점:</strong> 레티놀은 도포형 화장품. PLA는 시술용 주사제. 레티놀은 표피~진피 표층 작용, PLA는 진피 심층 리모델링. 시술을 원하지 않는 경우 레티놀이 가장 근접한 화장품 대안.
+    </div>
+    <div class="combo-how">💡 "시술 전 관리"로 레티놀, "시술 후 유지"로 PN 화장품 조합하는 루틴 증가 중.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head">
+      <div class="combo-name">펩타이드</div>
+      <div class="combo-tags">
+        <span class="ctag tag-syn">화장품 조합</span>
+      </div>
+    </div>
+    <div class="combo-desc">
+      마트릭실·아르지렐린 등 콜라겐 신호 전달 펩타이드. 화장품에서 콜라겐 합성 보조 역할. PLA 시술 후 홈케어에 펩타이드 세럼 조합하면 콜라겐 생성 환경을 더 지지할 수 있음.
+    </div>
+    <div class="combo-how">💡 시술 후 홈케어: 펩타이드 세럼 + PN 화장품 + SPF 루틴 권장.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head">
+      <div class="combo-name">ECM (세포외기질 스킨부스터)</div>
+      <div class="combo-tags">
+        <span class="ctag tag-ok">차세대 카테고리</span>
+        <span class="ctag" style="background:#FCEBEB;color:#A32D2D">논란 중</span>
+      </div>
+    </div>
+    <div class="combo-desc">
+      <strong>공통점:</strong> 둘 다 진피 재생·콜라겐 환경 개선 목적. 시술 카테고리.<br>
+      <strong>결정적 차이:</strong> PDLLA는 합성 폴리젖산 → 이물반응으로 콜라겐을 <em>만들게 자극</em>. ECM은 기증 인체조직(사후 피부 진피) 유래 세포외기질을 <em>직접 채워넣는</em> 방식. 기전 자체가 달라.<br>
+      <strong>시장 현황(2025):</strong> 리투오(엘앤씨바이오)·셀르디엠(한스바이오메드) 등 출시 급증. 국내 ECM 시장 2024년 800억 → 2030년 3,200억 전망.<br>
+      <strong>논란:</strong> 인체조직으로 분류돼 의료기기 임상 허가 없이 유통 → 규제 사각지대 지적. 윤리성·안전성 논란 현재 진행 중.
+    </div>
+    <div class="combo-how">💡 기획자 포인트: PDLLA가 "콜라겐 자극" 포지션이라면, ECM은 "피부 환경 자체 복원" 포지션. 카테고리가 다르고 규제 리스크도 달라. ECM은 지금 시장은 뜨겁지만 제도 정비 전까지 불확실성이 높은 단계 — 화장품 기획에 직접 쓰기엔 시기상조일 수 있어.</div>
+  </div>
+
+  <div class="danger-item">
+    <div class="danger-head">
+      <div class="danger-icon di-red"><span style="color:#D85A30;font-size:14px">!</span></div>
+      <div class="danger-name">다른 바이오스티뮬레이터와 무분별한 혼합</div>
+      <span class="danger-badge db-red">주의</span>
+    </div>
+    <div class="danger-desc">PLLA + PDLLA + CaHA 등을 동시 시술 또는 짧은 간격으로 반복하면 결절·육아종 리스크 증가. 반드시 전문의 판단 하에 인터벌 조정.</div>
+    <div class="danger-tip">일반적으로 동일 부위 재시술 간격은 4~6주 이상 권장.</div>
+  </div>
+</div>
+
+<!-- ⑤ 결론 -->
+<div id="h" class="panel">
+  <div class="card">
+    <div class="clabel">📊 시장 반응 요약 — 2025년 기준</div>
+    <div class="cbody">
+      <div style="margin-bottom:10px">
+        <span class="mkt-flag flag-global">글로벌</span><strong>콜라겐 부스터 카테고리 폭발적 성장</strong><br>
+        <span style="font-size:13px;color:#555">바이오스티뮬레이터 글로벌 시장 연평균 10% 이상 성장 중. 필러 기피 트렌드 + "자연스러운 볼륨" 수요가 PLLA/PDLLA 시장 확대 이끄는 중.</span>
+      </div>
+      <div style="margin-bottom:10px">
+        <span class="mkt-flag flag-kr">국내</span><strong>쥬베룩 K-뷰티 스킨부스터 핵심 성분으로 부상</strong><br>
+        <span style="font-size:13px;color:#555">PN(리쥬란) 이후 PDLLA(쥬베룩)이 4세대 스킨부스터로 자리잡음. 국내 피부과 시술 빈도 급증. 스컬트라(PLLA)는 오랜 임상 신뢰도로 50대+ 시장 굳건히 유지.</span>
+      </div>
+      <div style="margin-bottom:10px">
+        <span class="mkt-flag flag-trend">트렌드</span><strong>시술 → 화장품 다운트레이딩 가속</strong><br>
+        <span style="font-size:13px;color:#555">리쥬란이 먼저 열어준 길을 PDLLA가 따라가는 중. 화장품 등급 PDLLA 제품 출시 증가. 단, 화장품 효과 한계 소비자 교육이 동시에 필요한 상황.</span>
+      </div>
+      <div>
+        <span class="mkt-flag flag-global">주의</span><strong>바이오스티뮬레이터 춘추전국시대</strong><br>
+        <span style="font-size:13px;color:#555">PLLA·PDLLA·CaHA·PN 등 다양한 제품이 쏟아지면서 임상 근거 없는 미투 제품도 증가. "스컬트라 25년 임상" vs "신제품 마케팅" 구도. 소비자·기획자 모두 성분 리터러시가 중요해진 시점.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict-box v-yes">
+    <div class="verdict-title vt-yes">✅ 써봐 — PLLA (스컬트라) 추천 대상</div>
+    <div class="verdict-body vb-yes">
+      안면 볼륨이 크게 감소한 40대 이상. 깊은 주름 개선이 목적. 2년 이상 장기 효과 원하는 경우. 임상 근거 중시하는 경우. → 25년 안전성 데이터가 가장 두꺼운 선택지.
+    </div>
+  </div>
+
+  <div class="verdict-box v-yes">
+    <div class="verdict-title vt-yes">✅ 써봐 — PDLLA (쥬베룩) 추천 대상</div>
+    <div class="verdict-body vb-yes">
+      30~40대 예방적 항노화. 잔주름·피부결·광채 개선 목적. 결절 부작용이 걱정되는 경우. HA 복합 즉각 보습도 원하는 경우. → 더 온화한 반응, 빠른 체감 가능.
+    </div>
+  </div>
+
+  <div class="verdict-box v-no">
+    <div class="verdict-title vt-no">❌ 재고 — 이런 경우는 주의</div>
+    <div class="verdict-body vb-no">
+      "1회 시술로 끝"을 기대하는 경우. 3개월 내 드라마틱 변화를 원하는 경우. 화장품 PDLLA에서 시술과 동일한 효과를 기대하는 경우. → 기대 관리 없이 시작하면 실망 가능성 높음.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">기초 기획자 관점 — 이 성분의 시장 의미</div>
+    <div class="cbody">
+      PLLA/PDLLA는 <strong>"시술 성분의 화장품화"</strong> 트렌드를 읽을 수 있는 핵심 성분이야. 리쥬란(PN)이 선례를 만들었고, 쥬베룩(PDLLA)이 빠르게 따라오고 있어. 이 흐름의 공통 패턴은 ①피부과 시술 → ②화장품 라인 확장 → ③홈케어 시장 형성이야. 기초 기획에서 이 패턴을 이해하면, "다음에 화장품화될 시술 성분은 무엇인가"를 예측하는 눈이 생겨.
+    </div>
+  </div>
+
+  <div class="routine-box">
+    <div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:12px">스킨케어 루틴에서 위치</div>
+    <div class="routine-step">
+      <div class="step-num">1</div>
+      <div class="step-body"><div class="step-label">클렌징</div>저자극 클렌저</div>
+    </div>
+    <div class="routine-step">
+      <div class="step-num">2</div>
+      <div class="step-body"><div class="step-label">앰플/세럼</div>PN 또는 펩타이드 세럼 (시술 후 홈케어 보조)</div>
+    </div>
+    <div class="routine-step">
+      <div class="step-num">3</div>
+      <div class="step-body"><div class="step-label">에센스/크림</div>PDLLA 함유 화장품 (있는 경우) or 히알루론산+세라마이드 보습</div>
+    </div>
+    <div class="routine-step">
+      <div class="step-num">4</div>
+      <div class="step-body"><div class="step-label">선크림 (필수)</div>콜라겐 유지를 위해 자외선 차단이 가장 중요. SPF50+ 매일</div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#888">* 시술 직후 재생 크림·진정 관리 우선. 자극 성분(레티놀·AHA) 1~2주 자제.</div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">체크리스트</div>
+    <ul class="checklist">
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>PDLLA vs PLLA 구조 차이를 설명할 수 있다 (둥글둥글 vs 뾰족)</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>콜라겐 부스터 작용 기전 3단계를 말할 수 있다 (미세구 → 대식세포 → 섬유아세포)</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>PDLLA 타임라인에서 "1~3개월 볼륨 저하 구간"이 정상임을 안다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>쥬베룩(PDLLA)과 스컬트라(PLLA)의 적합 대상을 각각 말할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>화장품 PDLLA와 시술 PDLLA의 효과 차이를 구분할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>"시술 → 화장품화" 트렌드 패턴을 PN·PDLLA 사례로 설명할 수 있다</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 논문 -->
+<div id="r" class="panel">
+  <div class="pc">
+    <div class="pt">Advances in Poly-L-lactic Acid Injections for Facial and Neck Rejuvenation</div>
+    <div class="pm">PMC · 2025 · Plastic and Reconstructive Surgery – Global Open</div>
+    <div class="ps">PLLA 안면·경부 리쥬버네이션 최신 임상 리뷰. 67.6% 주름 개선(52주), 90% 이상 만족도 보고. HA 필러와의 비교 데이터 포함. 2025년 가장 포괄적인 PLLA 임상 리뷰 중 하나.</div>
+    <a class="pl" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12323926/" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Faster efficacy and reduced nodule occurrence with PLLA porous microspheres</div>
+    <div class="pm">Frontiers in Bioengineering and Biotechnology · 2025</div>
+    <div class="ps">다공성 PLLA 미세구가 기존 PLLA 대비 콜라겐 형성 속도가 더 빠르고 결절 발생률이 낮다는 것을 입증. PDLLA의 다공성 구조 우위를 뒷받침하는 근거 논문.</div>
+    <a class="pl" href="https://www.frontiersin.org/journals/bioengineering-and-biotechnology/articles/10.3389/fbioe.2025.1571820/full" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+  <div class="pc">
+    <div class="pt">A Split Face Study Comparing PDLLA and PLLA on the Nasolabial Fold</div>
+    <div class="pm">PMC · 2024 · Incheon St. Mary's Hospital IRB 승인</div>
+    <div class="ps">PDLLA(쥬베룩 볼륨)와 PLLA(스컬트라)를 동일 환자 양쪽 얼굴에 시술해 직접 비교한 임상 연구. 효능·안전성 비열등성 평가. PDLLA와 PLLA 비교 데이터 중 가장 직접적인 임상 근거.</div>
+    <a class="pl" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12802405/" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Poly-L-Lactic Acid Fillers Improved Dermal Collagen Synthesis by Modulating M2 Macrophage Polarization</div>
+    <div class="pm">PMC · 2023</div>
+    <div class="ps">PLLA가 대식세포의 M2 편극을 유도해 TGF-β를 분비, 섬유아세포를 활성화하는 기전을 노화 피부 모델에서 입증. 콜라겐 부스터 기전 이해에 핵심적인 논문.</div>
+    <a class="pl" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10177436/" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Unveiling the Mechanism: Injectable PLLA's Evolving Role</div>
+    <div class="pm">Journal of Cosmetic Dermatology · Wiley · 2024</div>
+    <div class="ps">PLLA의 TGF-β/Smad 경로를 통한 COL1A1·COL1A2 mRNA 발현 촉진, 엘라스틴 합성 증가, MMP-1 억제 효과를 종합 정리한 최신 리뷰.</div>
+    <a class="pl" href="https://onlinelibrary.wiley.com/doi/10.1111/jocd.16635" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+</div>
+
+<script>
+function sw(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+function tog(id) {
+  const el = document.getElementById(id);
+  const ch = document.getElementById('c-' + id);
+  const open = el.classList.toggle('open');
+  if (ch) ch.classList.toggle('open', open);
+}
+</script>
+</body>
+</html>

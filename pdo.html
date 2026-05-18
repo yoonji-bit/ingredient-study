@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDO 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.tab.highlight{border-color:#378ADD;color:#185FA5}
+.tab.highlight.on{background:#E6F1FB;color:#185FA5;border-color:#378ADD;font-weight:600}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+.ctx-box{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
+.term:hover{color:#185FA5}
+#tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#tooltip-box.show{display:block}
+.tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
+.tip-links{display:flex;gap:8px;margin-top:8px}
+.tl-link{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
+.tl-link:hover{background:#B5D4F4}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1rem}
+.cmp{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem}
+.cmp.hi{border:2px solid #378ADD}
+.rec{font-size:11px;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.cmp-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:8px}
+.cmp-item{font-size:12px;color:#555;line-height:1.5;margin-bottom:6px}
+.cil{font-size:10px;color:#aaa;text-transform:uppercase;margin-bottom:1px}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:4px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-neutral{background:#f0f0ec;color:#444}
+.diff-amber{background:#FAEEDA;color:#633806}
+.tl-item{display:flex;gap:12px;margin-bottom:10px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:#e0e0db;flex-shrink:0;margin-top:4px}
+.tl-dot.active{background:#378ADD}.tl-dot.warn{background:#D85A30}.tl-dot.success{background:#1D9E75}
+.tl-period{font-size:11px;color:#aaa;margin-bottom:2px}
+.tl-desc{font-size:13px;color:#555;line-height:1.55}
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-badge{font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block}
+.pb-g{background:#E1F5EE;color:#085041}.pb-a{background:#FAEEDA;color:#633806}.pb-b{background:#E6F1FB;color:#0C447C}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff;font-weight:600}
+.i-gt{background:#4285F4}.i-yt{background:#FF0000}.i-oy{background:#FF6B35}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}.flag-global{background:#E6F1FB;color:#185FA5}.flag-trend{background:#E1F5EE;color:#085041}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}.tag-ok{background:#E6F1FB;color:#0C447C}.tag-care{background:#FAEEDA;color:#633806}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.di-amber{background:#FAEEDA}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-amber{background:#FAEEDA;color:#633806}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+.verdict-box{border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.v-yes{background:#E1F5EE;border:0.5px solid #5DCAA5}
+.v-no{background:#FCEBEB;border:0.5px solid #E8A0A0}
+.v-amber{background:#FAEEDA;border:0.5px solid #E8B568}
+.verdict-title{font-size:14px;font-weight:600;margin-bottom:6px}
+.vt-yes{color:#085041}.vt-no{color:#A32D2D}.vt-amber{color:#633806}
+.verdict-body{font-size:13px;line-height:1.65}
+.vb-yes{color:#085041}.vb-no{color:#A32D2D}.vb-amber{color:#633806}
+.routine-box{background:#f5f5f2;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.routine-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
+.routine-step:last-child{margin-bottom:0}
+.step-num{width:22px;height:22px;border-radius:50%;background:#1a1a1a;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;font-size:13px;color:#555;line-height:1.55}
+.step-label{font-size:11px;color:#aaa;margin-bottom:1px}
+.checklist{list-style:none;padding:0}
+.checklist li{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:0.5px solid #efefeb;font-size:13px;color:#555;line-height:1.55}
+.checklist li:last-child{border-bottom:none}
+.ck{width:16px;height:16px;border-radius:4px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.ck.done{background:#1D9E75;border-color:#1D9E75}
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl-link" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl-link" id="tip-dict" href="#" target="_blank">사전</a></div></div>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">PDO (폴리디옥사논)</div>
+<div class="ing-sub">Polydioxanone · 콜라겐 부스터 · 의료용 봉합사 → 나노 필러·화장품</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab highlight" onclick="sw('h',this)">⑤ 결론</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<!-- ① 기전 -->
+<div id="m" class="panel on">
+  <div class="card">
+    <div class="clabel">PDO란?</div>
+    <div class="cbody" id="mech-text"></div>
+  </div>
+  <div class="ctx-box" id="ctx-text"></div>
+
+  <div class="card">
+    <div class="clabel">콜라겐 합성 유도 — 3단계</div>
+    <ul class="rlist">
+      <li><strong style="color:#1a1a1a">① 가수분해</strong> — PDO가 체내 수분과 만나 에스테르 결합이 끊어지며 천천히 분해. 최종 산물은 이산화탄소+물 → 체내 잔류 없음</li>
+      <li><strong style="color:#1a1a1a">② 미세 염증 반응</strong> — 분해 과정에서 주변 조직에 경미한 염증 유발 → 대식세포 활성화 → TGF-β·VEGF 등 성장인자 분비</li>
+      <li><strong style="color:#1a1a1a">③ 섬유아세포 활성화</strong> — TGF-β 신호 → Type 1·3 콜라겐 합성. VEGF 신호 → 혈관신생 → 혈색·광채 개선 (PDLLA에 없는 PDO만의 강점)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="clabel">구형 PDO 약점 → 울트라콜 개선 포인트</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:#FCEBEB;border-radius:10px;padding:12px">
+        <div style="font-size:12px;font-weight:600;color:#A32D2D;margin-bottom:8px">구형 PDO ❌</div>
+        <ul class="rlist">
+          <li style="font-size:12px"><span class="dot dr"></span>입자 크기 불균일</li>
+          <li style="font-size:12px"><span class="dot dr"></span>분해 속도 불균형</li>
+          <li style="font-size:12px"><span class="dot dr"></span>결절 발생 리스크</li>
+          <li style="font-size:12px"><span class="dot dr"></span>경피 흡수율 낮음</li>
+        </ul>
+      </div>
+      <div style="background:#E1F5EE;border-radius:10px;padding:12px">
+        <div style="font-size:12px;font-weight:600;color:#085041;margin-bottom:8px">나노 PDO (울트라콜) ✅</div>
+        <ul class="rlist">
+          <li style="font-size:12px"><span class="dot dg"></span>나노 단위 균일 분산</li>
+          <li style="font-size:12px"><span class="dot dg"></span>분해 속도 일정 제어</li>
+          <li style="font-size:12px"><span class="dot dg"></span>결절 위험 대폭 감소</li>
+          <li style="font-size:12px"><span class="dot dg"></span>경피 흡수율 향상 → 화장품 가능</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">콜라겐 부스터 4형제 비교</div>
+    <div class="cmp-grid">
+      <div class="cmp hi">
+        <span class="rec" style="background:#E6F1FB;color:#0C447C">오늘의 성분</span>
+        <div class="cmp-name">PDO</div>
+        <div class="cmp-item"><div class="cil">원료</div>폴리디옥사논 (봉합사)</div>
+        <div class="cmp-item"><div class="cil">기전</div>가수분해 → TGF-β + VEGF</div>
+        <div class="cmp-item"><div class="cil">분해</div>6~8개월</div>
+        <div class="cmp-item"><div class="cil">특징</div>혈관신생 강점. 화장품화 선도</div>
+        <span class="diff-badge diff-good">혈색·광채</span>
+      </div>
+      <div class="cmp">
+        <span class="rec" style="background:#FAEEDA;color:#633806">K-뷰티</span>
+        <div class="cmp-name">PDLLA</div>
+        <div class="cmp-item"><div class="cil">원료</div>폴리젖산 혼합형</div>
+        <div class="cmp-item"><div class="cil">기전</div>이물반응 → TGF-β</div>
+        <div class="cmp-item"><div class="cil">분해</div>12~18개월</div>
+        <div class="cmp-item"><div class="cil">특징</div>HA 복합. 잔주름·피부결</div>
+        <span class="diff-badge diff-amber">즉각 보습</span>
+      </div>
+      <div class="cmp">
+        <span class="rec" style="background:#f0f0ec;color:#555">글로벌</span>
+        <div class="cmp-name">PLLA</div>
+        <div class="cmp-item"><div class="cil">원료</div>폴리젖산 L형</div>
+        <div class="cmp-item"><div class="cil">기전</div>이물반응 → 강한 TGF-β</div>
+        <div class="cmp-item"><div class="cil">분해</div>18~24개월+</div>
+        <div class="cmp-item"><div class="cil">특징</div>깊은 볼륨. 25년 임상</div>
+        <span class="diff-badge diff-neutral">볼륨 복원</span>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#888;padding:8px 10px;background:#f5f5f2;border-radius:8px">💡 PCL(폴리카프로락톤)까지 포함하면 4형제. 분해 속도: PDO(6~8개월) → PDLLA(12~18개월) → PLLA(18~24개월) → PCL(24~36개월)</div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">시술 기준 타임라인</div>
+    <div class="tl-item"><div class="tl-dot active"></div><div><div class="tl-period">시술 직후 ~ 2주</div><div class="tl-desc">약간의 붓기·멍. PDO 미세구 진피층 정착.</div></div></div>
+    <div class="tl-item"><div class="tl-dot active"></div><div><div class="tl-period">1~2개월</div><div class="tl-desc">가수분해 시작 → TGF-β·VEGF 분비 → 섬유아세포 활성화. 탄력·결 개선 체감 시작.</div></div></div>
+    <div class="tl-item"><div class="tl-dot success"></div><div><div class="tl-period">3~6개월</div><div class="tl-desc">콜라겐 합성 피크. 탄력·광채·혈색 개선 극대화.</div></div></div>
+    <div class="tl-item"><div class="tl-dot success"></div><div><div class="tl-period">6~12개월</div><div class="tl-desc">PDO 완전 분해. 생성된 콜라겐 약 12개월 유지. PDLLA 대비 분해 빠름 → 유지 기간 짧음.</div></div></div>
+  </div>
+</div>
+
+<!-- ② 효능 & 주의점 -->
+<div id="e" class="panel">
+  <div class="card">
+    <div class="clabel">주요 효능</div>
+    <ul class="rlist">
+      <li><span class="dot dg"></span>Type 1·3 콜라겐 합성 촉진 → 피부 탄력·볼륨 개선</li>
+      <li><span class="dot dg"></span><strong>VEGF 분비 → 혈관신생 유도</strong> → 피부 혈색·광채 개선 (PDLLA·PLLA에 없는 PDO만의 차별점)</li>
+      <li><span class="dot dg"></span>TGF-β 경로 → 섬유아세포 활성화 → 진피 리모델링</li>
+      <li><span class="dot dg"></span>생분해성 → 이산화탄소+물로 완전 분해. 체내 잔류 없음</li>
+      <li><span class="dot dg"></span>나노 분산 → 도포형 화장품 경피 흡수 가능 (표피~진피 상층)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="clabel">주의점</div>
+    <ul class="rlist">
+      <li><span class="dot dr"></span><strong>화장품 ≠ 시술 효과</strong> — 나노 PDO 화장품은 진피 깊은 층 리모델링 어려움. 시술 보조·표피 효과 수준</li>
+      <li><span class="dot dr"></span><strong>유지 기간 짧음</strong> — 6~8개월로 PDLLA·PLLA 대비 짧아. 장기 유지 원하면 반복 시술 필요</li>
+      <li><span class="dot dr"></span><strong>결절 리스크</strong> — 나노화로 감소했지만 0은 아님. 시술 후 마사지 프로토콜 준수 필수</li>
+      <li><span class="dot dr"></span><strong>임상 근거 격차</strong> — PLLA(25년) 대비 나노 PDO 필러 임상은 아직 제한적</li>
+      <li><span class="dot da"></span>임신·수유 중, 자가면역 질환, 켈로이드 체질 주의</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ③ 적용 사례 -->
+<div id="p" class="panel">
+  <div class="card">
+    <div class="clabel">시술 제품</div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p1')">
+        <div class="prod-info">
+          <div class="prod-brand">울트라콜 (Ultracol)</div>
+          <div class="prod-pname">울트라브이 · 세계 최초 PDO 기반 필러·스킨부스터</div>
+          <div class="prod-note">2019년 출시. 나노 분산 PDO '가루 필러' 최초 개발. 2024년 매출 73억 원(전체 43%). 스팩 상장 추진 중</div>
+          <span class="prod-badge pb-g">PDO 오리지널</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://www.ultrav.co.kr" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>공식</a>
+          <i class="ti ti-chevron-down chevron" id="c-p1"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p1">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:10px">세계 최초 PDO 필러. 기업가치 690억 원 산정 후 스팩 합병 상장 추진 중(2025). 경쟁 제품 증가로 시장 경쟁 심화. 피부과 매출 비중이 성형외과보다 높음.</div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=울트라콜+PDO+시술+후기" target="_blank"><div class="mkt-icon i-gt">N</div><div><div class="mkt-name">네이버 후기</div><div class="mkt-desc">울트라콜 시술 후기</div></div></a>
+          <a class="mkt-btn" href="https://www.youtube.com/results?search_query=울트라콜+PDO+시술" target="_blank"><div class="mkt-icon i-yt">▶</div><div><div class="mkt-name">유튜브</div><div class="mkt-desc">시술 전후 영상</div></div></a>
+        </div>
+      </div>
+    </div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p2')">
+        <div class="prod-info">
+          <div class="prod-brand">PDO 실 리프팅</div>
+          <div class="prod-pname">HansBiomed · Sinclair · Croma 등 · 실 형태 PDO 시술</div>
+          <div class="prod-note">PDO 필러와 달리 실 형태로 삽입. 리프팅 + 콜라겐 자극 이중 효과. PDO 시술의 원조 형태</div>
+          <span class="prod-badge pb-a">시술</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://search.naver.com/search.naver?query=PDO+실리프팅+시술" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>검색</a>
+          <i class="ti ti-chevron-down chevron" id="c-p2"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p2">
+        <div style="font-size:13px;color:#555;line-height:1.65">PDO 실 리프팅은 가장 오래된 PDO 적용 사례. 울트라콜은 이 원리를 '필러'로 재해석한 것. PDO 필러 시장 2024년 191억 달러 → 2032년 299억 달러 전망(CAGR 5.72%).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">화장품 라인</div>
+    <div style="font-size:13px;color:#888;margin-bottom:10px">PDO 화장품은 울트라브이가 선도했지만 화장품 매출 비중 감소 추세(2022년 40% → 2024년 12%). 마진 낮은 홈쇼핑 철수 영향. 시술 쪽으로 축 이동 중.</div>
+    <div class="prod-item" style="border-bottom:none">
+      <div class="prod-head" onclick="tog('p3')">
+        <div class="prod-info">
+          <div class="prod-brand">울트라브이 화장품 라인</div>
+          <div class="prod-pname">나노 PDO 세럼·크림 · 시술 후 홈케어 포지셔닝</div>
+          <div class="prod-note">홈쇼핑 철수 후 자사몰·피부과 채널 중심 재편. 올리브영 대중 채널 미진입</div>
+          <span class="prod-badge pb-b">화장품</span>
+        </div>
+        <div class="prod-right"><i class="ti ti-chevron-down chevron" id="c-p3"></i></div>
+      </div>
+      <div class="prod-expand" id="p3">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:10px">PDO 화장품은 PDLLA보다 먼저 시작됐지만 대중화 더딘 상황. 기획 포인트: "시술 후 홈케어" 포지셔닝이 현실적. VEGF 혈관신생 강점을 살린 "피부 속부터 환해지는" 컨셉이 유효.</div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=PDO+화장품+세럼" target="_blank"><div class="mkt-icon i-gt">N</div><div><div class="mkt-name">네이버 검색</div><div class="mkt-desc">PDO 화장품 검색</div></div></a>
+          <a class="mkt-btn" href="https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=PDO" target="_blank"><div class="mkt-icon i-oy">O</div><div><div class="mkt-name">올리브영</div><div class="mkt-desc">PDO 제품 검색</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ 유사 성분 -->
+<div id="s" class="panel">
+  <div class="ctx-box">PDO는 <strong>콜라겐 부스터 4형제</strong> 안에서 PDLLA·PLLA·PCL과 비교해서 포지션이 명확해져.</div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">PDLLA (쥬베룩)</div><div class="combo-tags"><span class="ctag tag-ok">같은 카테고리</span><span class="ctag tag-syn">비교 필수</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 콜라겐 부스터, 생분해성, TGF-β 경로.<br><strong>차이점:</strong> PDO = 봉합사 유래·가수분해 기전 + VEGF 혈관신생. PDLLA = 폴리젖산·이물반응 + HA 복합 즉각 보습.<br><strong>분해:</strong> PDO 6~8개월 vs PDLLA 12~18개월.</div>
+    <div class="combo-how">💡 PDO는 "혈색·광채", PDLLA는 "잔주름·즉각 보습"으로 포지션 차별화 가능. → <a href="pdlla-plla.html" style="color:#185FA5">PDLLA 카드 보기</a></div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">PLLA (스컬트라)</div><div class="combo-tags"><span class="ctag tag-ok">같은 카테고리</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 콜라겐 부스터, 생분해성.<br><strong>차이점:</strong> PLLA = 25년 임상 근거·깊은 볼륨 복원. 50대+ 적합. PDO = 분해 빠르고 화장품화 앞서. 30~40대 탄력·광채 적합.</div>
+    <div class="combo-how">💡 PDO는 "예방적 항노화", PLLA는 "볼륨 복원"으로 타깃 세분화.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">PCL (폴리카프로락톤)</div><div class="combo-tags"><span class="ctag tag-ok">비교 성분</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 생분해성 봉합사 유래 콜라겐 부스터.<br><strong>차이점:</strong> PCL = 분해 가장 느림(24~36개월). 엘란쎄 대표 제품. PDO가 PCL보다 효과 체감 빠르고 화장품화 앞서.<br>분해 속도 순: PDO &lt; PDLLA &lt; PLLA &lt; PCL.</div>
+    <div class="combo-how">💡 4형제 중 유지 기간 원하면 PCL·PLLA, 빠른 체감 원하면 PDO.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">PN / PDRN (리쥬란)</div><div class="combo-tags"><span class="ctag tag-syn">조합 추천</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 진피 재생·콜라겐 합성 촉진.<br><strong>차이점:</strong> PN = DNA 유래 핵산 → 세포 증식·ECM 환경 복원. PDO = 가수분해 → TGF-β·VEGF → 콜라겐+혈관신생. 기전이 달라 시너지 기대.</div>
+    <div class="combo-how">💡 PDO 시술 후 PN 홈케어 세럼 조합이 재생 환경 지지에 효과적.</div>
+  </div>
+
+  <div class="danger-item">
+    <div class="danger-head"><div class="danger-icon di-amber"><span style="color:#BA7517;font-size:14px">!</span></div><div class="danger-name">콜라겐 부스터 중복 시술</div><span class="danger-badge db-amber">주의</span></div>
+    <div class="danger-desc">PDO·PDLLA·PLLA·PCL 짧은 간격 중복 시술 시 결절·육아종 리스크 증가. 콜라겐 과잉 자극으로 피부 딱딱해질 수 있음.</div>
+    <div class="danger-tip">동일 부위 재시술 간격 4~6주 이상. 다른 콜라겐 부스터 병용 시 전문의 판단 필수.</div>
+  </div>
+</div>
+
+<!-- ⑤ 결론 -->
+<div id="h" class="panel">
+  <div class="card">
+    <div class="clabel">📊 시장 반응 요약 — 2025년 기준</div>
+    <div class="cbody">
+      <div style="margin-bottom:10px"><span class="mkt-flag flag-global">글로벌</span><strong>PDO 필러 시장 2032년 299억 달러 전망</strong><br><span style="font-size:13px;color:#555">2024년 191억 달러 → 2032년 299억 달러 (CAGR 5.72%). 안면 회춘 55% 차지. 비수술 미용 시술 수요가 성장 주도.</span></div>
+      <div style="margin-bottom:10px"><span class="mkt-flag flag-kr">국내</span><strong>울트라브이 스팩 상장 추진 — PDO 시술 시장 성장</strong><br><span style="font-size:13px;color:#555">울트라콜 2024년 매출 73억 원(전체 43%). 기업가치 690억 원 산정. 화장품 비중 감소(40%→12%), 시술 중심으로 재편. 유사 경쟁 제품 증가로 경쟁 심화.</span></div>
+      <div><span class="mkt-flag flag-trend">트렌드</span><strong>콜라겐 부스터 4형제 포지션 경쟁 본격화</strong><br><span style="font-size:13px;color:#555">PDO·PDLLA·PLLA·PCL이 각각 다른 분해 속도·강점으로 경쟁. "어떤 콜라겐 부스터를 왜 쓰는가" 설명할 수 있는 기획력이 중요해지는 시장.</span></div>
+    </div>
+  </div>
+
+  <div class="verdict-box v-yes">
+    <div class="verdict-title vt-yes">✅ 써봐 — 이런 목적이라면</div>
+    <div class="verdict-body vb-yes">30~40대 예방적 항노화. 피부 탄력·광채·혈색 동시 개선 목적. 효과 빨리 체감하고 싶은 경우. 시술 후 홈케어 루틴 원하는 경우. → 시술(울트라콜)로 접근, 홈케어는 나노 PDO 화장품+PN 세럼 조합.</div>
+  </div>
+
+  <div class="verdict-box v-amber">
+    <div class="verdict-title vt-amber">⚠️ 화장품 기대치는 현실적으로</div>
+    <div class="verdict-body vb-amber">나노 PDO 화장품은 표피~진피 상층 보조 효과. 시술 전후 홈케어·유지 목적으로 접근. 울트라브이 화장품 매출 감소는 소비자 기대 관리 실패 측면도 있음.</div>
+  </div>
+
+  <div class="verdict-box v-no">
+    <div class="verdict-title vt-no">❌ 재고 — 이런 경우는</div>
+    <div class="verdict-body vb-no">깊은 안면 볼륨 복원이 목적 → PLLA(스컬트라)가 더 적합. 2년 이상 장기 유지 원하면 PCL·PLLA 고려. 화장품에서 시술급 효과 기대 → 기대 관리 필수.</div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">기초 기획자 관점</div>
+    <div class="cbody">PDO의 핵심 차별점은 <strong>VEGF 혈관신생</strong>이야. 콜라겐 합성은 PDLLA·PLLA도 하지만, 혈관신생으로 피부 혈색·광채까지 잡는 건 PDO만의 강점. <strong>"피부 속부터 환해지는"</strong> 포지셔닝이 가능한 성분이야.<br><br>화장품화는 가장 먼저 시도했지만 대중화가 더딘 상황. PN이 걸어온 대중화 경로(시술 → 화장품 → 올리브영)를 PDO가 따라갈 수 있을지가 관건. VEGF 혈관신생 포지션을 잘 살리면 차별화된 기초 라인 기획이 가능해.</div>
+  </div>
+
+  <div class="routine-box">
+    <div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:12px">스킨케어 루틴 (시술 후 홈케어)</div>
+    <div class="routine-step"><div class="step-num">1</div><div class="step-body"><div class="step-label">클렌징</div>저자극 클렌저. 시술 직후 1~2일은 물 세안만</div></div>
+    <div class="routine-step"><div class="step-num">2</div><div class="step-body"><div class="step-label">앰플/세럼</div>PN 세럼 또는 성장인자 앰플 (재생 보조)</div></div>
+    <div class="routine-step"><div class="step-num">3</div><div class="step-body"><div class="step-label">크림</div>나노 PDO 크림 (있는 경우) or 히알루론산+세라마이드 보습</div></div>
+    <div class="routine-step"><div class="step-num">4</div><div class="step-body"><div class="step-label">선크림 (필수)</div>SPF50+ 매일. 콜라겐 유지 위해 자외선 차단 최우선</div></div>
+    <div style="margin-top:10px;font-size:12px;color:#888">* 시술 후 1~2주는 레티놀·AHA 자제.</div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">체크리스트</div>
+    <ul class="checklist">
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>PDO가 의료용 봉합사에서 시작한 성분임을 설명할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>가수분해 → TGF-β·VEGF → 콜라겐+혈관신생 기전을 말할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>PDO vs PDLLA vs PLLA 분해 속도 순서를 안다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>PDO 차별점이 VEGF 혈관신생임을 이해했다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>콜라겐 부스터 4형제를 분해 속도 순으로 나열할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>울트라콜이 "세계 최초 PDO 필러"라는 포지션임을 안다</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 논문 -->
+<div id="r" class="panel">
+  <div class="pc">
+    <div class="pt">PDO, PCL 조직 반응 및 콜라겐 생성 — 쥐 모델 연구</div>
+    <div class="pm">KISTI ScienceON · 국내 임상 연구</div>
+    <div class="ps">PDO와 PCL 실 리프팅 재료의 생체 내 조직 반응 비교. 12주까지 콜라겐 피막 증가 후 감소 패턴 확인. 단일가닥·다중가닥·Cog 실 형태별 차이 분석. PDO 기전 이해의 기초 논문.</div>
+    <a class="pl" href="https://scienceon.kisti.re.kr/srch/selectPORSrchArticle.do?cn=DIKO0015376749&dbt=DIKO" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Collagen Synthesis and Neovascularization Induced by PDO Thread Lifting</div>
+    <div class="pm">Aesthetic Plastic Surgery · 2019</div>
+    <div class="ps">PDO 실 리프팅이 TGF-β 콜라겐 합성 외에 VEGF 혈관신생까지 유도한다는 기전 논문. PDO의 차별점인 혈관신생 효과를 직접 다룬 핵심 근거.</div>
+    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=PDO+thread+collagen+neovascularization+VEGF" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>PubMed 검색</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Absorbable Thread Lifting: PDO vs PCL Clinical Comparison</div>
+    <div class="pm">Journal of Cosmetic Dermatology · 2022</div>
+    <div class="ps">PDO와 PCL 흡수성 실 리프팅 임상 효과·안전성·유지 기간 비교. PDO 6~8개월, PCL 24개월+ 유지 확인.</div>
+    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=PDO+PCL+thread+lift+comparison+clinical" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>PubMed 검색</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Polydioxanone Filler for Facial Rejuvenation: Safety and Efficacy</div>
+    <div class="pm">Dermatologic Surgery · 2023</div>
+    <div class="ps">나노 분산 PDO 필러(울트라콜 계열) 안면 리쥬버네이션 임상 안전성·효능 평가. 결절 발생률·콜라겐 합성 효과 분석.</div>
+    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=polydioxanone+filler+facial+rejuvenation+safety" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>PubMed 검색</a>
+  </div>
+</div>
+
+<script>
+const TERMS={
+  "폴리디옥사논":{"def":"Polydioxanone(PDO). 의료용 흡수성 봉합사 재료로 개발된 합성 폴리머. 에스테르·에테르 결합 구조로, 체내 수분과 만나 가수분해되어 이산화탄소+물로 분해돼. 생체적합성·생분해성이 높아 의료·화장품에 적용.","wiki":"https://ko.wikipedia.org/wiki/폴리디옥사논","dict":"https://terms.naver.com/search.naver?query=폴리디옥사논+PDO"},
+  "가수분해":{"def":"물 분자가 화학 결합을 끊는 반응. PDO의 에스테르 결합이 체내 수분과 반응해 분해되는 과정. 최종적으로 이산화탄소와 물로 완전 분해되어 체내에 잔류하지 않아.","wiki":"https://ko.wikipedia.org/wiki/가수분해","dict":"https://terms.naver.com/search.naver?query=가수분해"},
+  "TGF-β":{"def":"Transforming Growth Factor-beta. 섬유아세포를 자극해 콜라겐 합성을 촉진하는 성장인자. PDO 분해 과정에서 대식세포가 분비. PDLLA·PLLA에서도 동일 경로 활용.","wiki":"https://ko.wikipedia.org/wiki/형질전환_성장인자","dict":"https://terms.naver.com/search.naver?query=TGF-β"},
+  "VEGF":{"def":"혈관내피세포 성장인자(Vascular Endothelial Growth Factor). 혈관신생을 유도하는 신호 단백질. PDO만의 차별점 — 콜라겐 합성 외에 VEGF로 혈관신생까지 유도해 피부 혈색·광채 개선.","wiki":"https://ko.wikipedia.org/wiki/혈관내피세포성장인자","dict":"https://terms.naver.com/search.naver?query=VEGF+혈관신생"},
+  "혈관신생":{"def":"새로운 혈관이 생성되는 과정. VEGF 신호로 유도. 피부 조직에 산소·영양 공급을 늘려 혈색·광채·재생 능력 향상. PDO 콜라겐 부스터의 차별화 기전.","wiki":"https://ko.wikipedia.org/wiki/혈관신생","dict":"https://terms.naver.com/search.naver?query=혈관신생"},
+  "섬유아세포":{"def":"피부 진피층에 있는 세포. 콜라겐·엘라스틴 등 피부 구조 단백질을 만들어. TGF-β 신호를 받아 콜라겐 합성 시작.","wiki":"https://ko.wikipedia.org/wiki/섬유아세포","dict":"https://terms.naver.com/search.naver?query=섬유아세포"},
+  "결절":{"def":"피부 속 생체 재료가 뭉쳐 만들어진 딱딱한 덩어리. PDO·PDLLA·PLLA 등 콜라겐 부스터의 주요 부작용. 나노화·마사지 프로토콜로 예방.","wiki":"https://terms.naver.com/search.naver?query=결절+필러","dict":"https://terms.naver.com/search.naver?query=결절+nodule"},
+  "생분해성":{"def":"체내 효소·수분에 의해 자연 분해되는 성질. PDO는 가수분해로 이산화탄소+물로 완전 분해. PDLLA·PLLA·PCL도 동일하게 생분해성 폴리머야.","wiki":"https://ko.wikipedia.org/wiki/생분해","dict":"https://terms.naver.com/search.naver?query=생분해성"},
+  "콜라겐":{"def":"피부 탄력과 구조를 유지하는 단백질. Type 1이 가장 많음. 나이 들수록 감소. PDO·PDLLA·PLLA·PCL 모두 콜라겐 합성을 유도하는 '콜라겐 부스터' 카테고리야.","wiki":"https://ko.wikipedia.org/wiki/콜라겐","dict":"https://terms.naver.com/search.naver?query=콜라겐"},
+};
+const tipBox=document.getElementById('tooltip-box');
+let activeTerm=null;
+function showTip(el,word){if(activeTerm===el){hideTip();return;}activeTerm=el;const g=TERMS[word];document.getElementById('tip-title').textContent=word;document.getElementById('tip-def').textContent=g.def;document.getElementById('tip-wiki').href=g.wiki;document.getElementById('tip-dict').href=g.dict;tipBox.classList.add('show');const rect=el.getBoundingClientRect();let left=rect.left+window.scrollX,top=rect.bottom+window.scrollY+4;if(left+248>window.innerWidth)left=window.innerWidth-248;if(left<8)left=8;tipBox.style.left=left+'px';tipBox.style.top=top+'px';}
+function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
+function annotate(html){const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);const marks={};terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});return html;}
+function sw(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');btn.classList.add('on');}
+function tog(id){const el=document.getElementById(id);const ch=document.getElementById('c-'+id);const open=el.classList.toggle('open');if(ch)ch.classList.toggle('open',open);}
+document.getElementById('mech-text').innerHTML=annotate('PDO(폴리디옥사논)는 원래 수술실에서 쓰던 의료용 흡수성 봉합사 성분이야. 피부과 실 리프팅 시술에 쓰이다가, 이걸 나노 단위로 균일하게 분산시켜 필러·화장품으로 개발한 게 울트라콜이야. 핵심은 PDO가 체내 수분과 만나 가수분해되면서 TGF-β와 VEGF 등 성장인자를 분비시켜 섬유아세포를 활성화하는 거야. 콜라겐 합성에 더해 혈관신생까지 유도해서 탄력·혈색·광채를 동시에 개선하는 콜라겐 부스터야.');
+document.getElementById('ctx-text').innerHTML=annotate('💡 PDO의 핵심 차별점: PDLLA·PLLA는 TGF-β로 콜라겐 합성만 자극하지만, PDO는 여기에 VEGF 혈관신생까지 유도해. 단, 생분해성이 4형제 중 가장 빨라(6~8개월) 유지 기간은 짧은 편이야.');
+</script>
+</body>
+</html>

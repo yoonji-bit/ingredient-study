@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHK 펩타이드 성분 학습 카드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a1a;padding:24px 16px;max-width:720px;margin:0 auto}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;text-decoration:none;margin-bottom:1.25rem}
+.back-btn:hover{color:#378ADD}
+.ing-name{font-size:22px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.ing-sub{font-size:13px;color:#888;margin-bottom:1.25rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab{padding:5px 14px;border-radius:8px;border:0.5px solid #ccc;background:transparent;font-size:13px;color:#666;cursor:pointer;transition:all .12s}
+.tab.on{background:#f0f0ec;color:#1a1a1a;border-color:#999;font-weight:500}
+.tab.highlight{border-color:#378ADD;color:#185FA5}
+.tab.highlight.on{background:#E6F1FB;color:#185FA5;border-color:#378ADD;font-weight:600}
+.panel{display:none}.panel.on{display:block}
+.card{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.clabel{font-size:11px;color:#aaa;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.cbody{font-size:14px;color:#555;line-height:1.75}
+.rlist{list-style:none;padding:0}
+.rlist li{font-size:14px;color:#555;padding:7px 0;border-bottom:0.5px solid #efefeb;line-height:1.55}
+.rlist li:last-child{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dg{background:#1D9E75}.dr{background:#D85A30}.da{background:#BA7517}
+.ctx-box{font-size:13px;color:#555;line-height:1.65;margin-bottom:12px;padding:10px 14px;background:#f5f5f2;border-left:3px solid #378ADD}
+.term{border-bottom:1.5px dotted #378ADD;color:inherit;cursor:pointer}
+.term:hover{color:#185FA5}
+#tooltip-box{display:none;position:fixed;background:#fff;border:0.5px solid #ccc;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#555;line-height:1.6;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#tooltip-box.show{display:block}
+.tip-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:5px;display:block}
+.tip-links{display:flex;gap:8px;margin-top:8px}
+.tl-link{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:2px 8px;background:#E6F1FB}
+.tl-link:hover{background:#B5D4F4}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.cmp{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem}
+.cmp.hi{border:2px solid #378ADD}
+.rec{font-size:11px;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:6px}
+.cmp-name{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:8px}
+.cmp-item{font-size:12px;color:#555;line-height:1.5;margin-bottom:6px}
+.cil{font-size:10px;color:#aaa;text-transform:uppercase;margin-bottom:1px}
+.diff-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:4px}
+.diff-good{background:#E1F5EE;color:#085041}
+.diff-neutral{background:#f0f0ec;color:#444}
+.diff-amber{background:#FAEEDA;color:#633806}
+.diff-blue{background:#E6F1FB;color:#0C447C}
+.prod-item{border-bottom:0.5px solid #efefeb}
+.prod-item:last-child{border-bottom:none}
+.prod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;cursor:pointer;user-select:none}
+.prod-head:hover .prod-brand{color:#185FA5}
+.prod-info{flex:1}
+.prod-brand{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;transition:color .12s}
+.prod-pname{font-size:13px;color:#555;margin-bottom:3px}
+.prod-note{font-size:12px;color:#aaa;margin-bottom:4px}
+.prod-badge{font-size:11px;padding:1px 7px;border-radius:3px;display:inline-block}
+.pb-g{background:#E1F5EE;color:#085041}.pb-a{background:#FAEEDA;color:#633806}.pb-b{background:#E6F1FB;color:#0C447C}.pb-p{background:#EEEDFE;color:#3C3489}
+.prod-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.prod-official{font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 8px;background:#E6F1FB;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.prod-official:hover{background:#B5D4F4}
+.chevron{font-size:16px;color:#aaa;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.prod-expand{display:none;padding:0 0 12px}
+.prod-expand.open{display:block}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mkt-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:0.5px solid #e0e0db;border-radius:12px;background:#f9f9f7;text-decoration:none;transition:all .12s}
+.mkt-btn:hover{border-color:#ccc;background:#f0f0ec}
+.mkt-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff;font-weight:600}
+.i-gt{background:#4285F4}.i-yt{background:#FF0000}.i-oy{background:#FF6B35}.i-amz{background:#FF9900}
+.mkt-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.mkt-desc{font-size:11px;color:#aaa}
+.mkt-flag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:500;margin-right:4px}
+.flag-kr{background:#FAECE7;color:#993C1D}.flag-global{background:#E6F1FB;color:#185FA5}.flag-trend{background:#E1F5EE;color:#085041}
+.combo-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.combo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.combo-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.combo-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ctag{font-size:11px;padding:1px 7px;border-radius:3px}
+.tag-syn{background:#E1F5EE;color:#085041}.tag-ok{background:#E6F1FB;color:#0C447C}.tag-care{background:#FAEEDA;color:#633806}.tag-no{background:#FCEBEB;color:#A32D2D}
+.combo-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:6px}
+.combo-how{font-size:12px;color:#888;line-height:1.5;padding:6px 10px;background:#f5f5f2;border-radius:8px}
+.danger-item{border:0.5px solid #e0e0db;border-radius:12px;padding:.875rem 1rem;margin-bottom:.625rem;background:#fff}
+.danger-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.danger-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.di-red{background:#FCEBEB}.di-amber{background:#FAEEDA}
+.danger-name{font-size:14px;font-weight:500;color:#1a1a1a}
+.danger-badge{font-size:11px;padding:1px 7px;border-radius:3px}
+.db-red{background:#FCEBEB;color:#A32D2D}.db-amber{background:#FAEEDA;color:#633806}
+.danger-desc{font-size:13px;color:#555;line-height:1.6}
+.danger-tip{font-size:12px;color:#888;margin-top:5px;padding:5px 10px;background:#f5f5f2;border-radius:8px}
+.verdict-box{border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.v-yes{background:#E1F5EE;border:0.5px solid #5DCAA5}
+.v-no{background:#FCEBEB;border:0.5px solid #E8A0A0}
+.v-amber{background:#FAEEDA;border:0.5px solid #E8B568}
+.verdict-title{font-size:14px;font-weight:600;margin-bottom:6px}
+.vt-yes{color:#085041}.vt-no{color:#A32D2D}.vt-amber{color:#633806}
+.verdict-body{font-size:13px;line-height:1.65}
+.vb-yes{color:#085041}.vb-no{color:#A32D2D}.vb-amber{color:#633806}
+.routine-box{background:#f5f5f2;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+.routine-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
+.routine-step:last-child{margin-bottom:0}
+.step-num{width:22px;height:22px;border-radius:50%;background:#1a1a1a;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;font-size:13px;color:#555;line-height:1.55}
+.step-label{font-size:11px;color:#aaa;margin-bottom:1px}
+.checklist{list-style:none;padding:0}
+.checklist li{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:0.5px solid #efefeb;font-size:13px;color:#555;line-height:1.55}
+.checklist li:last-child{border-bottom:none}
+.ck{width:16px;height:16px;border-radius:4px;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.ck.done{background:#1D9E75;border-color:#1D9E75}
+.pc{background:#fff;border:0.5px solid #e0e0db;border-radius:12px;padding:1rem 1.25rem;margin-bottom:.75rem}
+.pt{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:3px}
+.pm{font-size:12px;color:#aaa;margin-bottom:8px}
+.ps{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.pl{font-size:12px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:8px;padding:3px 10px;background:#E6F1FB;display:inline-flex;align-items:center;gap:4px}
+.pl:hover{background:#B5D4F4}
+@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}.mkt-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="tooltip-box"><span class="tip-title" id="tip-title"></span><span id="tip-def"></span><div class="tip-links"><a class="tl-link" id="tip-wiki" href="#" target="_blank">위키</a><a class="tl-link" id="tip-dict" href="#" target="_blank">사전</a></div></div>
+
+<a class="back-btn" href="index.html"><i class="ti ti-arrow-left" style="font-size:14px"></i> 성분 목록으로</a>
+<div class="ing-name">GHK 펩타이드</div>
+<div class="ing-sub">Glycyl-L-Histidyl-L-Lysine · GHK-Cu (구리 펩타이드) · 피부 리모델링 신호 전달자</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="sw('m',this)">① 기전</button>
+  <button class="tab" onclick="sw('e',this)">② 효능 & 주의점</button>
+  <button class="tab" onclick="sw('p',this)">③ 적용 사례</button>
+  <button class="tab" onclick="sw('s',this)">④ 유사 성분</button>
+  <button class="tab highlight" onclick="sw('h',this)">⑤ 결론</button>
+  <button class="tab" onclick="sw('r',this)">논문</button>
+</div>
+
+<!-- ① 기전 -->
+<div id="m" class="panel on">
+  <div class="card">
+    <div class="clabel">GHK란?</div>
+    <div class="cbody" id="mech-text"></div>
+  </div>
+  <div class="ctx-box" id="ctx-text"></div>
+
+  <div class="card">
+    <div class="clabel">GHK vs GHK-Cu — 구리가 더해지면 달라지는 것</div>
+    <div class="cmp-grid">
+      <div class="cmp">
+        <span class="rec" style="background:#f0f0ec;color:#555">기본형</span>
+        <div class="cmp-name">GHK (구리 없음)</div>
+        <div class="cmp-item"><div class="cil">구조</div>글리신-히스티딘-리신 트리펩타이드</div>
+        <div class="cmp-item"><div class="cil">작용</div>상처 치유, 피부 수복, 피부 조임 효과</div>
+        <div class="cmp-item"><div class="cil">특징</div>단독으로도 피부 재생 신호 전달 가능</div>
+        <span class="diff-badge diff-neutral">기본 재생 효과</span>
+      </div>
+      <div class="cmp hi">
+        <span class="rec" style="background:#E6F1FB;color:#0C447C">화장품 주류</span>
+        <div class="cmp-name">GHK-Cu (구리 복합)</div>
+        <div class="cmp-item"><div class="cil">구조</div>GHK + 구리(Cu²⁺) 이온 결합</div>
+        <div class="cmp-item"><div class="cil">작용</div>콜라겐·엘라스틴 합성 ↑, 항염, 항산화, 조직 리모델링 전반</div>
+        <div class="cmp-item"><div class="cil">특징</div>구리가 활성도를 크게 높여줌. 파란색이 진할수록 농도 높음</div>
+        <span class="diff-badge diff-good">강화된 재생·리모델링</span>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#888;padding:8px 10px;background:#f5f5f2;border-radius:8px">💡 NIOD CAIS3 1:1은 GHK-Cu 1% + GHK 1%를 동시에 넣어 둘의 시너지를 극대화한 제품. GHK는 피부 수복, GHK-Cu는 구조적 강화 역할 분담.</div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">작용 기전 — 4가지 역할</div>
+    <ul class="rlist">
+      <li><strong style="color:#1a1a1a">① 콜라겐·엘라스틴 공장 가동</strong> — 섬유아세포에 "야, 일 좀 해!" 신호 전달 → 콜라겐·엘라스틴 합성 촉진. 동시에 MMP(콜라겐 분해 효소)는 억제 → 짓는 속도↑ 무너지는 속도↓</li>
+      <li><strong style="color:#1a1a1a">② 염증 소방관</strong> — 염증성 사이토카인(IL-6·TNF-α) 감소 → 여드름·홍조·민감성 피부 진정. NF-κB 경로 억제</li>
+      <li><strong style="color:#1a1a1a">③ 조직 리모델링 총책임자</strong> — 손상 조직 제거 + 건강한 조직 재생 동시 진행. 상처 치유·흉터 최소화 효과</li>
+      <li><strong style="color:#1a1a1a">④ 항산화 방패</strong> — 활성산소(ROS) 중화. 구리 이온이 SOD(슈퍼옥사이드 디스뮤타아제) 유사 기능 수행</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="clabel">나이에 따른 GHK-Cu 감소</div>
+    <div class="cbody">
+      혈중 GHK-Cu 농도는 <strong>20대 약 200ng/mL → 60대 약 80ng/mL</strong>로 감소해. 절반 이하로 떨어지는 거야. 이 감소가 노화에 따른 콜라겐 감소, 피부 재생력 저하와 직접 연결돼. 화장품으로 외부에서 공급하는 논리가 여기서 나와.
+    </div>
+  </div>
+</div>
+
+<!-- ② 효능 & 주의점 -->
+<div id="e" class="panel">
+  <div class="card">
+    <div class="clabel">주요 효능</div>
+    <ul class="rlist">
+      <li><span class="dot dg"></span>콜라겐·엘라스틴·글리코사미노글리칸 합성 촉진 → 진피 두께 증가·탄력 개선</li>
+      <li><span class="dot dg"></span>MMP-1·MMP-2 억제 → 기존 콜라겐 분해 방어</li>
+      <li><span class="dot dg"></span>항염 (NF-κB 억제, IL-6·TNF-α 감소) → 민감성·홍조·여드름성 피부 진정</li>
+      <li><span class="dot dg"></span>상처 치유 가속 → 흉터 최소화. 시술 후 회복에 활용</li>
+      <li><span class="dot dg"></span>항산화 → 활성산소 중화, 광노화 예방 보조</li>
+      <li><span class="dot dg"></span>모낭 재생 → 탈모 케어 (Wnt/β-catenin 경로 활성화)</li>
+      <li><span class="dot dg"></span>주름 개선·피부결 정돈·광채 개선. 농도 0.001~0.01% 수준에서도 효과 관찰</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="clabel">레티놀과 비교 — 어떻게 다른가</div>
+    <div class="cmp-grid">
+      <div class="cmp">
+        <span class="rec" style="background:#FAEEDA;color:#633806">항노화 대표</span>
+        <div class="cmp-name">레티놀</div>
+        <div class="cmp-item"><div class="cil">기전</div>레티노산 전환 → 유전자 발현 조절 → 콜라겐 합성</div>
+        <div class="cmp-item"><div class="cil">장점</div>임상 근거 압도적으로 많음. 효과 강력</div>
+        <div class="cmp-item"><div class="cil">단점</div>초기 자극(각질·홍조·건조). 임신 중 사용 주의. 농도 조절 필수</div>
+        <span class="diff-badge diff-amber">강력하지만 자극</span>
+      </div>
+      <div class="cmp hi">
+        <span class="rec" style="background:#E6F1FB;color:#0C447C">오늘의 성분</span>
+        <div class="cmp-name">GHK-Cu</div>
+        <div class="cmp-item"><div class="cil">기전</div>세포 신호 전달 → 콜라겐 합성 + 항염 + 리모델링</div>
+        <div class="cmp-item"><div class="cil">장점</div>자극 적음. 민감성 피부 사용 가능. 항염 효과 추가</div>
+        <div class="cmp-item"><div class="cil">단점</div>레티놀 대비 임상 근거 적음. 안정성·흡수율 제품별 차이</div>
+        <span class="diff-badge diff-good">순하고 다기능</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">주의점</div>
+    <ul class="rlist">
+      <li><span class="dot dr"></span><strong>안정성 문제</strong> — GHK-Cu는 열·빛·공기에 민감. 리포솜·나노 캡슐화 등 전달 기술 적용 여부 확인 필수. 파란색 유지가 활성 상태 증거</li>
+      <li><span class="dot dr"></span><strong>흡수율 제품별 차이</strong> — 펩타이드는 분자량이 커 피부 장벽 통과가 어려울 수 있음. 제형 기술이 효과를 결정</li>
+      <li><span class="dot dr"></span><strong>비타민C와 병용 주의</strong> — 구리 이온이 고농도 비타민C(아스코르브산)와 반응해 산화 촉진 가능. 같은 루틴에 쓴다면 시간차 적용 권장</li>
+      <li><span class="dot dr"></span><strong>레티놀·AHA와 동시 사용 주의</strong> — pH가 낮은 산성 성분이 GHK-Cu 구조를 불안정하게 만들 수 있음. 저녁/아침 분리 사용 권장</li>
+      <li><span class="dot da"></span>과도한 구리 이온 섭취(경구)는 독성 가능. 화장품 도포는 해당 없지만 참고</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ③ 적용 사례 -->
+<div id="p" class="panel">
+  <div class="card">
+    <div class="clabel">글로벌 대표 브랜드</div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p1')">
+        <div class="prod-info">
+          <div class="prod-brand">NIOD CAIS3 1:1</div>
+          <div class="prod-pname">DECIEM · Copper Amino Isolate Serum 3세대 · GHK-Cu 1% + GHK 1%</div>
+          <div class="prod-note">GHK-Cu 화장품의 사실상 기준점. 1% 고농도. 특유의 파란색. 더오디너리 자매 브랜드</div>
+          <span class="prod-badge pb-p">글로벌 기준</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://niod.com/en-us/copper-amino-isolate-serum-3-11-cais3-serum-100368.html" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>공식</a>
+          <i class="ti ti-chevron-down chevron" id="c-p1"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p1">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:10px">GHK-Cu 화장품의 사실상 프리미엄 기준점. GHK-Cu(구조 강화)와 GHK(피부 수복)를 각각 1%씩 넣어 시너지 극대화. 파란색이 진할수록 활성 구리 펩타이드 농도 높다는 증거. NIOD는 "비침습 피부과학" 철학으로 고농도 단일 성분 제품 전문.</div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=NIOD+구리펩타이드+CAIS+후기" target="_blank"><div class="mkt-icon i-gt">N</div><div><div class="mkt-name">네이버 후기</div><div class="mkt-desc">NIOD CAIS 후기</div></div></a>
+          <a class="mkt-btn" href="https://www.youtube.com/results?search_query=GHK-Cu+구리펩타이드+화장품" target="_blank"><div class="mkt-icon i-yt">▶</div><div><div class="mkt-name">유튜브</div><div class="mkt-desc">GHK-Cu 리뷰</div></div></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p2')">
+        <div class="prod-info">
+          <div class="prod-brand">The Ordinary · Multi-Peptide 세럼 라인</div>
+          <div class="prod-pname">DECIEM · GHK-Cu 포함 다중 펩타이드 복합 세럼</div>
+          <div class="prod-note">NIOD 대비 가성비 포지션. GHK-Cu를 다른 펩타이드(매트릭실·팔미토일 등)와 복합. 월 구독 시 0.96달러/mL</div>
+          <span class="prod-badge pb-b">가성비</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://theordinary.com" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>공식</a>
+          <i class="ti ti-chevron-down chevron" id="c-p2"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p2">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:10px">더오디너리의 "유효 성분만"이라는 철학 하에 GHK-Cu를 포함한 멀티 펩타이드 세럼 여러 종 운영. NIOD보다 가격 낮고 GHK-Cu 단일 고농도보다는 복합 처방. 펩타이드 입문자에게 적합.</div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=디오디너리+펩타이드+세럼+후기" target="_blank"><div class="mkt-icon i-gt">N</div><div><div class="mkt-name">네이버 후기</div><div class="mkt-desc">더오디너리 펩타이드</div></div></a>
+          <a class="mkt-btn" href="https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=디오디너리+펩타이드" target="_blank"><div class="mkt-icon i-oy">O</div><div><div class="mkt-name">올리브영</div><div class="mkt-desc">더오디너리 검색</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">국내 브랜드</div>
+    <div class="prod-item">
+      <div class="prod-head" onclick="tog('p3')">
+        <div class="prod-info">
+          <div class="prod-brand">국내 GHK-Cu 함유 화장품</div>
+          <div class="prod-pname">더마 브랜드 중심 · 올리브영 입점 증가 중</div>
+          <div class="prod-note">2024~2025년 GHK-Cu 성분 화장품 국내 출시 증가. 단, 함량 미표기 제품 많음</div>
+          <span class="prod-badge pb-g">국내</span>
+        </div>
+        <div class="prod-right">
+          <a class="prod-official" href="https://www.oliveyoung.co.kr/store/search/getSearchMain.do?query=구리펩타이드+GHK" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>올영검색</a>
+          <i class="ti ti-chevron-down chevron" id="c-p3"></i>
+        </div>
+      </div>
+      <div class="prod-expand" id="p3">
+        <div style="font-size:13px;color:#555;line-height:1.65;margin-bottom:10px">국내 더마·코스메슈티컬 브랜드 중심으로 GHK-Cu 세럼·크림 출시 증가. 단, 농도 표기 없는 제품이 많아 NIOD처럼 고농도인지 확인 어려움. 구매 시 전성분에서 "Copper Tripeptide-1" 또는 "GHK-Cu" 표기 확인 필요.</div>
+        <div class="mkt-grid">
+          <a class="mkt-btn" href="https://search.naver.com/search.naver?query=구리펩타이드+세럼+국내+추천" target="_blank"><div class="mkt-icon i-gt">N</div><div><div class="mkt-name">네이버 검색</div><div class="mkt-desc">국내 GHK-Cu 제품</div></div></a>
+          <a class="mkt-btn" href="https://www.hwahae.co.kr/search/all?keyword=구리펩타이드" target="_blank"><div class="mkt-icon" style="background:#FF6B6B">화</div><div><div class="mkt-name">화해 검색</div><div class="mkt-desc">구리펩타이드 제품</div></div></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-item" style="border-bottom:none">
+      <div class="prod-head" onclick="tog('p4')">
+        <div class="prod-info">
+          <div class="prod-brand">📌 기획자 포인트 — GHK-Cu 화장품 시장 지금 어디?</div>
+          <div class="prod-pname">글로벌 대비 국내 대중화 아직 초기</div>
+          <span class="prod-badge pb-a">트렌드</span>
+        </div>
+        <div class="prod-right"><i class="ti ti-chevron-down chevron" id="c-p4"></i></div>
+      </div>
+      <div class="prod-expand" id="p4">
+        <div style="font-size:13px;color:#555;line-height:1.75">
+          <div style="margin-bottom:8px"><strong>글로벌:</strong> NIOD·더오디너리 중심으로 프리미엄~중간가 시장 형성. 펩타이드 전반이 2024~2025년 스킨케어 핵심 키워드로 부상.</div>
+          <div style="margin-bottom:8px"><strong>국내:</strong> 레티놀·나이아신아마이드 대비 GHK-Cu 인지도 낮음. 더마·코스메슈티컬 채널 중심. 올리브영 대중화는 진행 중이지만 아직 초입.</div>
+          <div style="font-size:12px;color:#888;padding:8px 10px;background:#f5f5f2;border-radius:8px">기획 아이디어: "레티놀 못 쓰는 민감성 피부를 위한 항노화 세럼" 포지션이 현재 가장 명확한 틈새. 임신 중·초보 안티에이징 타깃에도 유효.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ 유사 성분 -->
+<div id="s" class="panel">
+  <div class="ctx-box">GHK-Cu는 <strong>펩타이드 계열 항노화 성분</strong>이야. 같은 펩타이드 카테고리 안에서, 그리고 레티놀·비타민C 등 다른 항노화 성분과 비교해서 포지션이 명확해져.</div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">레티놀 / 레티날</div><div class="combo-tags"><span class="ctag tag-ok">비교 필수</span><span class="ctag tag-care">병용 주의</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 콜라겐 합성 촉진, 항노화, 주름 개선.<br><strong>차이점:</strong> 레티놀은 강력하지만 자극(각질·홍조). GHK-Cu는 순하고 항염 추가. 임상 근거는 레티놀이 압도적으로 많음.<br><strong>포지션:</strong> GHK-Cu = "레티놀 못 쓰는 민감성·임산부용 대안"이 가장 명확한 포지션.</div>
+    <div class="combo-how">⚠️ 병용 시 주의: 레티놀이 있는 제품과 같은 스텝에 쓰면 GHK-Cu 불안정해질 수 있어. 저녁 레티놀, 아침 GHK-Cu로 분리 권장.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">매트릭실 (Matrixyl / 팔미토일 펩타이드)</div><div class="combo-tags"><span class="ctag tag-syn">조합 가능</span><span class="ctag tag-ok">같은 카테고리</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 펩타이드 계열, 콜라겐 합성 신호 전달, 주름 개선.<br><strong>차이점:</strong> 매트릭실은 팔미토일 펩타이드 계열 → TGF-β 경로로 콜라겐 합성. GHK-Cu는 구리 이온 포함 → 더 넓은 리모델링 + 항염 + 항산화 추가.<br>더오디너리 등 많은 브랜드가 둘을 복합해서 쓰는 이유가 여기 있어.</div>
+    <div class="combo-how">💡 조합: GHK-Cu + 매트릭실 복합 세럼이 단일 대비 콜라겐 합성 시너지. 더오디너리 멀티펩타이드 세럼이 이 전략.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">비타민C (아스코르브산)</div><div class="combo-tags"><span class="ctag tag-care">병용 주의</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 콜라겐 합성 보조, 항산화.<br><strong>차이점:</strong> 비타민C는 콜라겐 합성 공동인자(보조 역할). GHK-Cu는 신호 전달자(촉진 역할).<br><strong>주의:</strong> 고농도 순수 비타민C(아스코르브산)는 GHK-Cu의 구리 이온과 반응해 산화 촉진 가능. 안정화 비타민C(아스코르빌글루코사이드 등)는 비교적 안전.</div>
+    <div class="combo-how">⚠️ 순수 비타민C와 GHK-Cu는 아침/저녁 분리 사용 권장. 안정화 비타민C는 조합 가능.</div>
+  </div>
+
+  <div class="combo-item">
+    <div class="combo-head"><div class="combo-name">PN / PDRN (리쥬란)</div><div class="combo-tags"><span class="ctag tag-syn">조합 추천</span></div></div>
+    <div class="combo-desc"><strong>공통점:</strong> 세포 재생·콜라겐 합성·항염.<br><strong>차이점:</strong> PN은 DNA 유래 핵산 → ECM 환경 복원·세포 증식. GHK-Cu는 펩타이드 → 콜라겐 합성 신호·리모델링.<br>기전이 달라 시너지 기대. PN은 시술·화장품 모두 활발, GHK-Cu는 화장품 중심.</div>
+    <div class="combo-how">💡 조합: PN 세럼 + GHK-Cu 크림 조합이 재생 환경 복원(PN) + 콜라겐 합성 강화(GHK-Cu) 시너지.</div>
+  </div>
+
+  <div class="danger-item">
+    <div class="danger-head"><div class="danger-icon di-red"><span style="color:#D85A30;font-size:14px">!</span></div><div class="danger-name">산성 성분과 동시 사용</div><span class="danger-badge db-red">주의</span></div>
+    <div class="danger-desc">AHA(글리콜산·락틱산), BHA(살리실릭산), 고농도 비타민C 등 pH 낮은 산성 성분과 같은 시간에 사용하면 GHK-Cu 구조 불안정해질 수 있음.</div>
+    <div class="danger-tip">산성 성분은 저녁, GHK-Cu는 아침 루틴으로 분리 사용이 안전. 또는 산성 성분 흡수 후 20~30분 뒤 GHK-Cu 적용.</div>
+  </div>
+</div>
+
+<!-- ⑤ 결론 -->
+<div id="h" class="panel">
+  <div class="card">
+    <div class="clabel">📊 시장 반응 요약 — 2025년 기준</div>
+    <div class="cbody">
+      <div style="margin-bottom:10px"><span class="mkt-flag flag-global">글로벌</span><strong>펩타이드 스킨케어 시장 급성장 중</strong><br><span style="font-size:13px;color:#555">2024~2025년 펩타이드 성분이 스킨케어 핵심 키워드로 부상. 항노화 제품 시장 2024년 524억 달러 규모, 연 8% 성장 전망. GHK-Cu는 NIOD·더오디너리를 통해 글로벌 인지도 확산 중.</span></div>
+      <div style="margin-bottom:10px"><span class="mkt-flag flag-kr">국내</span><strong>레티놀 대안 포지션으로 주목 시작</strong><br><span style="font-size:13px;color:#555">화해 데이터 기준 나이아신아마이드·레티놀 이후 다음 세대 항노화 성분으로 펩타이드 카테고리 성장 중. GHK-Cu는 아직 대중 성분은 아니지만 더마·코스메슈티컬 채널 중심으로 인지도 상승.</span></div>
+      <div><span class="mkt-flag flag-trend">포인트</span><strong>레티놀 못 쓰는 피부의 대안으로 포지셔닝 기회</strong><br><span style="font-size:13px;color:#555">민감성 피부·임산부·레티놀 초보자 타깃. "자극 없는 항노화"가 2025~2026년 뷰티 트렌드 흐름과 맞닿아 있어. 국내 대중화 초입 단계 → 선점 여지 있음.</span></div>
+    </div>
+  </div>
+
+  <div class="verdict-box v-yes">
+    <div class="verdict-title vt-yes">✅ 써봐 — 이런 목적이라면</div>
+    <div class="verdict-body vb-yes">레티놀 자극이 싫은 민감성 피부. 임신 중 항노화 케어. 시술 후 홈케어 재생 보조. 여드름성·홍조성 피부 항노화. 항산화+항염+콜라겐을 한 성분으로 잡고 싶은 경우. → NIOD CAIS3이나 농도 표기된 제품 선택 필수.</div>
+  </div>
+
+  <div class="verdict-box v-amber">
+    <div class="verdict-title vt-amber">⚠️ 제품 선택이 핵심</div>
+    <div class="verdict-body vb-amber">GHK-Cu는 안정성·흡수율이 제품마다 천차만별. "GHK-Cu 함유"만 표기하고 극소량 넣은 제품 많음. 리포솜·나노 캡슐화 기술 적용 여부, 파란색 유지 여부, 농도 표기 여부를 반드시 확인해야 해.</div>
+  </div>
+
+  <div class="verdict-box v-no">
+    <div class="verdict-title vt-no">❌ 재고 — 이런 경우는</div>
+    <div class="verdict-body vb-no">레티놀 대비 임상 근거가 부족하기 때문에 강력한 항노화 효과를 기대한다면 레티놀이 더 확실해. "GHK-Cu 함유"만 보고 무조건 효과 기대하는 것 → 제품 품질 확인 없이는 실망 가능.</div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">기초 기획자 관점</div>
+    <div class="cbody">GHK-Cu의 기획 포인트는 <strong>"레티놀 못 쓰는 피부의 항노화 솔루션"</strong>이야. 레티놀이 항노화 시장을 지배하고 있지만, 민감성·임산부·레티놀 초보자 타깃은 항상 대안을 찾고 있어. GHK-Cu는 이 포지션에 딱 맞아.<br><br>
+    추가로 GHK-Cu는 <strong>다기능 성분</strong>이야. 콜라겐 합성 + 항염 + 항산화 + 리모델링을 하나로 잡을 수 있어서, "성분 미니멀리즘" 트렌드와도 맞아. 2026년 화해 리포트에서 말한 "고기능 미니멀리즘"이 바로 이런 성분이 주목받는 배경이야.</div>
+  </div>
+
+  <div class="routine-box">
+    <div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:12px">스킨케어 루틴 권장 위치</div>
+    <div class="routine-step"><div class="step-num">1</div><div class="step-body"><div class="step-label">클렌징·토너</div>저자극 클렌저. pH 조절 토너.</div></div>
+    <div class="routine-step"><div class="step-num">2</div><div class="step-body"><div class="step-label">세럼 (GHK-Cu)</div>GHK-Cu 세럼 적용. 산성 성분(AHA·비타민C)과 분리. 아침 루틴 추천.</div></div>
+    <div class="routine-step"><div class="step-num">3</div><div class="step-body"><div class="step-label">보습 크림</div>세라마이드·히알루론산 크림으로 마무리 보습.</div></div>
+    <div class="routine-step"><div class="step-num">4</div><div class="step-body"><div class="step-label">선크림 (필수)</div>SPF50+. 콜라겐 합성 효과 유지 위해 자외선 차단 최우선.</div></div>
+    <div style="margin-top:10px;font-size:12px;color:#888">* 저녁: 레티놀 또는 AHA → 아침: GHK-Cu. 시간 분리로 각 성분 안정성 극대화.</div>
+  </div>
+
+  <div class="card">
+    <div class="clabel">체크리스트</div>
+    <ul class="checklist">
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>GHK가 글리신-히스티딘-리신 3개 아미노산 펩타이드임을 안다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>GHK-Cu에서 구리(Cu)가 활성도를 높이는 이유를 설명할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>GHK-Cu의 4가지 역할(콜라겐↑·항염·리모델링·항산화)을 말할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>레티놀 대비 GHK-Cu의 장단점을 비교해서 설명할 수 있다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>비타민C·레티놀과 병용 시 주의해야 하는 이유를 안다</li>
+      <li><div class="ck" onclick="this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓':''"></div>리포솜·나노 캡슐화 기술이 왜 GHK-Cu 제품 선택 기준인지 설명할 수 있다</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 논문 -->
+<div id="r" class="panel">
+  <div class="pc">
+    <div class="pt">GHK-Cu Tripeptide: A Review of Its Biological Activity and Use in Cosmetics</div>
+    <div class="pm">PMC · 2015 · Journal of Aging Research</div>
+    <div class="ps">GHK-Cu의 콜라겐·엘라스틴 합성 촉진, MMP 억제, 항염, 항산화, 상처 치유 기전을 종합 정리한 핵심 리뷰 논문. GHK-Cu 화장품 성분 이해의 기초.</div>
+    <a class="pl" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4415069/" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+  <div class="pc">
+    <div class="pt">The human tripeptide GHK-Cu in prevention of oxidative stress and degenerative conditions of aging</div>
+    <div class="pm">PMC · 2012 · Oxidative Medicine and Cellular Longevity</div>
+    <div class="ps">GHK-Cu의 항산화·항노화 기전 연구. 활성산소 중화, 유전자 발현 조절(1000개 이상 유전자 조절 가능성 제시), 조직 재생 촉진 효과 분석.</div>
+    <a class="pl" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3390386/" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>논문 보기</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Skin remodeling and the GHK tripeptide: results of wound healing and clinical trials</div>
+    <div class="pm">Cosmetics · 2024</div>
+    <div class="ps">GHK의 상처 치유·피부 리모델링 임상 효과 최신 리뷰. 0.001~0.01% 농도에서 콜라겐 합성 증가, 주름 개선, 피부 밀도 향상 확인.</div>
+    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=GHK+tripeptide+skin+remodeling+wound+healing+2024" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>PubMed 검색</a>
+  </div>
+  <div class="pc">
+    <div class="pt">Copper Peptide GHK-Cu as a Modulator of Skin Aging</div>
+    <div class="pm">Biomolecules · 2022</div>
+    <div class="ps">GHK-Cu의 피부 노화 조절 기전 — TGF-β/Smad 경로 통한 콜라겐 합성, VEGF 혈관신생, 세포 이동 촉진 효과 분석. 레티놀·비타민C와의 비교 데이터 포함.</div>
+    <a class="pl" href="https://pubmed.ncbi.nlm.nih.gov/?term=GHK-Cu+copper+peptide+skin+aging+modulator+2022" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i>PubMed 검색</a>
+  </div>
+</div>
+
+<script>
+const TERMS={
+  "펩타이드":{"def":"아미노산이 2개 이상 펩타이드 결합으로 연결된 분자. GHK는 3개(트리펩타이드). 단백질보다 작고, 세포 신호 전달·효소 활성화 등 다양한 생체 기능 수행.","wiki":"https://ko.wikipedia.org/wiki/펩타이드","dict":"https://terms.naver.com/search.naver?query=펩타이드"},
+  "GHK":{"def":"글리신(G)-히스티딘(H)-리신(K) 3개 아미노산으로 이루어진 트리펩타이드. 원래 혈장에 자연 존재. 20대 약 200ng/mL → 60대 80ng/mL로 감소. 피부 리모델링·재생 신호 전달.","wiki":"https://en.wikipedia.org/wiki/Copper_peptide_GHK-Cu","dict":"https://terms.naver.com/search.naver?query=GHK+펩타이드"},
+  "GHK-Cu":{"def":"GHK 트리펩타이드에 구리(Cu²⁺) 이온이 결합한 복합체. 구리가 활성도를 크게 높여줌. 콜라겐·엘라스틴 합성, 항염, 항산화, 리모델링 기전. 특유의 파란색이 활성 상태 증거.","wiki":"https://en.wikipedia.org/wiki/Copper_peptide_GHK-Cu","dict":"https://terms.naver.com/search.naver?query=GHK-Cu+구리펩타이드"},
+  "섬유아세포":{"def":"피부 진피층에 있는 세포. 콜라겐·엘라스틴·히알루론산 등 피부 구조 단백질 생산. GHK-Cu가 이 세포에 '콜라겐 만들어' 신호를 보내는 거야.","wiki":"https://ko.wikipedia.org/wiki/섬유아세포","dict":"https://terms.naver.com/search.naver?query=섬유아세포"},
+  "MMP":{"def":"Matrix Metalloproteinase. 콜라겐·엘라스틴 등을 분해하는 효소. 노화·자외선으로 과활성화되면 피부 구조 무너져. GHK-Cu는 MMP-1·MMP-2를 억제해 콜라겐 분해를 방어해.","wiki":"https://ko.wikipedia.org/wiki/기질_금속단백분해효소","dict":"https://terms.naver.com/search.naver?query=MMP+기질금속단백분해효소"},
+  "콜라겐":{"def":"피부 탄력의 핵심 단백질. Type I이 진피의 80%. 나이 들수록 감소. GHK-Cu는 섬유아세포를 활성화해 콜라겐 합성을 촉진하고 MMP로 인한 분해는 억제해.","wiki":"https://ko.wikipedia.org/wiki/콜라겐","dict":"https://terms.naver.com/search.naver?query=콜라겐"},
+  "엘라스틴":{"def":"피부 탄성을 담당하는 단백질. 늘어났다 돌아오는 고무줄 같은 역할. GHK-Cu가 콜라겐과 함께 엘라스틴 합성도 촉진해.","wiki":"https://ko.wikipedia.org/wiki/엘라스틴","dict":"https://terms.naver.com/search.naver?query=엘라스틴"},
+  "리포솜":{"def":"인지질 이중막으로 된 구형 나노 캡슐. 활성 성분을 안에 담아 피부 장벽 통과율을 높이는 전달 기술. GHK-Cu처럼 불안정한 성분의 흡수율을 크게 높여줘.","wiki":"https://ko.wikipedia.org/wiki/리포솜","dict":"https://terms.naver.com/search.naver?query=리포솜+화장품"},
+  "활성산소":{"def":"ROS(Reactive Oxygen Species). 세포를 손상시키는 불안정한 산소 분자. 자외선·오염·노화로 증가. GHK-Cu의 구리 이온이 SOD 유사 기능으로 활성산소를 중화해.","wiki":"https://ko.wikipedia.org/wiki/활성산소","dict":"https://terms.naver.com/search.naver?query=활성산소+ROS"},
+};
+const tipBox=document.getElementById('tooltip-box');
+let activeTerm=null;
+function showTip(el,word){if(activeTerm===el){hideTip();return;}activeTerm=el;const g=TERMS[word];document.getElementById('tip-title').textContent=word;document.getElementById('tip-def').textContent=g.def;document.getElementById('tip-wiki').href=g.wiki;document.getElementById('tip-dict').href=g.dict;tipBox.classList.add('show');const rect=el.getBoundingClientRect();let left=rect.left+window.scrollX,top=rect.bottom+window.scrollY+4;if(left+248>window.innerWidth)left=window.innerWidth-248;if(left<8)left=8;tipBox.style.left=left+'px';tipBox.style.top=top+'px';}
+function hideTip(){tipBox.classList.remove('show');activeTerm=null;}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('term')&&!tipBox.contains(e.target))hideTip();});
+function annotate(html){const terms=Object.keys(TERMS).sort((a,b)=>b.length-a.length);const marks={};terms.forEach((t,i)=>{if(html.includes(t)){marks['\x01'+i+'\x01']=t;html=html.split(t).join('\x01'+i+'\x01');}});Object.entries(marks).forEach(([k,t])=>{html=html.split(k).join('<span class="term" onclick="showTip(this,\''+t+'\')">'+t+'</span>');});return html;}
+function sw(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');btn.classList.add('on');}
+function tog(id){const el=document.getElementById(id);const ch=document.getElementById('c-'+id);const open=el.classList.toggle('open');if(ch)ch.classList.toggle('open',open);}
+document.getElementById('mech-text').innerHTML=annotate('GHK는 글리신-히스티딘-리신 3개 아미노산이 결합한 트리펩타이드야. 원래 우리 몸 혈장에 자연적으로 존재하는데, 20대 이후 점점 줄어들어. 구리 이온(Cu²⁺)과 결합한 GHK-Cu 형태가 화장품에서 주로 쓰이는데, 구리가 활성도를 크게 높여줘. GHK-Cu는 섬유아세포에게 "콜라겐 만들어"라고 신호를 보내는 동시에 콜라겐 분해 효소(MMP)는 억제하고, 염증도 가라앉히고, 활성산소도 중화해. 콜라겐 합성·항염·리모델링·항산화를 한 성분이 다 하는 다기능 재생 신호 전달자야.');
+document.getElementById('ctx-text').innerHTML=annotate('💡 GHK-Cu의 핵심 포지션: 레티놀처럼 강력하진 않지만 자극이 적고 항염까지 잡아. "레티놀 못 쓰는 민감성 피부의 항노화 대안"이 가장 명확한 포지션이야. 단, 안정성·흡수율이 제품마다 크게 달라서 리포솜·나노 캡슐화 기술 적용 여부가 제품 선택의 핵심이야.');
+</script>
+</body>
+</html>

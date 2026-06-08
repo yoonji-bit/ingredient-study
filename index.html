@@ -58,20 +58,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <script>
 const INGREDIENTS=[
-  {name:"아르부틴",nameEn:"Arbutin / α-Arbutin",category:"미백",desc:"티로시나아제를 억제해 멜라닌 생성을 차단",tags:["미백","색소 침착 개선","티로시나아제 억제"],tagStyle:["tag-teal","tag-teal","tag-blue"],url:"arbutin.html",isNew:false},
-  {name:"히알루론산",nameEn:"Hyaluronic Acid",category:"보습",desc:"자기 무게의 1,000배 수분을 흡수하는 강력한 보습 성분",tags:["보습","피부 장벽","수분 유지"],tagStyle:["tag-blue","tag-blue","tag-teal"],url:"hyaluronic-acid.html",isNew:false},
-  {name:"바이오틴",nameEn:"Biotin / Vitamin B7",category:"모발 강화",desc:"모낭 세포에서 케라틴 합성을 돕는 보조효소. 결핍 시 효과적",tags:["모발 성장","케라틴 합성","탈모 예방"],tagStyle:["tag-amber","tag-amber","tag-purple"],url:"biotin.html",isNew:false},
-  {name:"판테놀",nameEn:"Panthenol / Pro-Vitamin B5",category:"보습·모발",desc:"피부 장벽 강화 + 모발 큐티클 보습. 즉각 효과 체감",tags:["보습","피부 장벽","모발 강화"],tagStyle:["tag-teal","tag-blue","tag-amber"],url:"panthenol.html",isNew:false},
-  {name:"코엔자임Q10",nameEn:"Coenzyme Q10 / CoQ10",category:"항노화",desc:"미토콘드리아 내부 항산화 + 콜라겐 분해 억제. 제형 기술이 핵심",tags:["항산화","항노화·주름","콜라겐 합성"],tagStyle:["tag-coral","tag-coral","tag-teal"],url:"coq10.html",isNew:false},
-  {name:"비타민K",nameEn:"Vitamin K / Phytonadione",category:"혈관·눈가",desc:"혈관성 다크서클·멍 개선. 출혈 차단으로 색소 침착 억제. 타입 구분 필수",tags:["다크서클","멍 회복","모세혈관 강화"],tagStyle:["tag-purple","tag-coral","tag-blue"],url:"vitamin-k.html",isNew:false},
-  {name:"리쥬란 (PN/PDRN)",nameEn:"Rejuran / PN / PDRN",category:"재생·항노화",desc:"연어 DNA 유래 폴리뉴클레오타이드. 세포 재생·콜라겐 합성 촉진. 피부과 시술→스킨케어로 확장",tags:["세포 재생","콜라겐 합성","항노화"],tagStyle:["tag-teal","tag-teal","tag-coral"],url:"pn-pdrn.html",isNew:false},
-  {name:"PDLLA / PLLA",nameEn:"Poly-D,L-Lactic Acid / Poly-L-Lactic Acid",category:"콜라겐 부스터",desc:"생분해성 폴리젖산. 이물반응으로 콜라겐 생성 자극. 쥬베룩(PDLLA)·스컬트라(PLLA) 대표 성분",tags:["콜라겐 자극","항노화·볼륨","생분해성"],tagStyle:["tag-teal","tag-coral","tag-blue"],url:"pdlla-plla.html",isNew:false},
-  {name:"엑소좀",nameEn:"Exosome · 세포외 소포체",category:"재생·세포신호",desc:"줄기세포 유래 나노 소포체. miRNA·단백질로 세포 재생 신호 직접 전달. 포스트 줄기세포 차세대 성분",tags:["세포 재생","항염·진정","콜라겐 합성"],tagStyle:["tag-teal","tag-blue","tag-teal"],url:"exosome.html",isNew:false},
-  {name:"PDO (폴리디옥사논)",nameEn:"Polydioxanone · Ultracol",category:"콜라겐 부스터",desc:"의료용 봉합사 유래 생분해성 폴리머. 가수분해로 TGF-β 분비 → 콜라겐 자극. 울트라콜 대표 성분",tags:["콜라겐 자극","가수분해","생분해성"],tagStyle:["tag-teal","tag-coral","tag-blue"],url:"pdo.html",isNew:false},
-  {name:"GHK 펩타이드",nameEn:"GHK-Cu / Copper Tripeptide-1",category:"항노화·재생",desc:"글리신-히스티딘-리신 트리펩타이드. 구리 결합으로 콜라겐 합성+항염+리모델링. 레티놀 대안 성분",tags:["콜라겐 합성","항염·항산화","조직 리모델링"],tagStyle:["tag-teal","tag-teal","tag-blue"],url:"ghk-peptide.html",isNew:true},
+  {name:"아르부틴",nameEn:"Arbutin / α-Arbutin",category:["미백"],desc:"티로시나아제를 억제해 멜라닌 생성을 차단",tags:["미백","색소 침착 개선","티로시나아제 억제"],tagStyle:["tag-teal","tag-teal","tag-blue"],url:"arbutin.html",isNew:false},
+  {name:"히알루론산",nameEn:"Hyaluronic Acid",category:["보습","피부 장벽"],desc:"자기 무게의 1,000배 수분을 흡수하는 강력한 보습 성분",tags:["보습","피부 장벽","수분 유지"],tagStyle:["tag-blue","tag-blue","tag-teal"],url:"hyaluronic-acid.html",isNew:false},
+  {name:"바이오틴",nameEn:"Biotin / Vitamin B7",category:["모발"],desc:"모낭 세포에서 케라틴 합성을 돕는 보조효소. 결핍 시 효과적",tags:["모발 성장","케라틴 합성","탈모 예방"],tagStyle:["tag-amber","tag-amber","tag-purple"],url:"biotin.html",isNew:false},
+  {name:"판테놀",nameEn:"Panthenol / Pro-Vitamin B5",category:["보습","모발","피부 장벽"],desc:"피부 장벽 강화 + 모발 큐티클 보습. 즉각 효과 체감",tags:["보습","피부 장벽","모발 강화"],tagStyle:["tag-teal","tag-blue","tag-amber"],url:"panthenol.html",isNew:false},
+  {name:"코엔자임Q10",nameEn:"Coenzyme Q10 / CoQ10",category:["항노화"],desc:"미토콘드리아 내부 항산화 + 콜라겐 분해 억제. 제형 기술이 핵심",tags:["항산화","항노화·주름","콜라겐 합성"],tagStyle:["tag-coral","tag-coral","tag-teal"],url:"coq10.html",isNew:false},
+  {name:"비타민K",nameEn:"Vitamin K / Phytonadione",category:["혈관"],desc:"혈관성 다크서클·멍 개선. 출혈 차단으로 색소 침착 억제. 타입 구분 필수",tags:["다크서클","멍 회복","모세혈관 강화"],tagStyle:["tag-purple","tag-coral","tag-blue"],url:"vitamin-k.html",isNew:false},
+  {name:"리쥬란 (PN/PDRN)",nameEn:"Rejuran / PN / PDRN",category:["재생","항노화"],desc:"연어 DNA 유래 폴리뉴클레오타이드. 세포 재생·콜라겐 합성 촉진. 피부과 시술→스킨케어로 확장",tags:["세포 재생","콜라겐 합성","항노화"],tagStyle:["tag-teal","tag-teal","tag-coral"],url:"pn-pdrn.html",isNew:false},
+  {name:"PDLLA / PLLA",nameEn:"Poly-D,L-Lactic Acid / Poly-L-Lactic Acid",category:["콜라겐 부스터","항노화"],desc:"생분해성 폴리젖산. 이물반응으로 콜라겐 생성 자극. 쥬베룩(PDLLA)·스컬트라(PLLA) 대표 성분",tags:["콜라겐 자극","항노화·볼륨","생분해성"],tagStyle:["tag-teal","tag-coral","tag-blue"],url:"pdlla-plla.html",isNew:false},
+  {name:"엑소좀",nameEn:"Exosome · 세포외 소포체",category:["재생","항노화"],desc:"줄기세포 유래 나노 소포체. miRNA·단백질로 세포 재생 신호 직접 전달. 포스트 줄기세포 차세대 성분",tags:["세포 재생","항염·진정","콜라겐 합성"],tagStyle:["tag-teal","tag-blue","tag-teal"],url:"exosome.html",isNew:false},
+  {name:"PDO (폴리디옥사논)",nameEn:"Polydioxanone · Ultracol",category:["콜라겐 부스터","항노화"],desc:"의료용 봉합사 유래 생분해성 폴리머. 가수분해로 TGF-β 분비 → 콜라겐 자극. 울트라콜 대표 성분",tags:["콜라겐 자극","가수분해","생분해성"],tagStyle:["tag-teal","tag-coral","tag-blue"],url:"pdo.html",isNew:false},
+  {name:"GHK 펩타이드",nameEn:"GHK-Cu / Copper Tripeptide-1",category:["재생","항노화"],desc:"글리신-히스티딘-리신 트리펩타이드. 구리 결합으로 콜라겐 합성+항염+리모델링. 레티놀 대안 성분",tags:["콜라겐 합성","항염·항산화","조직 리모델링"],tagStyle:["tag-teal","tag-teal","tag-blue"],url:"ghk-peptide.html",isNew:false},
+  {name:"스피큘",nameEn:"Spicule / Hydrolyzed Sponge",category:["전달 기술"],desc:"해면동물 미세침. 각질층에 물리적 통로 생성 → 유효성분 침투율 10~40배 향상. 홈케어 마이크로니들",tags:["물리적 전달","침투율 향상","콜라겐 자극"],tagStyle:["tag-blue","tag-teal","tag-coral"],url:"spicule.html",isNew:false},
+  {name:"HA 필러 비교",nameEn:"Restylane vs Juvederm · Cross-linking",category:["HA 필러"],desc:"가교 기술 차이가 점탄성·유지력·부위 적합성 결정. 레스틸렌(NASHA) vs 쥬비덤(Hylacross) 비교",tags:["가교 기술","점탄성","부위별 선택"],tagStyle:["tag-purple","tag-blue","tag-teal"],url:"ha-filler.html",isNew:false},
+  {name:"세라마이드 & 장벽",nameEn:"Ceramide · 세콜지 3:1:1",category:["피부 장벽","보습"],desc:"세라마이드·콜레스테롤·지방산 황금비율 3:1:1. 라멜라 구조 복원으로 피부 장벽 재건",tags:["피부 장벽","라멜라 구조","보습"],tagStyle:["tag-teal","tag-blue","tag-blue"],url:"ceramide-barrier.html",isNew:true},
+  {name:"카페인",nameEn:"Caffeine · 194 Da",category:["혈관"],desc:"cAMP 분해 억제 → 혈관 수축. 눈가 부종·다크서클 완화. 셀룰라이트 일시 개선. 유효 농도 3%+",tags:["혈관 수축","부종 완화","지방분해"],tagStyle:["tag-coral","tag-blue","tag-amber"],url:"caffeine.html",isNew:true},
 ];
 
-const CATEGORIES=["전체",...new Set(INGREDIENTS.map(i=>i.category))];
+// 통합 카테고리 정의 — 각 성분의 category 배열과 매칭
+const CATEGORIES=["전체","재생","항노화","보습","모발","혈관","미백","피부 장벽","콜라겐 부스터","전달 기술","HA 필러"];
+
 let activecat="전체";
 
 function renderFilters(){
@@ -82,7 +88,8 @@ function setcat(c){activecat=c;renderFilters();render();}
 function render(){
   const q=document.getElementById('search').value.toLowerCase().trim();
   const filtered=INGREDIENTS.filter(i=>{
-    const catOk=activecat==='전체'||i.category===activecat;
+    const cats=Array.isArray(i.category)?i.category:[i.category];
+    const catOk=activecat==='전체'||cats.includes(activecat);
     const searchOk=!q||i.name.includes(q)||i.nameEn.toLowerCase().includes(q)||i.tags.some(t=>t.includes(q))||i.desc.includes(q);
     return catOk&&searchOk;
   });
@@ -91,7 +98,7 @@ function render(){
   document.getElementById('grid').innerHTML=filtered.map(i=>`
     <a class="ing-card" href="${i.url}">
       ${i.isNew?'<span class="new-badge">NEW</span>':''}
-      <div class="ing-card-cat">${i.category}</div>
+      <div class="ing-card-cat">${Array.isArray(i.category)?i.category.join(' · '):i.category}</div>
       <div class="ing-card-name">${i.name}</div>
       <div class="ing-card-en">${i.nameEn}</div>
       <div class="ing-card-desc">${i.desc}</div>
